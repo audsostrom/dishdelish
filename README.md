@@ -1,3 +1,12 @@
+# DishDelish
+
+Resouces:
+- [Figma](https://www.figma.com/file/OfIogM0BU2t5Mtn3DQ9ZJ9/DishDelish-Figma?type=design&node-id=0%3A1&mode=design&t=0iplRGkv9s0KNw9u-1)
+- [Release Plan](https://docs.google.com/document/d/1okG1wC7vBGes1hUQOb5VPI0qDLEyIrIh3EyvKF1AteQ/edit?usp=sharing)
+
+*I'll leave the default README instructions here as a reminder of how to run the app.* Remember to make new branches for your work and not to commit to `main`!
+
+------------------------------
 This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
 
 ## Getting Started
