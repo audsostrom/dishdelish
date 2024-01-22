@@ -3,6 +3,14 @@ import styles from './page.module.css'
 
 export default function Home() {
   return (
+    <main>
+      <div>Look at my cool app</div>
+    </main>
+  )
+
+  // Below is default stuff, disregard unless you want it for reference
+  /**
+  return (
     <main className={styles.main}>
       <div className={styles.description}>
         <p>
@@ -92,4 +100,5 @@ export default function Home() {
       </div>
     </main>
   )
+  */
 }
