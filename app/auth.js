@@ -14,13 +14,13 @@ export const {
   ...authConfig,
   providers: [
     Credentials({
-      async authorize({ email, password }) {
-        console.log('in auth', email, password)
-        let user = await getUser(email);
+      async authorize(credentials) {
+        console.log('in auth', credentials, credentials['email'])
+        let user = await getUser(credentials['email']);
         console.log('in auth user', user);
-        if (user.length === 0) return null;
-        let passwordsMatch = await compare(password, user[0].password);
-        if (passwordsMatch) return user[0];
+        if (!user) return null;
+        let passwordsMatch = await compare(credentials['password'], user['password']);
+        if (passwordsMatch) return user;
       },
     }),
   ],

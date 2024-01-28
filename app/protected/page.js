@@ -1,7 +1,8 @@
-import { auth, signOut } from 'app/auth';
+import { auth, signOut } from '../auth';
 
 export default async function ProtectedPage() {
   let session = await auth();
+  console.log(session.user);
 
   return (
     <div className="flex h-screen bg-black">
