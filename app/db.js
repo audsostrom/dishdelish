@@ -1,7 +1,7 @@
+import User from "@/models/user";
 import { NextResponse } from "next/server";
 import bcrypt from "bcrypt";
 import mongoose from "mongoose";
-import User from "@/models/user";
 
 export const connectMongoDB = async () => {
   try {
@@ -31,11 +31,12 @@ export async function createUser(email, password) {
 export async function getUser(email) {
   try {
     await connectMongoDB();
-    const user = await User.findOne({ email }).select("_id");
+    const user = await User.findOne({email}, {email: 1, password: 1});
     console.log("user: ", user);
-    return NextResponse.json({ user });
+    const returnVal = user === null ? null : user;
+    return returnVal;
   } catch (error) {
-    console.log(error);
+    console.log('huh', error);
   }
 }
 

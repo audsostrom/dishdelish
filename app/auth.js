@@ -17,6 +17,7 @@ export const {
       async authorize({ email, password }) {
         console.log('in auth', email, password)
         let user = await getUser(email);
+        console.log('in auth user', user);
         if (user.length === 0) return null;
         let passwordsMatch = await compare(password, user[0].password);
         if (passwordsMatch) return user[0];

@@ -10,9 +10,10 @@ export default function Register() {
     let email = formData.get('email');
     let password = formData.get('password');
     let user = await getUser(email);
+    console.log('mu user', user);
 
-    if (user.length > 0) {
-      return 'User already exists'; // TODO: Handle errors with useFormStatus
+    if (user) {
+      console.log('User already exists'); 
     } else {
       await createUser(email, password);
       redirect('/login');
