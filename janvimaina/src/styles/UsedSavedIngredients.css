@@ -1,0 +1,39 @@
+/* Add these styles to your "UsedSavedIngredients.css" file */
+
+.use {
+  position: relative; /* Required for positioning the child element */
+  background-size: cover;
+  background-position: center;
+  height: 250px; /* Adjust the height of the banner */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0.7;
+  filter: blur(3px);
+}
+
+.customTextNew {
+  position: absolute;
+  top: 90px; /* Adjust the top position as needed */
+  left: 50%; /* Center the text horizontally */
+  transform: translateX(-50%); /* Center the text horizontally */
+  font-size: 50px; /* Adjust the font size as needed */
+  color: black; /* Adjust the text color as needed */
+  font-weight: 600; /* Add font weight as needed */
+
+}
+
+.customTexthome {
+  position: absolute;
+  top: 180px; /* Adjust the top position as needed */
+  left: 50%; /* Center the text horizontally */
+  transform: translateX(-50%); /* Center the text horizontally */
+  color: #000;
+  font-family: Poppins;
+  font-size: 24px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: normal;
+}
+
+/* Add any additional styles as needed */
