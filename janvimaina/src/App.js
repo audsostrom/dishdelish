@@ -5,7 +5,7 @@ import Home from "./pages/Home";
 import Menu from "./pages/Menu";
 import About from "./pages/About";
 import Contact from "./pages/Contact";
-import Use from "./pages/UseSavedIngredients";
+import Grab from "./pages/Grab";
 
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import UsedSavedIngredients from "./pages/UseSavedIngredients";
@@ -21,6 +21,7 @@ function App() {
           <Route path="/about" exact component={About} />
           <Route path="/contact" exact component={Contact} />
           <Route path="/use" exact component={UsedSavedIngredients} />
+          <Route path="/grab" exact component={Grab} />
         </Switch>
         <Footer />
       </Router>
