@@ -1,0 +1,42 @@
+export function Form({action,children}) {
+  return (
+    <form
+      action={action}
+      className=""
+    >
+      <div>
+        <label
+          htmlFor="email"
+          className=""
+        >
+          Email Address
+        </label>
+        <input
+          id="email"
+          name="email"
+          type="email"
+          placeholder="user@acme.com"
+          autoComplete="email"
+          required
+          className=""
+        />
+      </div>
+      <div>
+        <label
+          htmlFor="password"
+          className=""
+        >
+          Password
+        </label>
+        <input
+          id="password"
+          name="password"
+          type="password"
+          required
+          className=""
+        />
+      </div>
+      {children}
+    </form>
+  );
+}

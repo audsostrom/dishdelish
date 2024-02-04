@@ -1,9 +1,8 @@
 import './globals.css';
 
 
-let title = 'Next.js + Postgres Auth Starter';
-let description =
-  'This is a Next.js starter kit that uses NextAuth.js for simple email + password login and a Postgres database to persist the data.';
+let title = 'DishDelish';
+let description = 'Dish Delish is your go-to hub for exploring new flavors, mastering cooking techniques, and indulging in epicurean adventures.';
 
 export const metadata = {
   title,
@@ -13,6 +12,7 @@ export const metadata = {
     title,
     description,
   },
+  // change later during deployment
   metadataBase: new URL('https://nextjs-postgres-auth.vercel.app'),
 };
 

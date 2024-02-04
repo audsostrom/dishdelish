@@ -1,0 +1,131 @@
+/* Home.css */
+.home {
+   width: 100%;
+   height: 90vh;
+   display: flex;
+   justify-content: center;
+   align-items: left;
+   flex-direction: column;
+   background-position: center;
+   background-repeat: no-repeat;
+   background-size: cover;
+   font-family: "Gill Sans", "Gill Sans MT", Calibri, "Trebuchet MS", sans-serif;
+ }
+ 
+ .headerContainer {
+   width: auto;
+   margin-left: 50px;
+ }
+ 
+ .beigeBox {
+   background-color: #ffe3bf;
+   padding: 20px;
+   border-radius: 8px;
+   text-align: left;
+   width: 300px; /* Adjust the width as needed */
+   height: 225px; /* Adjust the height as needed */
+   margin-left: auto; /* Move it to the right */
+   margin-right: 90px; /* Add some right margin for spacing */
+ }
+ 
+ .headerContainer h1 {
+   font-size: 5px;
+   height: 20px; /* Adjust the height to reduce the gap */
+   color: black;
+   margin-bottom: 10px; /* Add or adjust margin-bottom to control the space */
+ }
+ 
+ .headerContainer p {
+   font-size: 35px;
+   font-weight: bold;
+   color: #b88e2f;
+   text-align: left;
+   margin-top: 0px;
+   margin-bottom: 10px; /* Add or adjust margin-bottom to control the space */
+ }
+ 
+ 
+ .headerContainer button {
+   color: black;
+   border: none;
+   border-radius: 5px;
+   cursor: pointer;
+   justify-content: left; /* Change this line to left-align the button box */
+   background-color: #b88e2f;
+   height: 50px;
+   width: 180px;
+   color: white;
+   text-decoration: none;
+   font-size: 12px;
+   margin-left: 0; /* Align to the left */
+ }
+ 
+ .headerContainer button:hover {
+   background-color: #07090a;
+   cursor: pointer;
+   transition: 0.3s ease-in;
+ }
+ 
+ /* Home.css */
+ .customText {
+   font-size: 12px; /* Adjust the font size as needed */
+   color: black;
+   text-align: left;
+   margin-top: 0;
+   margin-bottom: 10px;
+   font-weight: normal; /* Add this line to remove boldness if needed */
+   max-width: 100%; /* Add this line to limit the width */
+   line-height: 1.4; /* Adjust line height as needed */
+ }
+ 
+ @media only screen and (max-width: 650px) {
+   .home {
+     justify-content: left;
+     align-items: left;
+   }
+   
+   .headerContainer {
+     margin-left: 0px;
+     border-radius: 10px;
+     padding: 10px;
+     width: 80%;
+     display: flex;
+     justify-content: left;
+     align-items: left;
+     flex-direction: column;
+     background-color: #121619;
+     color: white;
+   }
+ 
+   .beigeBox {
+     background-color: beige;
+     border-radius: 100px;
+     text-align: left;
+     width: 100px; /* Adjust the width as needed */
+     height: 100px; /* Adjust the height as needed */
+   }
+ 
+   .headerContainer h1 {
+     font-size: 40px;
+     height: 30px;
+     color: white;
+   }
+ 
+   .headerContainer p {
+     font-size: 30px;
+     color: white;
+   }
+ 
+   .headerContainer button {
+     background-color: white;
+     color: #121619;
+     margin-bottom: 30px;
+     margin-left: 0; /* Align to the left on smaller screens */
+   }
+ 
+   .headerContainer button:hover {
+     background-color: rgb(225, 225, 225);
+     color: #121619;
+   }
+ }
+ 
