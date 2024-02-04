@@ -1,7 +1,10 @@
 import Link from 'next/link';
+import Home from './home/page';
 
 export default function Page() {
   return (
+    <Home/>
+    /**
     <div className="">
       <div className="">
         <div className="">
@@ -22,5 +25,6 @@ export default function Page() {
         </div>
       </div>
     </div>
+     */
   );
 }

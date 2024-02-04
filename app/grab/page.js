@@ -69,11 +69,12 @@ export default Grab;
 */
 
 // In "Grab.js"
-import React, { useState } from "react";
-import BannerImageNew from "../assets/chef-ingredients.jpeg";
-import { ingredients } from "../components/SearchableDropdown/src/data/ingredients";
-import "../styles/Grab.css";
-import SearchableDropdown from "../components/SearchableDropdown";
+'use client';
+import { useState } from "react";
+import BannerImageNew from "../../assets/chef-ingredients.jpeg";
+import { ingredients } from "../../components/SearchableDropdown/src/data/ingredients";
+import "./grab.css";
+import SearchableDropdown from "../../components/searchable-dropdown/searchable-dropdown";
 
 function Grab() {
   const [value, setValue] = useState("Search Ingredients");

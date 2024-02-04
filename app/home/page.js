@@ -1,6 +1,5 @@
-import React from "react";
-import { Link } from "react-router-dom";
-import BannerImage from "../assets/cuttingbanana.png";
+import Link from 'next/link';
+import BannerImage from "../../assets/cuttingbanana.png";
 import "./home.css";
 
 function Home() {
@@ -12,8 +11,9 @@ function Home() {
           <span className="customText">Trying to save some cash or use the food you have already? DishDelish brings the power to your pantry by fetching recipes with ONLY the ingrediants you have on-hand!</span>
           <br />
           <br />
-          <Link to="/menu">
-            <button>GET TO COOKING</button>
+          {/** href instead of to for next linking */}
+          <Link href="/menu" className="">
+            GET TO COOKING
           </Link>
         </div>
       </div>

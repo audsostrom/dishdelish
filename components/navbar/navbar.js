@@ -1,6 +1,6 @@
-import React, { useState } from "react";
+
 import Logo from "../assets/dishdelishlogo.png";
-import { Link } from "react-router-dom";
+import Link from 'next/link';
 import ReorderIcon from "@material-ui/icons/Reorder";
 import "./navbar.css";
 

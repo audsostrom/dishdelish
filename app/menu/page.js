@@ -1,11 +1,10 @@
 // Import necessary dependencies and components
-import React from "react";
-import { Link } from "react-router-dom";
-import MenuItem from "../components/MenuItem";
-import "../styles/Menu.css";
+import Link from 'next/link';
+import MenuItem from '../../components/menu-item/menu-item';
+import "./menu.css";
 
 // Import your image file
-import yourImage from "../assets/GetCooking.png";
+import yourImage from "../../assets/GetCooking.png";
 
 
 function Menu() {
@@ -22,10 +21,10 @@ function Menu() {
           
           {/* Add the buttons here */}
           <div className="buttonContainer">
-            <Link to="/grab">
+            <Link href="/grab">
             <button className="roundedButton primaryButton">Grab Your Ingredients</button>
             </Link>
-            <Link to="/use">
+            <Link href="/use">
             <button className="roundedButton secondaryButton">Use Saved Items</button>
             </Link>
           </div>
