@@ -72,7 +72,7 @@ export default Grab;
 'use client';
 import { useState } from "react";
 import BannerImageNew from "../../assets/chef-ingredients.jpeg";
-import { ingredients } from "../../components/SearchableDropdown/src/data/ingredients";
+import { ingredients } from "@/data/ingredients";
 import "./grab.css";
 import SearchableDropdown from "../../components/searchable-dropdown/searchable-dropdown";
 
