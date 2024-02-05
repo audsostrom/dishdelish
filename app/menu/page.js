@@ -2,9 +2,10 @@
 import Link from 'next/link';
 import MenuItem from '../../components/menu-item/menu-item';
 import "./menu.css";
+import Image from 'next/image';
 
 // Import your image file
-import yourImage from "../../assets/GetCooking.png";
+import yourImage from "../../assets/GetCooking.jpeg";
 
 
 function Menu() {
@@ -31,7 +32,7 @@ function Menu() {
           </div>
         </div>
         <div className="menuImageContainer">
-          <img src={yourImage} alt="Your Image" className="menuImage" />
+          <Image unoptimized={true} src={yourImage} alt="Your Image" className="menuImage"/>
         </div>
       </div>
     </div>

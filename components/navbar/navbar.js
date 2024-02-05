@@ -15,16 +15,16 @@ function Navbar() {
       <div className="leftSide" id={openLinks ? "open" : "close"}>
         <img src={Logo} />
         <div className="hiddenLinks">
-          <Link to="/"> Home </Link>
-          <Link to="/about"> About </Link>
-          <Link to="/menu"> Recipes </Link>
+          <Link href="/"> Home </Link>
+          <Link href="/about"> About </Link>
+          <Link href="/menu"> Recipes </Link>
         
         </div>
       </div>
       <div className="rightSide">
-        <Link to="/"> Home </Link>
-        <Link to="/about"> About </Link>
-        <Link to="/menu"> Recipes </Link>
+        <Link href="/"> Home </Link>
+        <Link href="/about"> About </Link>
+        <Link href="/menu"> Recipes </Link>
 
         <button onClick={toggleNavbar}>
           <ReorderIcon />

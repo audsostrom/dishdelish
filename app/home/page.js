@@ -4,7 +4,7 @@ import "./home.css";
 
 function Home() {
   return (
-    <div className="home" style={{ backgroundImage: `url(${BannerImage})` }}>
+    <div className="home">
       <div className="headerContainer">
         <div className="beigeBox">
           <p>Discover Your Next Dish</p>
@@ -13,7 +13,7 @@ function Home() {
           <br />
           {/** href instead of to for next linking */}
           <Link href="/menu" className="">
-            GET TO COOKING
+            <button>GET TO COOKING</button>
           </Link>
         </div>
       </div>
