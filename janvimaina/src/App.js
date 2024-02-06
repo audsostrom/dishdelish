@@ -6,6 +6,7 @@ import Menu from "./pages/Menu";
 import About from "./pages/About";
 import Contact from "./pages/Contact";
 import Grab from "./pages/Grab";
+import Dietary from "./pages/Dietary";
 
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import UsedSavedIngredients from "./pages/UseSavedIngredients";
@@ -22,6 +23,7 @@ function App() {
           <Route path="/contact" exact component={Contact} />
           <Route path="/use" exact component={UsedSavedIngredients} />
           <Route path="/grab" exact component={Grab} />
+          <Route path="/filter" exact component={Dietary} />
         </Switch>
         <Footer />
       </Router>
