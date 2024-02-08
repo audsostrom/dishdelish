@@ -4,21 +4,24 @@
    background-color: #ffffff;
    display: flex;
    flex-direction: row;
-   justify-content: space-between; /* Center content horizontally */
+ }
+
+ .logo {
+  display: flex;
  }
  
  .navbar .leftSide {
-   flex: 1;
    height: 100%;
    display: flex;
    align-items: center;
    padding-left: 15px; 
  }
- 
- /* dish */
- .navbar .leftSide img {
-   width: 200px;
+ .logo-text {
+  font-weight: 600;
+  font-size: 34px;
+  padding-left: 10px;
  }
+
  
  .navbar .rightSide {
    flex: 1;

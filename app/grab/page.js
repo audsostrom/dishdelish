@@ -81,7 +81,7 @@ function Grab() {
 
   return (
     <>
-      <div className="grab" style={{ backgroundImage: `url(${BannerImageNew})` }}>
+      <div className="grab" style={{ backgroundImage: `url(${BannerImageNew.src})` }}>
       </div>
       <div className="customTextNew">
         <p>Got Everything?</p>

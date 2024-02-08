@@ -1,4 +1,5 @@
 import './globals.css';
+import Navbar from '@/components/navbar/navbar';
 
 let title = 'DishDelish';
 let description = 'Dish Delish is your go-to hub for exploring new flavors, mastering cooking techniques, and indulging in epicurean adventures.';
@@ -18,7 +19,10 @@ export const metadata = {
 export default function RootLayout({children}) {
   return (
     <html lang="en">
-      <body>{children}</body>
+      <body>
+        <Navbar/>
+        {children}
+      </body>
     </html>
   );
 }

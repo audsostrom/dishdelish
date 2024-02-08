@@ -1,5 +1,5 @@
 import React from "react";
-import MultiplePizzas from "../assets/thisisbanner.png";
+import MultiplePizzas from "../../assets/thisisbanner.png";
 import "./about.css";
 
 function About() {
@@ -7,7 +7,7 @@ function About() {
     <div className="about">
       <div
         className="aboutTop"
-        style={{ backgroundImage: `url(${MultiplePizzas})` }}
+        style={{ backgroundImage: `url(${MultiplePizzas.src})` }}
       ></div>
       <div className="aboutBottom">
         <h1> ABOUT US</h1>

@@ -11,7 +11,6 @@ import yourImage from "../../assets/GetCooking.jpeg";
 function Menu() {
   return (
     <div className="menu">
-      <div className="menuContent">
         <div className="customTextContainer">
           <span className="customTextnew">We make cooking work for you. </span>
           <br />
@@ -35,7 +34,6 @@ function Menu() {
           <Image unoptimized={true} src={yourImage} alt="Your Image" className="menuImage"/>
         </div>
       </div>
-    </div>
   );
 }
 

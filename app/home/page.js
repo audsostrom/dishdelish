@@ -1,6 +1,7 @@
 import Link from 'next/link';
 import BannerImage from "../../assets/cuttingbanana.png";
 import "./home.css";
+import Navbar from '@/components/navbar/navbar';
 
 function Home() {
   return (
