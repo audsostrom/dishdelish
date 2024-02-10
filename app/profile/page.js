@@ -7,23 +7,23 @@ import PencilIcon from '../../assets/pencil-icon.svg';
 import BannerImageNew from "../../assets/chef-ingredients.jpeg";
 import TextField from '@mui/material/TextField';
 import RecipeCard from '@/components/recipe-card/recipe-card';
-import exampleResponse from '../../data/spoonacular_response.json'
+import exampleResponse from '../../data/exampleResponse.json'
+const fs = require('fs');
 
 
 // uncomment only when you need to, this is some dummy data so we don't over-use credits
 async function getData() {
-
-   /*
+   /**
    const res= await fetch(
-      `https://api.spoonacular.com/recipes/complexSearch?number=25&includeIngredients=tomato,cheese&apiKey=${process.env.SPOON_KEY}`
-    );
+      `https://api.spoonacular.com/recipes/complexSearch?number=2&addRecipeInformation=true&includeIngredients=tomato,cheese&apiKey=${process.env.SPOON_KEY}`
+   );
   
    if (!res.ok) {
      // This will activate the closest `error.js` Error Boundary
      throw new Error('Failed to fetch data')
    }
   
-   return res.json()
+   return res.json();
    */
   return exampleResponse;
 }
@@ -32,6 +32,13 @@ async function getData() {
 async function Profile() {
    const data = await getData();
    console.log(data);
+   // uncomment if you want to update the dummy example with whatever response you want
+   /**
+   let object = JSON.stringify(data);
+   fs.writeFileSync('data/exampleResponse.json', object);
+   */
+
+
 
   let page = 1;
   return (
