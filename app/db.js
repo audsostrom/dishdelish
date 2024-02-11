@@ -2,6 +2,7 @@ import User from "@/models/user";
 import { NextResponse } from "next/server";
 import bcrypt from "bcrypt";
 import mongoose from "mongoose";
+import savedRecipe from "@/models/savedRecipes";
 
 export const connectMongoDB = async () => {
   try {
@@ -45,14 +46,17 @@ export async function getSavedRecipes(email) {
   try {
     await connectMongoDB();
     // findOne() gives one document that matches the criteria
-    const user = await User.findOne({email}, {email: 1, password: 1});
+    const user = await User.findOne({email}, {email: 1, password: 1, savedRecipes: 1});
     console.log("user: ", user);
-    if (user) {
-      // get recipes
-
+    if (user && user.savedRecipes.length > 0) {
+      // get recipes from user that match up with the saved ids of their recipes
+      const userRecipes = await savedRecipe.find({ recipeId: { $in: user.savedRecipes } }); //final query
+      console.log("user recipes: ", userRecipes);
+      const returnVal = userRecipes === null ? null : userRecipes;
+      return returnVal;
     }
-    const returnVal = user === null ? null : user;
-    return returnVal;
+    // otherwise no recipes to get :(
+    return null;
   } catch (error) {
     console.log('huh', error);
   }

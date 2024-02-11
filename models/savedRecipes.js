@@ -1,11 +1,11 @@
-import { Double, Int32 } from "mongodb";
 import mongoose, { Schema, models } from "mongoose";
+
 
 // excluded weightwatcher smart points, gaps and wine pairings
 const savedRecipeSchema = new Schema(
   {
     recipeId: {
-      type: Int32,
+      type: Number,
       required: true,
     },
     title: {
@@ -22,10 +22,10 @@ const savedRecipeSchema = new Schema(
       type: String, // not required?
     },
     servings: {
-      type: Int32,
+      type: Number,
     },
     readyInMinutes: {
-      type: Int32,
+      type: Number,
     },
     license: {
       type: String,
@@ -40,16 +40,16 @@ const savedRecipeSchema = new Schema(
       type: String,
     },
     healthScore: {
-      type: Int32,
+      type: Number,
     },
     spoonacularScore: {
-      type: Int32,
+      type: Number,
     },
     pricePerServing: {
-      type: Double,
+      type: Number,
     },
     analyzedInstructions: {
-      type: Array[Object],
+      type: Array,
     },
     cheap: {
       type: Boolean,
@@ -58,13 +58,13 @@ const savedRecipeSchema = new Schema(
       type: String,
     },
     cuisines: {
-      type: [String],
+      type: Array,
     },
     dairyFree: {
       type: Boolean,
     },
     diets: {
-      type: [String],
+      type: Array,
     },
     glutenFree: {
       type: Boolean,
@@ -83,10 +83,10 @@ const savedRecipeSchema = new Schema(
       required: true,
     },
     dishTypes: {
-      type: [String],
+      type: Array,
     },
     extendedIngredients: {
-      type: [Object],
+      type: Array,
     },
     summary: {
       type: String,
