@@ -17,7 +17,7 @@ export async function createUser(email, password) {
     // const { name, email, password } = await req.json();
     const hashedPassword = await bcrypt.hash(password, 10);
     await connectMongoDB();
-    await User.create({ email, password: hashedPassword });
+    await User.create({ email, password: hashedPassword, savedRecipes: [null] });
 
     return NextResponse.json({ message: "User registered." }, { status: 201 });
   } catch (error) {
@@ -34,6 +34,23 @@ export async function getUser(email) {
     // findOne() gives one document that matches the criteria
     const user = await User.findOne({email}, {email: 1, password: 1});
     console.log("user: ", user);
+    const returnVal = user === null ? null : user;
+    return returnVal;
+  } catch (error) {
+    console.log('huh', error);
+  }
+}
+
+export async function getSavedRecipes(email) {
+  try {
+    await connectMongoDB();
+    // findOne() gives one document that matches the criteria
+    const user = await User.findOne({email}, {email: 1, password: 1});
+    console.log("user: ", user);
+    if (user) {
+      // get recipes
+
+    }
     const returnVal = user === null ? null : user;
     return returnVal;
   } catch (error) {

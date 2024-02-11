@@ -1,23 +1,31 @@
+import { Double, Int32 } from "mongodb";
 import mongoose, { Schema, models } from "mongoose";
 
+// excluded weightwatcher smart points, gaps and wine pairings
 const savedRecipeSchema = new Schema(
   {
     recipeId: {
-      type: String,
+      type: Int32,
       required: true,
     },
     title: {
       type: String,
       required: true,
     },
+    vegetarian: {
+      type: Boolean,
+    },
+    vegan: {
+      type: Boolean,
+    },
     image: {
       type: String, // not required?
     },
     servings: {
-      type: Number,
+      type: Int32,
     },
     readyInMinutes: {
-      type: Number,
+      type: Int32,
     },
     license: {
       type: String,
@@ -32,22 +40,22 @@ const savedRecipeSchema = new Schema(
       type: String,
     },
     healthScore: {
-      type: Number,
+      type: Int32,
     },
     spoonacularScore: {
-      type: Number,
+      type: Int32,
     },
     pricePerServing: {
-      type: Number,
+      type: Double,
     },
     analyzedInstructions: {
-      type: Object,
+      type: Array[Object],
     },
     cheap: {
       type: Boolean,
     },
     creditsText: {
-      type: Boolean,
+      type: String,
     },
     cuisines: {
       type: [String],
@@ -56,7 +64,34 @@ const savedRecipeSchema = new Schema(
       type: Boolean,
     },
     diets: {
-      type: 
+      type: [String],
+    },
+    glutenFree: {
+      type: Boolean,
+    },
+    ketogenic: {
+      type: Boolean,
+    },
+    veryHealthy: {
+      type: Boolean,
+    },
+    sustainable: {
+      type: Boolean,
+    },
+    instructions: {
+      type: String,
+      required: true,
+    },
+    dishTypes: {
+      type: [String],
+    },
+    extendedIngredients: {
+      type: [Object],
+    },
+    summary: {
+      type: String,
+      required: true,
+    },
   },
   { timestamps: true }
 );

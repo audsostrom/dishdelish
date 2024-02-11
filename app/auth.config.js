@@ -11,6 +11,7 @@ export const authConfig = {
   callbacks: {
     authorized({ auth, request: { nextUrl } }) {
       let isLoggedIn = !!auth?.user;
+      console.log(!!auth?.user)
       let isOnDashboard = nextUrl.pathname.startsWith('/protected');
 
       if (isOnDashboard) {
