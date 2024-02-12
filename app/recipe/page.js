@@ -1,6 +1,7 @@
 // Import necessary dependencies and components
 import Link from 'next/link';
 import "./recipe.css";
+import { Favorite } from '@/components/favorite-button/favorite-button';
 
 // uncomment only when you need to, this is some dummy data so we don't over-use credits
 async function getData(recipeId) {
@@ -14,13 +15,6 @@ async function getData(recipeId) {
    }
   
    return res.json();
-}
-
-function starRecipe(recipe, favorited) {
-   if (!!favorited) {
-      console.log('what the hooha');
-   }
-   return;
 }
 
 
@@ -38,8 +32,8 @@ async function RecipeInfo({searchParams}) {
   return (
    <div className='recipe-container'>
       <div>{data['title']}</div>
-      <button onClick={starRecipe(data, searchParams['favorited'])}>Click to add to favs</button>
-
+      {/** I purposefully made this client component for optimization */}
+      <Favorite recipe={data} favorited={favorited}/>
    </div>
   );
 }
