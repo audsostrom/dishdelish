@@ -10,6 +10,10 @@ const userSchema = new Schema(
       type: String,
       required: true,
     },
+    savedRecipes: {
+      type: [String],
+      required: true,
+    }
   },
   { timestamps: true }
 );
