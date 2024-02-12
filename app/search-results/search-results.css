@@ -1,0 +1,21 @@
+.recipe-cards-wrapper {
+   display: flex;
+   gap: 15px;
+   margin: 10px 20px;
+}
+
+.recipe-card {
+   width: 200px;
+   border-radius: 5px;
+   background-color: #F4F5F7;
+   box-shadow: 2px 2px 2.5px black;
+   font-size: 14px;
+}
+.card-image {
+   border-top-left-radius: 5px;
+   border-top-right-radius: 5px;
+}
+
+.card-text {
+   padding: 5px;
+}
