@@ -2,14 +2,8 @@
 import Link from 'next/link';
 import "./search-results.css";
 import Image from 'next/image';
-import DefaultIcon from '../../assets/default-profile-icon.svg';
-import PencilIcon from '../../assets/pencil-icon.svg';
-import BannerImageNew from "../../assets/chef-ingredients.jpeg";
-import TextField from '@mui/material/TextField';
-import RecipeCard from '@/components/recipe-card/recipe-card';
 import exampleResponse from '../../data/exampleResponse.json'
 const fs = require('fs');
-import { auth, signOut } from '../auth';
 import { getSavedRecipes } from '../db';
 
 // uncomment only when you need to, this is some dummy data so we don't over-use credits
@@ -47,6 +41,8 @@ async function Results() {
    */
 
 
+
+
   return (
    <div className='results-container'>
       <div>Here's What We Found For You</div>
@@ -54,13 +50,20 @@ async function Results() {
       <div className='recipe-cards-wrapper'>
          {
            data.results.map((item, i) => 
-            <div className="recipe-card" key={i}>
+            // this redirects you to specific recipe
+            <Link href={{
+               pathname: `/recipe/`,
+               query: { id: item['id'], favorited: userRecipes.some(obj => obj.id === item['id']) },
+             }}>
+               <div className="recipe-card" key={i}>
                <Image className="card-image" width='200' height='200' src={item['image']}/>
                <div className='card-text'>
                   <div>{item['title']}</div>
                   <div>Time: {item['readyInMinutes']} minutes</div>
                </div>
-            </div>)
+               </div>
+            </Link>
+            )
          }
       </div>
 
