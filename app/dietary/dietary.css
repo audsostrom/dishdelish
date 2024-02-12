@@ -1,0 +1,98 @@
+/* Dietary.css */
+.newPage {
+    display: flex;
+    align-items: center;
+    margin-top: 20px;
+  }
+  
+  .search input[type="text"] {
+    height: 30px;
+    padding: 10px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    margin-left: 10px;
+    margin-right: 55px;
+    width: 500px;
+  }
+  
+  .options select {
+    height: 50px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    margin-right: 55px;
+    width: 300px;
+  }
+  
+  .filter button {
+    color: black;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    background-color: #b88e2f;
+    height: 50px;
+    width: 200px;
+    color: white;
+    text-decoration: none;
+    font-size: 24px; /* Increase font size */
+    justify-content: flex-start; /* Align button box to the left */
+  }
+  
+  .checkbox-container {
+    margin-top: 20px;
+  }
+  
+  .checkbox {
+    display: flex; /* Align checkbox and label horizontally */
+    align-items: center; /* Center align checkbox and label */
+    justify-content: space-between; /* Space content and checkbox evenly */
+    margin-bottom: 10px;
+    padding: 15px; /* Add more padding to create space between border and content */
+    border-radius: 5px; /* Add border-radius for rounded corners */
+    border: 1px solid #ccc; /* Add border */
+  }
+  
+  .checkbox input[type="checkbox"] {
+    order: 2; /* Reorder checkbox to come after content */
+    width: 30px; /* Adjust checkbox size */
+    height: 30px; /* Adjust checkbox size */
+    margin-left: 20px; /* Add more spacing between content and checkbox */
+  }
+  
+  .checkbox label {
+    order: 1; /* Make content appear before checkbox */
+    font-size: 20px; /* Increase font size for content */
+  }
+  
+  /* Additional styling for search input */
+  .search input[type="text"] {
+    height: 30px;
+    padding: 10px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    margin-left: 10px;
+    margin-right: 55px;
+    width: 500px;
+  }
+  
+  .options select {
+    height: 50px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    margin-right: 55px;
+    width: 300px;
+  }
+  
+  .filter button {
+    color: black;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    background-color: #b88e2f;
+    height: 50px;
+    width: 200px;
+    color: white;
+    text-decoration: none;
+    font-size: 24px; /* Increase font size */
+    justify-content: flex-start; /* Align button box to the left */
+  }
+  
