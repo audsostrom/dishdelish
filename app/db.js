@@ -69,8 +69,9 @@ export async function getSavedRecipes(email) {
 }
 
 export async function createSavedRecipe(userEmail, recipe, favorited) {
-  try {
+  console.log(userEmail, recipe, favorited);
     // console.log(email, recipe, favorited)
+  try {
     await connectMongoDB();
     const user = await User.findOne({email: userEmail}, {email: 1, password: 1, savedRecipes: 1});
     console.log(user, user['savedRecipes'])
@@ -103,12 +104,11 @@ export async function createSavedRecipe(userEmail, recipe, favorited) {
     };
 
     // is indeed arr
-    console.log(Array.isArray(useruser['savedRecipes']), typeof user['savedRecipes'], typeof user['savedRecipes'][0], typeof recipe['id'], recipe['id'].toString());
+    console.log(Array.isArray(user['savedRecipes']), typeof user['savedRecipes'], typeof user['savedRecipes'][0], typeof recipe['id'], recipe['id'].toString());
 
     if (favorited == false) {
       // await savedRecipe.create(recipeDoc);
-
-      User.updateOne(
+      await User.updateOne(
         { email : userEmail },
         { $push: { savedRecipes : recipe['id'] } }
       );
