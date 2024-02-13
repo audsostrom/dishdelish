@@ -1,4 +1,3 @@
-// Import necessary dependencies and components
 import Link from 'next/link';
 import "./profile.css";
 import Image from 'next/image';
@@ -6,10 +5,7 @@ import DefaultIcon from '../../assets/default-profile-icon.svg';
 import PencilIcon from '../../assets/pencil-icon.svg';
 import BannerImageNew from "../../assets/chef-ingredients.jpeg";
 import TextField from '@mui/material/TextField';
-import RecipeCard from '@/components/recipe-card/recipe-card';
 import exampleResponse from '../../data/exampleResponse.json'
-const fs = require('fs');
-import { auth, signOut } from '../auth';
 import { getSavedRecipes } from '../db';
 
 // uncomment only when you need to, this is some dummy data so we don't over-use credits
@@ -65,7 +61,7 @@ async function Profile() {
       </div>
       <div className='title'>Your Profile</div>
       <div className='options'>
-         <div className='option' onClick={page = 2}>Profile Settings</div>
+         <div className='option'>Profile Settings</div>
          <div className='option'>Saved Recipes</div>
          <div className='option'>Your Reviews</div>
       </div>
@@ -88,7 +84,7 @@ async function Profile() {
          <div className='savedRecipes'>
          {
            userRecipes.map((item, i) => 
-            // this redirects you to specific recipe
+            // this redirects you to specific recipe route with id and favorites in the search params
             <Link href={{
                pathname: `/recipe/`,
                query: { id: item['id'], favorited: userRecipes.some(obj => obj.id === item['id']) },
