@@ -38,7 +38,10 @@ export async function getUser(email) {
     const returnVal = user === null ? null : user;
     return returnVal;
   } catch (error) {
-    console.log('huh', error);
+    return NextResponse.json(
+      { message: "An error occurred while getting the user." },
+      { status: 500 }
+    );
   }
 }
 
@@ -58,14 +61,19 @@ export async function getSavedRecipes(email) {
     // otherwise no recipes to get :(
     return null;
   } catch (error) {
-    console.log('huh', error);
+    return NextResponse.json(
+      { message: "An error occurred while getting the user's saved recipes." },
+      { status: 500 }
+    );
   }
 }
 
-export async function createSavedRecipe(email, recipe) {
+export async function createSavedRecipe(userEmail, recipe, favorited) {
   try {
+    // console.log(email, recipe, favorited)
     await connectMongoDB();
-    const user = await User.findOne({email}, {email: 1, password: 1, savedRecipes: 1});
+    const user = await User.findOne({email: userEmail}, {email: 1, password: 1, savedRecipes: 1});
+    console.log(user, user['savedRecipes'])
     const recipeDoc = {
       vegetarian: recipe['vegetarian'],
       vegan: recipe['vegan'],
@@ -74,8 +82,6 @@ export async function createSavedRecipe(email, recipe) {
       veryHealthy: recipe['veryHealthy'],
       cheap: recipe['veryHealthy'],
       sustainable: recipe['sustainable'],
-      // preparationMinutes: 5,
-      // cookingMinutes: 10,
       healthScore: recipe['healthScore'],
       creditsText: recipe['creditsText'],
       sourceName: recipe['sourceName'],
@@ -95,14 +101,24 @@ export async function createSavedRecipe(email, recipe) {
       spoonacularScore: recipe['spoonacularScore'],
       spoonacularSourceUrl: recipe['spoonacularSourceUrl']
     };
-    const newSavedRecipes = user.savedRecipes.append(recipe['id']);
-    await savedRecipe.create(recipeDoc);
-    User.updateOne(
-      { "email" : email },
-      { $set: { "savedRecipes" : newSavedRecipes } }
-   );
 
-    return NextResponse.json({ message: "New saved recipe created." }, { status: 201 });
+    // is indeed arr
+    console.log(Array.isArray(useruser['savedRecipes']), typeof user['savedRecipes'], typeof user['savedRecipes'][0], typeof recipe['id'], recipe['id'].toString());
+
+    if (favorited == false) {
+      // await savedRecipe.create(recipeDoc);
+
+      User.updateOne(
+        { email : userEmail },
+        { $push: { savedRecipes : recipe['id'] } }
+      );
+      const afteruser = await User.findOne({email: userEmail}, {email: 1, password: 1, savedRecipes: 1});
+      console.log('yippee', afteruser);
+      return NextResponse.json({ message: "New saved recipe created." }, { status: 201 });
+    } else {
+      return NextResponse.json({ message: "No updates" }, { status: 200 });
+
+    }
   } catch (error) {
     return NextResponse.json(
       { message: "An error occurred while creating the saved recipe." },

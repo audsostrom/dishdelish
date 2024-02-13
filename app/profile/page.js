@@ -84,7 +84,26 @@ async function Profile() {
                <TextField id="outlined-basic" label="enter new password" type="password" />
                <TextField id="outlined-basic" label="confirm password" type="password" />
             </div>
-   
+         </div>
+         <div className='savedRecipes'>
+         {
+           userRecipes.map((item, i) => 
+            // this redirects you to specific recipe
+            <Link href={{
+               pathname: `/recipe/`,
+               query: { id: item['id'], favorited: userRecipes.some(obj => obj.id === item['id']) },
+             }}>
+               <div className="recipe-card" key={i}>
+               <Image className="card-image" width='200' height='200' src={item['image']}/>
+               <div className='card-text'>
+                  <div>{item['title']}</div>
+                  <div>Time: {item['readyInMinutes']} minutes</div>
+               </div>
+               </div>
+            </Link>
+            )
+         }
+
          </div>
 
    </div>
