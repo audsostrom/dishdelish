@@ -1,13 +1,14 @@
+import './form.css'
+
 export function Form({action,children}) {
   return (
     <form
       action={action}
       className=""
     >
-      <div>
+      <div className="email-input-wrapper">
         <label
           htmlFor="email"
-          className=""
         >
           Email Address
         </label>
@@ -15,16 +16,15 @@ export function Form({action,children}) {
           id="email"
           name="email"
           type="email"
-          placeholder="user@acme.com"
+          placeholder="Enter email address"
           autoComplete="email"
           required
-          className=""
+          className="input-box"
         />
       </div>
-      <div>
+      <div className='password-input-wrapper'>
         <label
           htmlFor="password"
-          className=""
         >
           Password
         </label>
@@ -32,8 +32,9 @@ export function Form({action,children}) {
           id="password"
           name="password"
           type="password"
+          placeholder="Enter password"
           required
-          className=""
+          className="input-box"
         />
       </div>
       {children}

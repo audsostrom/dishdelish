@@ -25,10 +25,15 @@ async function getData() {
 
 
 async function Results() {
-   // let session = await auth();
-   // console.log(session.user);
-   // let userRecipes = await getSavedRecipes(session.user.email);
-   // console.log('my recipes', userRecipes);
+
+   // (TO DO) uncomment this section during intregration + after demo
+   /**
+   let session = await auth();
+   console.log(session.user);
+   let userRecipes = await getSavedRecipes(session.user.email);
+   console.log('my recipes', userRecipes);
+    
+   */
    let userRecipes = await getSavedRecipes('1234@gmail.com');
    console.log('my recipes', userRecipes);
 
@@ -39,9 +44,6 @@ async function Results() {
    let object = JSON.stringify(data);
    fs.writeFileSync('data/exampleResponse.json', object);
    */
-
-
-
 
   return (
    <div className='results-container'>
