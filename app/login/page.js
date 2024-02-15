@@ -22,8 +22,7 @@ export default function Login() {
         <Form
           action={async (formData) => {
             'use server';
-            await signIn('credentials', {
-              redirectTo: '/protected',
+            const response = await signIn('credentials', {
               email: formData.get('email'),
               password: formData.get('password'),
             });

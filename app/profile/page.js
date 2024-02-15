@@ -7,7 +7,7 @@ import BannerImageNew from "../../assets/chef-ingredients.jpeg";
 import TextField from '@mui/material/TextField';
 import exampleResponse from '../../data/exampleResponse.json'
 import { getSavedRecipes } from '../db';
-
+import { signOut } from '../auth';
 // uncomment only when you need to, this is some dummy data so we don't over-use credits
 async function getData() {
    /**
@@ -99,6 +99,14 @@ async function Profile() {
             </Link>
             )
          }
+         <form
+               action={async () => {
+               'use server';
+               await signOut();
+               }}
+            >
+               <button type="submit">Sign out</button>
+            </form>
 
          </div>
 

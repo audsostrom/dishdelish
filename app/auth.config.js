@@ -13,17 +13,17 @@ export const authConfig = {
     authorized({ auth, request: { nextUrl } }) {
       let isLoggedIn = !!auth?.user;
       console.log(!!auth?.user)
+      console.log(decodeURIComponent(nextUrl.search.substring(nextUrl.search.indexOf("=") + 1)))
+      console.log(nextUrl.search.substring(nextUrl.search.indexOf("=") + 1))
       let isOnRestrictedPage = nextUrl.pathname.startsWith('/profile') || nextUrl.pathname.startsWith('/saved-ingredients');
 
       if (isOnRestrictedPage) {
         if (isLoggedIn) return true;
         return false; // redirect unauthenticated users to login page
       } 
-      /**
       else if (isLoggedIn) {
-        return Response.redirect(new URL('/protected', nextUrl));
+        return Response.redirect(new URL(decodeURIComponent(nextUrl.search.substring(nextUrl.search.indexOf("=") + 1))));
       }
-      */
 
       return true;
     },
