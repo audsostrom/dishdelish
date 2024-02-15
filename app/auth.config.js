@@ -20,9 +20,12 @@ export const authConfig = {
       if (isOnRestrictedPage) {
         if (isLoggedIn) return true;
         return false; // redirect unauthenticated users to login page
-      } 
-      else if (isLoggedIn) {
+      }
+      else if (isLoggedIn && decodeURIComponent(nextUrl.search.substring(nextUrl.search.indexOf("=") + 1))) {
+        console.log('oh no', decodeURIComponent(nextUrl.search.substring(nextUrl.search.indexOf("=") + 1)))
         return Response.redirect(new URL(decodeURIComponent(nextUrl.search.substring(nextUrl.search.indexOf("=") + 1))));
+      } else if (isLoggedIn && (nextUrl.pathname.startsWith('/login') || nextUrl.pathname.startsWith('/register'))) {
+        return Response.redirect(new URL('/profile', nextUrl));
       }
 
       return true;

@@ -47,7 +47,7 @@ async function Profile() {
   let page = 1;
   return (
    <div className='profile-container'>
-      <div className='banner' style={{width: '100vw', height: '500px', position: 'relative'}}>
+      <div className='banner' style={{width: '100vw', height: '200px', position: 'relative'}}>
          <Image
             alt='banner'
             src={BannerImageNew}
@@ -61,12 +61,34 @@ async function Profile() {
       </div>
       <div className='title'>Your Profile</div>
       <div className='options'>
-         <div className='option'>Profile Settings</div>
-         <div className='option'>Saved Recipes</div>
-         <div className='option'>Your Reviews</div>
+         <div className='option' 
+            action={ 
+               async () => {
+               'use server';
+               page = 1;
+            }}
+         >
+            Profile Settings
+         </div>
+         <div className='option' 
+            action={
+               async () => {
+               'use server';
+               page = 2;
+            }}
+         >
+            Saved Recipes</div>
+            <div className='option' 
+            action={
+               async () => {
+               'use server';
+               page = 2;
+            }}
+         >
+            Your Reviews</div>
       </div>
       <hr></hr>
-         <div className='settings'>
+         {page === 1 && <div className='settings'>
             <div className='email'>
                <div>email</div>
                <TextField id="outlined-basic"/>
@@ -80,8 +102,8 @@ async function Profile() {
                <TextField id="outlined-basic" label="enter new password" type="password" />
                <TextField id="outlined-basic" label="confirm password" type="password" />
             </div>
-         </div>
-         <div className='savedRecipes'>
+         </div>}
+         {page === 2 && <div className='savedRecipes'>
          {
            userRecipes.map((item, i) => 
             // this redirects you to specific recipe route with id and favorites in the search params
@@ -108,7 +130,7 @@ async function Profile() {
                <button type="submit">Sign out</button>
             </form>
 
-         </div>
+         </div>}
 
    </div>
   );

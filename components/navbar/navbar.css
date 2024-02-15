@@ -28,7 +28,7 @@
    flex: 1;
    height: 100%;
    display: flex;
-   margin-top : 10px;
+   align-items: center;
    justify-content: flex-end;
    padding-right: 15px; /* Adjust the right padding if needed */
   vertical-align: center;

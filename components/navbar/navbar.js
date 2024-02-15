@@ -33,7 +33,7 @@ function Navbar() {
         <Link href="/"> Home </Link>
         <Link href="/about"> About </Link>
         <Link href="/menu"> Recipes </Link>
-        <Link href="/profile"><AccountCircleRoundedIcon/> </Link>
+        <Link href="/profile" className="icon"><AccountCircleRoundedIcon/> </Link>
 
         <button onClick={toggleNavbar}>
           <ReorderIcon />
