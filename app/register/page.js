@@ -24,23 +24,20 @@ export default function Register() {
   return (
     <div className="register-container">
       <div className='register-wrapper'>
-      <div className='register-header'>
-        Create Your Account
-
-        <div className="register-subheader">
-          {"Already have an account? "}
-          <Link href="/login">
-            Sign in
-          </Link>
+        <div className='register-header'>
+          Create Your Account
+          <div className="register-subheader">
+            {"Already have an account? "}
+            <Link href="/login">
+              Sign in
+            </Link>
+          </div>
         </div>
-
-      </div>
         <Form action={register}>
           <div className="register-button">
             <SubmitButton>Sign Up</SubmitButton>
           </div>
         </Form>
-
       </div>
     </div>
   );

@@ -6,6 +6,7 @@ import ReorderIcon from '@mui/icons-material/Reorder';
 import "./navbar.css";
 import { useState } from "react";
 import Image from "next/image";
+import AccountCircleRoundedIcon from '@mui/icons-material/AccountCircleRounded';
 
 function Navbar() {
   const [openLinks, setOpenLinks] = useState(false);
@@ -24,6 +25,7 @@ function Navbar() {
           <Link href="/"> Home </Link>
           <Link href="/about"> About </Link>
           <Link href="/menu"> Recipes </Link>
+          <Link href="/profile"> Profile </Link>
         
         </div>
       </div>
@@ -31,6 +33,7 @@ function Navbar() {
         <Link href="/"> Home </Link>
         <Link href="/about"> About </Link>
         <Link href="/menu"> Recipes </Link>
+        <Link href="/profile"><AccountCircleRoundedIcon/> </Link>
 
         <button onClick={toggleNavbar}>
           <ReorderIcon />

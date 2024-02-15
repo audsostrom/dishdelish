@@ -4,6 +4,7 @@
    background-color: #ffffff;
    display: flex;
    flex-direction: row;
+   line-height: 40px;
  }
 
  .logo {
@@ -27,15 +28,20 @@
    flex: 1;
    height: 100%;
    display: flex;
-   align-items: center;
+   margin-top : 10px;
    justify-content: flex-end;
    padding-right: 15px; /* Adjust the right padding if needed */
- }
+  vertical-align: center;
+  }
+
+  .icon {
+    margin-top: 10px;
+  }
  
  .navbar a {
    color: rgb(0, 0, 0);
    text-decoration: none;
-   margin: 20px;
+   margin-left: 20px;
  }
  
  .navbar .rightSide button {
