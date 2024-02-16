@@ -22,6 +22,7 @@ async function getData() {
   
    return res.json();
    */
+
   return exampleResponse;
 }
 
@@ -32,10 +33,8 @@ async function Profile() {
    // let userRecipes = await getSavedRecipes(session.user.email);
    // console.log('my recipes', userRecipes);
    let userRecipes = await getSavedRecipes('1234@gmail.com');
-   console.log('my recipes', userRecipes);
 
    const data = await getData();
-   // console.log(data);
    // uncomment if you want to update the dummy example with whatever response you want
    /**
    let object = JSON.stringify(data);
@@ -70,21 +69,9 @@ async function Profile() {
          >
             Profile Settings
          </div>
-         <div className='option' 
-            action={
-               async () => {
-               'use server';
-               page = 2;
-            }}
-         >
+         <div className='option' >
             Saved Recipes</div>
-            <div className='option' 
-            action={
-               async () => {
-               'use server';
-               page = 2;
-            }}
-         >
+            <div className='option'>
             Your Reviews</div>
       </div>
       <hr></hr>
@@ -121,6 +108,8 @@ async function Profile() {
             </Link>
             )
          }
+
+         </div>}
          <form
                action={async () => {
                'use server';
@@ -129,8 +118,6 @@ async function Profile() {
             >
                <button type="submit">Sign out</button>
             </form>
-
-         </div>}
 
    </div>
   );

@@ -3,8 +3,8 @@ import Link from 'next/link';
 import "./search-results.css";
 import Image from 'next/image';
 import exampleResponse from '../../data/exampleResponse.json'
-const fs = require('fs');
 import { getSavedRecipes } from '../db';
+import { cookies } from 'next/headers';
 
 // uncomment only when you need to, this is some dummy data so we don't over-use credits
 async function getData() {
@@ -20,6 +20,9 @@ async function getData() {
   
    return res.json();
    */
+   const cookieStore = cookies()
+   console.log('hi')
+   console.log(cookieStore.get('theme'));
   return exampleResponse;
 }
 
@@ -35,10 +38,10 @@ async function Results() {
     
    */
    let userRecipes = await getSavedRecipes('1234@gmail.com');
-   console.log('my recipes', userRecipes);
+   // console.log('my recipes', userRecipes);
 
    const data = await getData();
-   console.log(data);
+   // console.log(data);
    // uncomment if you want to update the dummy example with whatever response you want
    /**
    let object = JSON.stringify(data);
