@@ -33,7 +33,7 @@ export async function getUser(email) {
     await connectMongoDB();
     // findOne() gives one document that matches the criteria
     const user = await User.findOne({email}, {email: 1, password: 1});
-    console.log("user: ", user);
+    // console.log("user: ", user);
     const returnVal = user === null ? null : user;
     return returnVal;
   } catch (error) {
@@ -49,11 +49,11 @@ export async function getSavedRecipes(email) {
     await connectMongoDB();
     // findOne() gives one document that matches the criteria
     const user = await User.findOne({email}, {email: 1, password: 1, savedRecipes: 1});
-    console.log("user: ", user);
+    // console.log("user: ", user);
     if (user && user.savedRecipes.length > 0) {
       // get recipes from user that match up with the saved ids of their recipes
       const userRecipes = await savedRecipe.find({ recipeId: { $in: user.savedRecipes } }); //final query
-      console.log("user recipes: ", userRecipes);
+      // console.log("user recipes: ", userRecipes);
       const returnVal = userRecipes === null ? null : userRecipes;
       return returnVal;
     }
@@ -72,7 +72,7 @@ export async function createSavedRecipe(userEmail, recipe, favorited) {
   // don't add a try here, for some reason it gives errors?
     await connectMongoDB();
     const user = await User.findOne({email: userEmail}, {email: 1, password: 1, savedRecipes: 1});
-    console.log(user, user['savedRecipes'])
+    // console.log(user, user['savedRecipes'])
 
     // transfer over your data for we can store it mongodb appropriately
     const recipeDoc = {

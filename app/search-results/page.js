@@ -1,4 +1,5 @@
 // Import necessary dependencies and components
+"use server";
 import Link from 'next/link';
 import "./search-results.css";
 import Image from 'next/image';
@@ -8,21 +9,24 @@ import { cookies } from 'next/headers';
 
 // uncomment only when you need to, this is some dummy data so we don't over-use credits
 async function getData() {
-   /**
-   const res= await fetch(
-      `https://api.spoonacular.com/recipes/complexSearch?number=2&addRecipeInformation=true&includeIngredients=tomato,cheese&apiKey=${process.env.SPOON_KEY}`
-   );
-  
-   if (!res.ok) {
-     // This will activate the closest `error.js` Error Boundary
-     throw new Error('Failed to fetch data')
+   "use server";
+   const cookieStore = cookies()
+   console.log(cookieStore.getAll())
+   if (cookieStore.has('ingredients')) {
+      const userIngredients = cookieStore.get('ingredients')['value'].toString();
+      console.log('hi', cookieStore.get('ingredients'))
+      console.log(cookieStore.get('ingredients'));
+      const res= await fetch(
+         `https://api.spoonacular.com/recipes/complexSearch?number=3&addRecipeInformation=true&includeIngredients=${userIngredients}&apiKey=${process.env.SPOON_KEY}`
+      );
+     
+      if (!res.ok) {
+        // This will activate the closest `error.js` Error Boundary
+        throw new Error('Failed to fetch data')
+      }
+      return res.json();
    }
   
-   return res.json();
-   */
-   const cookieStore = cookies()
-   console.log('hi')
-   console.log(cookieStore.get('theme'));
   return exampleResponse;
 }
 
