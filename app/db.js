@@ -3,6 +3,8 @@ import { NextResponse } from "next/server";
 import bcrypt from "bcrypt";
 import mongoose from "mongoose";
 import savedRecipe from "@/models/savedRecipes";
+import Preference from "@/models/preference";
+
 
 export const connectMongoDB = async () => {
   try {
@@ -18,7 +20,8 @@ export async function createUser(email, password) {
     const hashedPassword = await bcrypt.hash(password, 10);
     await connectMongoDB();
     // create new user in database with no saved recipes to start
-    await User.create({ email, password: hashedPassword, savedRecipes: [null] });
+    const user = await User.create({ email, password: hashedPassword, savedRecipes: [null] });
+    console.log('user', user);
     return NextResponse.json({ message: "User registered." }, { status: 201 });
   } catch (error) {
     return NextResponse.json(
@@ -129,5 +132,37 @@ export async function createSavedRecipe(userEmail, recipe, favorited) {
     );
   }
    */
+  }
+}
+
+export async function savePreferences(ingredients) {
+  try {
+    await connectMongoDB();
+    // create new user in database with no saved recipes to start
+    const preference = await Preference.create({ ingredients: ingredients, diets: [null], diets: [null], cuisine: [null], intolerances: [null] });
+    console.log('preference', preference);
+    // now use prefid
+    return NextResponse.json({ message: "Preferences created" }, { status: 201 });
+  } catch (error) {
+    return NextResponse.json(
+      { message: "An error occurred while registering the user." },
+      { status: 500 }
+    );
+  }
+}
+
+export async function getPreferences(id) {
+  try {
+    await connectMongoDB();
+    // findOne() gives one document that matches the criteria
+    const preference = await Preference.findOne({_id: objId}, {ingredients: 1, diets: 1, cuisine: 1, intolerances: 1});
+    // console.log("user: ", user);
+    const returnVal = preference === null ? null : preference;
+    return returnVal;
+  } catch (error) {
+    return NextResponse.json(
+      { message: "An error occurred while getting the person's p." },
+      { status: 500 }
+    );
   }
 }
