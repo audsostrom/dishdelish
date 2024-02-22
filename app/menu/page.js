@@ -25,7 +25,7 @@ function Menu() {
             <button className="roundedButton primaryButton">Grab Your Ingredients</button>
             </Link>
             {/** Change trigger auth guard, using protected as a placeholder - should be a different screen */}
-            <Link href="/protected">
+            <Link href="/saved-ingredients">
               <button className="roundedButton secondaryButton">Use Saved Items</button>
             </Link>
           </div>

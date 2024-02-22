@@ -5,20 +5,27 @@ export const authConfig = {
     signIn: '/login',
   },
   providers: [
-    // added later in auth.ts since it requires bcrypt which is only compatible with Node.js
+    // added later in auth.js since it requires bcrypt which is only compatible with Node.js
     // while this file is also used in non-Node.js environments
   ],
   callbacks: {
+    // (TO DO) update to redirect to profile when everything is integrated!
     authorized({ auth, request: { nextUrl } }) {
       let isLoggedIn = !!auth?.user;
       console.log(!!auth?.user)
-      let isOnDashboard = nextUrl.pathname.startsWith('/protected');
+      console.log(decodeURIComponent(nextUrl.search.substring(nextUrl.search.indexOf("=") + 1)))
+      console.log(nextUrl.search.substring(nextUrl.search.indexOf("=") + 1))
+      let isOnRestrictedPage = nextUrl.pathname.startsWith('/profile') || nextUrl.pathname.startsWith('/saved-ingredients');
 
-      if (isOnDashboard) {
+      if (isOnRestrictedPage) {
         if (isLoggedIn) return true;
-        return false; // Redirect unauthenticated users to login page
-      } else if (isLoggedIn) {
-        return Response.redirect(new URL('/protected', nextUrl));
+        return false; // redirect unauthenticated users to login page
+      }
+      else if (isLoggedIn && decodeURIComponent(nextUrl.search.substring(nextUrl.search.indexOf("=") + 1))) {
+        console.log('oh no', decodeURIComponent(nextUrl.search.substring(nextUrl.search.indexOf("=") + 1)))
+        return Response.redirect(new URL(decodeURIComponent(nextUrl.search.substring(nextUrl.search.indexOf("=") + 1))));
+      } else if (isLoggedIn && (nextUrl.pathname.startsWith('/login') || nextUrl.pathname.startsWith('/register'))) {
+        return Response.redirect(new URL('/profile', nextUrl));
       }
 
       return true;

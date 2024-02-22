@@ -1,7 +1,6 @@
 import React from "react";
-import { Link } from "react-router-dom";
-import BannerImageNew from "../assets/chef-ingredients.jpeg";
-import "../styles/UsedSavedIngredients.css";
+import BannerImageNew from "../../assets/chef-ingredients.jpeg";
+import "./saved-ingredients.css";
 
 function UsedSavedIngredients() {
   return (

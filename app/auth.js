@@ -18,8 +18,6 @@ export const {
         let user = await getUser(credentials['email']);
         if (!user) return null;
         let passwordsMatch = await compare(credentials['password'], user['password']);
-        console.log(passwordsMatch, 'in auth user', user);
-
         if (passwordsMatch) return {
           email: credentials['email'],
         };

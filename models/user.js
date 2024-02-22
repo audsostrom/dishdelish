@@ -11,7 +11,7 @@ const userSchema = new Schema(
       required: true,
     },
     savedRecipes: {
-      type: [String],
+      type: [Number],
       required: true,
     }
   },

@@ -1,47 +1,56 @@
 // Import necessary dependencies and components
+"use server";
 import Link from 'next/link';
 import "./search-results.css";
 import Image from 'next/image';
 import exampleResponse from '../../data/exampleResponse.json'
-const fs = require('fs');
-import { getSavedRecipes } from '../db';
+import { getSavedRecipes } from '../../db';
+import { cookies } from 'next/headers';
 
 // uncomment only when you need to, this is some dummy data so we don't over-use credits
 async function getData() {
-   /**
-   const res= await fetch(
-      `https://api.spoonacular.com/recipes/complexSearch?number=2&addRecipeInformation=true&includeIngredients=tomato,cheese&apiKey=${process.env.SPOON_KEY}`
-   );
-  
-   if (!res.ok) {
-     // This will activate the closest `error.js` Error Boundary
-     throw new Error('Failed to fetch data')
+   "use server";
+   const cookieStore = cookies()
+   console.log(cookieStore.getAll())
+   if (cookieStore.has('ingredients')) {
+      const userIngredients = cookieStore.get('ingredients')['value'].toString();
+      console.log('hi', cookieStore.get('ingredients'))
+      console.log(cookieStore.get('ingredients'));
+      const res= await fetch(
+         `https://api.spoonacular.com/recipes/complexSearch?number=3&addRecipeInformation=true&includeIngredients=${userIngredients}&apiKey=${process.env.SPOON_KEY}`
+      );
+     
+      if (!res.ok) {
+        // This will activate the closest `error.js` Error Boundary
+        throw new Error('Failed to fetch data')
+      }
+      return res.json();
    }
   
-   return res.json();
-   */
   return exampleResponse;
 }
 
 
 async function Results() {
-   // let session = await auth();
-   // console.log(session.user);
-   // let userRecipes = await getSavedRecipes(session.user.email);
-   // console.log('my recipes', userRecipes);
-   let userRecipes = await getSavedRecipes('1234@gmail.com');
+
+   // (TO DO) uncomment this section during intregration + after demo
+   /**
+   let session = await auth();
+   console.log(session.user);
+   let userRecipes = await getSavedRecipes(session.user.email);
    console.log('my recipes', userRecipes);
+    
+   */
+   let userRecipes = await getSavedRecipes('1234@gmail.com');
+   // console.log('my recipes', userRecipes);
 
    const data = await getData();
-   console.log(data);
+   // console.log(data);
    // uncomment if you want to update the dummy example with whatever response you want
    /**
    let object = JSON.stringify(data);
    fs.writeFileSync('data/exampleResponse.json', object);
    */
-
-
-
 
   return (
    <div className='results-container'>

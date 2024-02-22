@@ -3,6 +3,7 @@ import { Form } from '../../components/form/form';
 import { redirect } from 'next/navigation';
 import { createUser, getUser } from '../db';
 import { SubmitButton } from '../../components/submit-button/submit-button';
+import './register.css';
 
 export default function Register() {
   async function register(formData) {
@@ -21,23 +22,21 @@ export default function Register() {
   }
 
   return (
-    <div className="">
-      <div className="">
-        <div className="">
-          <h3 className="">Sign Up</h3>
-          <p className="">
-            Create an account with your email and password
-          </p>
-        </div>
-        <Form action={register}>
-          <SubmitButton>Sign Up</SubmitButton>
-          <p className="">
-            {'Already have an account? '}
-            <Link href="/login" className="">
+    <div className="register-container">
+      <div className='register-wrapper'>
+        <div className='register-header'>
+          Create Your Account
+          <div className="register-subheader">
+            {"Already have an account? "}
+            <Link href="/login">
               Sign in
             </Link>
-            {' instead.'}
-          </p>
+          </div>
+        </div>
+        <Form action={register}>
+          <div className="register-button">
+            <SubmitButton>Sign Up</SubmitButton>
+          </div>
         </Form>
       </div>
     </div>
