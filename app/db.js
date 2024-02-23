@@ -161,8 +161,9 @@ export async function updatePreferences(id, diets, intolerances, cuisines) {
     const preference = await Preference.updateOne({_id: id},
       { $set: { diets : diets, cuisine: cuisines, intolerances: intolerances} }
     );
-    // console.log("user: ", user);
+    console.log('preference', preference)
     const returnVal = preference === null ? null : preference;
+
     return returnVal;
   } catch (error) {
     return NextResponse.json(

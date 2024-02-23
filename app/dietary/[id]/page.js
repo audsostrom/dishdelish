@@ -2,6 +2,8 @@
 
 import React, { useState } from "react";
 import "./dietary.css";
+import { updateDiet } from "./updateDiet";
+import { useParams } from 'next/navigation'
 
 function Dietary() {
   // State variables to track selected checkboxes
@@ -9,6 +11,10 @@ function Dietary() {
   const [selectedOption, setSelectedOption] = useState("Intolerances");
   const [selectedCuisines, setSelectedCuisines] = useState([]);
   const [selectedDiets, setSelectedDiets] = useState([]);
+
+  const params = useParams()
+  console.log(params)
+  const id = params['id'];
 
   // Function to handle checkbox change for intolerances
   const handleCheckboxChange = (e) => {
@@ -128,7 +134,7 @@ function Dietary() {
           </select>
         </div>
         <div className="filter">
-          <button>Search</button>
+          <button onClick={() => updateDiet(id, intolerances, selectedDiets, selectedCuisines)}>Search</button>
         </div>
       </div>
 
