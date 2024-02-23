@@ -1,6 +1,7 @@
 import React from "react";
 import BannerImageNew from "../../assets/chef-ingredients.jpeg";
 import "./saved-ingredients.css";
+import Link from "next/link";
 
 function UsedSavedIngredients() {
   return (
@@ -14,8 +15,8 @@ function UsedSavedIngredients() {
         <p>Home {'>'} Recipes</p>
       </div>
       <div style={{ textAlign: "center", marginTop: "20px" }}>
-        <Link to="/filter">
-        <button className="filterButton">Filters</button>
+        <Link href="/dietary">
+          <button className="filterButton">Filters</button>
         </Link>
       </div>
     </div>

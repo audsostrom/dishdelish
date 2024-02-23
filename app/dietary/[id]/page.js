@@ -1,5 +1,7 @@
+"use client";
+
 import React, { useState } from "react";
-import "../../app/dietary/dietary.css";
+import "./dietary.css";
 
 function Dietary() {
   // State variables to track selected checkboxes

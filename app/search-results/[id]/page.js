@@ -3,7 +3,7 @@
 import Link from 'next/link';
 import "./search-results.css";
 import Image from 'next/image';
-import exampleResponse from '../../data/exampleResponse.json'
+import exampleResponse from '../../../data/exampleResponse.json';
 import { getSavedRecipes } from '../../db';
 import { cookies } from 'next/headers';
 

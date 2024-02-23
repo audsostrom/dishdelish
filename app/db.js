@@ -139,13 +139,34 @@ export async function savePreferences(ingredients) {
   try {
     await connectMongoDB();
     // create new user in database with no saved recipes to start
+    console.log('hi');
     const preference = await Preference.create({ ingredients: ingredients, diets: [null], diets: [null], cuisine: [null], intolerances: [null] });
     console.log('preference', preference);
+    console.log(preference._id.toString())
+    return preference;
     // now use prefid
-    return NextResponse.json({ message: "Preferences created" }, { status: 201 });
+    // return NextResponse.json({ message: "Preferences created" }, { status: 201 });
   } catch (error) {
     return NextResponse.json(
-      { message: "An error occurred while registering the user." },
+     { message: "An error occurred while registering the user." },
+      { status: 500 }
+    );
+  }
+}
+
+export async function updatePreferences(id, diets, intolerances, cuisines) {
+  try {
+    await connectMongoDB();
+    // findOne() gives one document that matches the criteria
+    const preference = await Preference.updateOne({_id: id},
+      { $set: { diets : diets, cuisine: cuisines, intolerances: intolerances} }
+    );
+    // console.log("user: ", user);
+    const returnVal = preference === null ? null : preference;
+    return returnVal;
+  } catch (error) {
+    return NextResponse.json(
+      { message: "An error occurred while getting the person's p." },
       { status: 500 }
     );
   }
@@ -155,7 +176,7 @@ export async function getPreferences(id) {
   try {
     await connectMongoDB();
     // findOne() gives one document that matches the criteria
-    const preference = await Preference.findOne({_id: objId}, {ingredients: 1, diets: 1, cuisine: 1, intolerances: 1});
+    const preference = await Preference.findOne({_id: id}, {ingredients: 1, diets: 1, cuisine: 1, intolerances: 1});
     // console.log("user: ", user);
     const returnVal = preference === null ? null : preference;
     return returnVal;
