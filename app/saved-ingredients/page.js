@@ -1,12 +1,12 @@
 import React from "react";
 import BannerImageNew from "../../assets/chef-ingredients.jpeg";
 import "./saved-ingredients.css";
+import Link from "next/link";
 
 function UsedSavedIngredients() {
   return (
     <div>
-      <div className="use" style=
-      {{ backgroundImage: `url(${BannerImageNew})` }}></div>
+      <div className="use" style={{ backgroundImage: `url(${BannerImageNew})` }}></div>
       <div className="customTextNew">
         <p>Got Everything?</p>
       </div>
@@ -14,8 +14,11 @@ function UsedSavedIngredients() {
         <p>Home {'>'} Recipes</p>
       </div>
       <div style={{ textAlign: "center", marginTop: "20px" }}>
-        <Link to="/filter">
+        <Link href="/dietary">
         <button className="filterButton">Filters</button>
+        </Link>
+        <Link href="/looksgood">
+        <button className="looksButton">Looks Good!</button>
         </Link>
       </div>
     </div>
@@ -23,3 +26,4 @@ function UsedSavedIngredients() {
 }
 
 export default UsedSavedIngredients;
+
