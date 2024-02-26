@@ -6,11 +6,17 @@ import { getRecipeFromModel } from './model-handler';
 import { useState } from 'react';
 
 
+
 export default function Transformer() {
    const inputs = ['provolone cheese', 'bacon', 'spinach', 'onion'];
    const params = {"inputs": "provolone cheese, bacon, spinach, onion"};
    const [recipe, setRecipe] = useState([]);
    console.log(recipe)
+   async function getResults(inputs, params) {
+   const results = await getRecipeFromModel(inputs, params);
+   console.log(results)
+   setRecipe(results)
+}
 
    /**
     * 
@@ -40,7 +46,28 @@ export default function Transformer() {
 
   return (
     <div className="transformer-container">
-        <button className="button" onClick={() => setRecipe(getRecipeFromModel(inputs, params))}>Submit!</button>
+        <button className="button" onClick={() => getResults(inputs, params)}>Submit!</button>
+        {
+         recipe[1]?.map((item, i) => 
+         // this redirects you to specific recipe
+            <div className="ingredient" key={i}>
+               <div>{i+1}. {item}</div>
+            </div>
+         )
+        }
     </div>
   );
 }
+
+/**
+ *         <div>
+        {recipe?.map((category, i) => {
+                return <div key={i}>
+                    <h1>Section</h1>
+                    {recipe[i]?.map((item, j) => {
+                        return <span key={index}>item</span>
+                    })}
+                </div>
+         })}
+        </div>
+ */
