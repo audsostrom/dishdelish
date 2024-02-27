@@ -3,6 +3,7 @@
    display: flex;
    justify-content: space-evenly;
    flex-wrap: wrap;
+   margin-bottom: 30px;
 }
 
 .left-side, .right-side {
@@ -12,4 +13,5 @@
    background-color: white;
    padding: 20px;
    border-radius: 10px;
+   height: 500px;
 }

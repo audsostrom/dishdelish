@@ -48,7 +48,7 @@ export default function Transformer() {
   return (
     <div className="transformer-container">
          <div className='left-side'>
-            <input value={value} onChange={e => setValue(e.target.value)} type="text" />
+            <input pattern="/,\s*/$" value={value} onChange={e => setValue(e.target.value)} type="text" />
             <button className="button" onClick={() => getResults(value.split(', '), {"inputs": value})}>Submit!</button>
          </div>
         <div className='right-side'>
