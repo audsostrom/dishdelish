@@ -1,0 +1,15 @@
+.transformer-container {
+   margin-top: 30px;
+   display: flex;
+   justify-content: space-evenly;
+   flex-wrap: wrap;
+}
+
+.left-side, .right-side {
+   display: flex;
+   flex-direction: column;
+   width: 42%;
+   background-color: white;
+   padding: 20px;
+   border-radius: 10px;
+}
