@@ -15,6 +15,7 @@ export async function getRecipeFromModel(inputs, data) {
    const directions = results.split('ingredients: ')[1].split('directions: ')[1].split('. ')
    const ingredients = results.split(' ingredients: ')[1].split(' directions: ')[0]
    const parsedIngredients = parseIngredients(inputs, ingredients)
+   console.log('god', inputs, data)
    console.log([title, parsedIngredients, directions])
    return [title, parsedIngredients, directions]
 
@@ -22,12 +23,27 @@ export async function getRecipeFromModel(inputs, data) {
 
 function parseIngredients(inputs, ingredients) {
    const inputLength = inputs.length
+   //console.log('in function', inputs, ingredients)
    let returnVal = []
    let ingredients_list = ingredients.split(`${inputs[0]} `)
    returnVal.push(ingredients_list[0] + `${inputs[0]}`)
    for (let i = 1; i < inputLength; i++) {
-      ingredients_list = ingredients_list[1].split(`${inputs[i]} `)
-      if (i == inputLength - 1) {
+      //console.log(i, ingredients_list)
+      try {
+         ingredients_list = ingredients_list[1].split(`${inputs[i]} `)
+         if (ingredients_list.length == 1) {
+            //console.log(ingredients_list)
+            ingredients_list = ingredients_list[0].split(`${inputs[i]}, `)
+            //console.log('after split', ingredients_list)
+            const index = ingredients_list[1].search(/\d/)
+            //console.log('oop', index, ingredients_list[1].substring(index))
+            ingredients_list[1] = ingredients_list[1].substring(index)
+         }
+      }
+      catch (err) {
+         console.log('welp', ingredients_list)
+      }
+      if (i == inputLength - 1 && ingredients_list.length == 1) {
          returnVal.push(ingredients_list[0])
       } else {
          returnVal.push(ingredients_list[0] + `${inputs[i]}`)
