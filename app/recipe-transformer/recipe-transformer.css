@@ -32,10 +32,10 @@
 
    .left-side, .right-side {
       width: 320px;
+      margin-bottom: 20px;
    }
    .left-side {
       height: 300px;
-      margin-bottom: 20px;
    }
 }
 .waiting-box {

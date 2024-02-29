@@ -36,32 +36,6 @@ export default function Transformer() {
       setRecipe(results)
    }
 
-   /**
-    * 
-      
-      <div>Title:</div>
-      <div>{title}</div>
-      <div>Ingredients:</div>
-      {
-         myResults.map((item, i) => 
-         // this redirects you to specific recipe
-            <div className="ingredient" key={i}>
-               <div>{i+1}. {item}</div>
-            </div>
-         )
-      }
-      <div>Directions:</div>
-      {
-         directions.map((item, i) => 
-         // this redirects you to specific recipe
-            <div className="step" key={i}>
-               <div>{i+1}. {item}</div>
-            </div>
-         )
-      }
-    </div>
-    */
-
   return (
     <div className="transformer-container">
          <div className='article-title'>Generate New Recipes</div>
@@ -78,9 +52,9 @@ export default function Transformer() {
         <div className='right-side'>
         {(recipe.length == 0) && (
             <div className='waiting-box'>
-               <div className='waiting'><i>Awaiting User Input</i></div>
+               <div className='waiting'><i>Awaiting Your Input</i></div>
                <Stack sx={{ color: '#1E5EFF' }} direction="row" justifyContent="center" alignItems="center">
-                  <CircularProgress color="inherit"/>
+                  <CircularProgress size="3rem" color="inherit"/>
                </Stack>
 
             </div>
