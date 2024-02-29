@@ -10,12 +10,12 @@ export async function getRecipeFromModel(inputs, data) {
 	);
 
 	const result = await response.json();
+   console.log('result', result)
    const results = await result[0]['generated_text']
    const title = results.split('title: ')[1].split(' ingredients:')[0]
    const directions = results.split('ingredients: ')[1].split('directions: ')[1].split('. ')
    const ingredients = results.split(' ingredients: ')[1].split(' directions: ')[0]
    const parsedIngredients = parseIngredients(inputs, ingredients)
-   console.log('god', inputs, data)
    console.log([title, parsedIngredients, directions])
    return [title, parsedIngredients, directions]
 
@@ -28,15 +28,11 @@ function parseIngredients(inputs, ingredients) {
    let ingredients_list = ingredients.split(`${inputs[0]} `)
    returnVal.push(ingredients_list[0] + `${inputs[0]}`)
    for (let i = 1; i < inputLength; i++) {
-      //console.log(i, ingredients_list)
       try {
          ingredients_list = ingredients_list[1].split(`${inputs[i]} `)
          if (ingredients_list.length == 1) {
-            //console.log(ingredients_list)
             ingredients_list = ingredients_list[0].split(`${inputs[i]}, `)
-            //console.log('after split', ingredients_list)
             const index = ingredients_list[1].search(/\d/)
-            //console.log('oop', index, ingredients_list[1].substring(index))
             ingredients_list[1] = ingredients_list[1].substring(index)
          }
       }
