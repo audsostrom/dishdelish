@@ -3,7 +3,11 @@ import Link from 'next/link';
 import "./recipe.css";
 import { createSavedRecipe } from '../db';
 import Image from 'next/image';
+import { Star } from '@mui/icons-material';
 // uncomment only when you need to, this is some dummy data so we don't over-use credits
+
+// https://icongr.am/fontawesome
+// https://icongr.am/fontawesome/star.svg?size=128&color=currentColor
 async function getData(recipeId) {
    const res = await fetch(
       `https://api.spoonacular.com/recipes/${recipeId}/information?apiKey=${process.env.SPOON_KEY}`
@@ -57,6 +61,11 @@ async function RecipeInfo({searchParams}) {
       }
    }
 
+   var myArray = []
+   for (var i = 0; i < (data['spoonacularScore'] / 20); i++) {
+      myArray.push(i)
+    }
+
 
   return (
    <div className='recipe-container'>
@@ -71,6 +80,15 @@ async function RecipeInfo({searchParams}) {
          <Image className="card-image" width='300' height='300' style={{objectFit: "contain"}} src={data['image']}/>
          <div>
          <div className='big-title'>{data['title']}</div>
+            <div>
+               {
+                  myArray.map((diet, i) =>
+                     <Star/>
+
+                  )
+               }
+            </div>
+
             <div>experience level: {getExperienceLevel(data['readyInMinutes'])}</div>
             <div>
                <span>diets: </span>

@@ -8,6 +8,12 @@ const nextConfig = {
           port: '',
           pathname: '/recipeImages/**',
         },
+        {
+          protocol: 'https',
+          hostname: 'icongr.am',
+          port: '',
+          pathname: '/fontawesome/**',
+        },
       ],
     }
 }
