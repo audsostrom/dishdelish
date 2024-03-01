@@ -3,7 +3,7 @@ import Link from 'next/link';
 import "./recipe.css";
 import { createSavedRecipe } from '../db';
 import Image from 'next/image';
-import { Star } from '@mui/icons-material';
+import { Star, Favorite } from '@mui/icons-material';
 // uncomment only when you need to, this is some dummy data so we don't over-use credits
 
 // https://icongr.am/fontawesome
@@ -25,8 +25,11 @@ async function getData(recipeId) {
 async function RecipeInfo({searchParams}) {
    console.log(searchParams['id']);
    const data = await getData(searchParams['id']);
+   console.log(data['analyzedInstructions'][0]['steps'], 'hi')
    console.log(data)
-   const favorited = searchParams['favorited'] == 'true' ? true : false; 
+   const favorited = searchParams['favorited'] == 'true' ? true : false;
+   
+   let page = 1;
 
    // (TO DO): uncomment when everything integrated
    /**
@@ -51,6 +54,10 @@ async function RecipeInfo({searchParams}) {
       return {__html: data['instructions']};
    }
 
+   function setPage(number) {
+      page = number;
+   }
+
    function getExperienceLevel(time) {
       if (time <= 45) {
          return 'beginner'
@@ -64,16 +71,18 @@ async function RecipeInfo({searchParams}) {
    var myArray = []
    for (var i = 0; i < (data['spoonacularScore'] / 20); i++) {
       myArray.push(i)
-    }
+   }
 
 
   return (
    <div className='recipe-container'>
       <div className='top-row'>
-         <div className='title'>Results &rarr; {data['title']}</div>
-         <form action={handleFavorite}>
-            <button type="submit">Favorite</button>
-         </form>
+         <div className='title'>Results &#62; {data['title']}</div>
+            <form className='favorite-button' action={handleFavorite}>
+               <div>Favorite</div>
+               <button className='button' type="submit"><Favorite style={{ width: '20', height: '20' }}/></button>
+            </form>
+
       </div>
       {/** has to be an action in order to use server-side functionality */}
       <div className='body'>
@@ -117,7 +126,8 @@ async function RecipeInfo({searchParams}) {
             <div>Instructions</div>
             <div>Additonal Information</div>
          </div>
-         <div dangerouslySetInnerHTML={getInstructions()}></div>
+         {page == 1 && <div dangerouslySetInnerHTML={getInstructions()}></div>}
+         {page == 2 && <div>Hello</div>}
 
       </div>
    </div>

@@ -7,6 +7,23 @@
    display: flex;
    background-color: #F9F1E7;
    padding: 10px 5%;
+   align-items: center;
+}
+
+
+.favorite-button {
+   align-self: flex-end;
+   margin-left: auto;
+   display: flex;
+   align-items: center;
+
+}
+
+button {
+   width: 30px;
+   height: 30px;
+   background: none;
+   border: none;
 }
 
 
