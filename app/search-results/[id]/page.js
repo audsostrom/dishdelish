@@ -5,6 +5,8 @@ import Image from 'next/image';
 import exampleResponse from '../../../data/exampleResponse.json';
 import { getSavedRecipes } from '../../db';
 import { getPreferences } from '../../db';
+import TuneIcon from '@mui/icons-material/Tune';
+import { Tune } from '@mui/icons-material';
 
 // uncomment only when you need to, this is some dummy data so we don't over-use credits
 async function getData(id) {
@@ -13,7 +15,7 @@ async function getData(id) {
    const userIngredients = preferences['ingredients'].join(',')
    console.log('ingredients', userIngredients)
    const res = await fetch(
-      `https://api.spoonacular.com/recipes/complexSearch?number=5&addRecipeInformation=true&includeIngredients=${userIngredients}&apiKey=${process.env.SPOON_KEY}`
+      `https://api.spoonacular.com/recipes/complexSearch?number=8&addRecipeInformation=true&includeIngredients=${userIngredients}&apiKey=${process.env.SPOON_KEY}`
    );
    
    if (!res.ok) {
@@ -51,8 +53,22 @@ async function Results({ params }) {
 
   return (
    <div className='results-container'>
-      <div>Here's What We Found For You</div>
-      <div>Showing Results</div>
+      <div className="banner">
+         <div className='header'>Here's What We Found For You</div>
+         <Link href={{pathname: `/grab`,}}>
+            <div className='go-back'>&#60; Need To Go Back?</div>
+         </Link>
+      </div>
+      <div className="option-bar">
+         <Link href={{pathname: `/dietary/${id}`,}}>
+            <div className='filter-wrapper'>
+               <TuneIcon/>
+               <div className='filter-text'>Filters</div>
+            </div>
+         </Link>
+         
+         <div className='showing-results'>Showing {data.results.length} Results</div>
+      </div>
       <div className='recipe-cards-wrapper'>
          {
            data.results.map((item, i) => 
@@ -64,8 +80,8 @@ async function Results({ params }) {
                <div className="recipe-card" key={i}>
                <Image className="card-image" width='200' height='200' src={item['image']}/>
                <div className='card-text'>
-                  <div>{item['title']}</div>
-                  <div>Time: {item['readyInMinutes']} minutes</div>
+                  <div className="recipe-title">{item['title']}</div>
+                  <div className='time'>Time: {item['readyInMinutes']} minutes</div>
                </div>
                </div>
             </Link>
