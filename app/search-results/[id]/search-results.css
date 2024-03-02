@@ -6,6 +6,7 @@ body {
    display: flex;
    flex-wrap: wrap;
    margin: 10px 20px;
+   align-items: center;
    justify-content: space-evenly;
    animation: 1s ease-out 0s slideInFromLeft;
 }

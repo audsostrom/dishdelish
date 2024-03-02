@@ -33,7 +33,6 @@ button {
    padding-left: 5%;
    padding-right: 5%;
    justify-content: space-evenly;
-   
 }
 
 @media only screen and (max-width: 650px) {
@@ -45,7 +44,7 @@ button {
 .big-title {
    font-weight: 600;
    font-size: 30px;
-   
+   margin-bottom: 10px;
 }
 
 
@@ -58,6 +57,10 @@ hr {
    width: 90%;
 }
 
+.experience, .diets, .cuisines  {
+   color: gray;
+
+}
 .options {
    margin-top: 20px;
    display: flex;

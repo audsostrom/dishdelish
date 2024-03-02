@@ -4,6 +4,7 @@ import "./recipe.css";
 import { createSavedRecipe } from '../db';
 import Image from 'next/image';
 import { Star, Favorite } from '@mui/icons-material';
+import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 // uncomment only when you need to, this is some dummy data so we don't over-use credits
 
 // https://icongr.am/fontawesome
@@ -79,14 +80,16 @@ async function RecipeInfo({searchParams}) {
       <div className='top-row'>
          <div className='title'>Results &#62; {data['title']}</div>
             <form className='favorite-button' action={handleFavorite}>
+               
                <div>Favorite</div>
-               <button className='button' type="submit"><Favorite style={{ width: '20', height: '20' }}/></button>
+               {!favorited && <button className='button' type="submit"><FavoriteBorderIcon style={{ width: '20', height: '20' }}/></button>}
+               {favorited && <button className='button' type="submit"><Favorite style={{ width: '20', height: '20' }}/></button>}
             </form>
 
       </div>
       {/** has to be an action in order to use server-side functionality */}
       <div className='body'>
-         <Image className="card-image" width='300' height='300' style={{objectFit: "contain"}} src={data['image']}/>
+         <Image className="big-card-image" width='300' height='300' style={{objectFit: "contain"}} src={data['image']}/>
          <div>
          <div className='big-title'>{data['title']}</div>
             <div>
@@ -98,8 +101,8 @@ async function RecipeInfo({searchParams}) {
                }
             </div>
 
-            <div>experience level: {getExperienceLevel(data['readyInMinutes'])}</div>
-            <div>
+            <div className='experience'>experience level: {getExperienceLevel(data['readyInMinutes'])}</div>
+            <div className='diets'>
                <span>diets: </span>
                {
                   data['diets'].map((diet, i) =>
@@ -107,7 +110,7 @@ async function RecipeInfo({searchParams}) {
                   )
                }
             </div>
-            <div>
+            <div className='cuisines'>
                <span>cuisines: </span>
                {data['cuisines'].length == 0 && <span>n/a</span>}
                {
