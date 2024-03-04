@@ -20,13 +20,13 @@
  
  .menuImage {
    max-width: 500px;
-   max-height: 500px;
+   max-height: 400px;
    margin-right: min(10%, 25px);
    box-shadow: 12px 12px 2px 1px rgba(255, 194, 71, .8);
  }
  
  .customTextnew {
-   font-size: 55px;
+   font-size: 50px;
    font-weight: bold;
    color: black;
    text-align: center;
@@ -41,7 +41,7 @@
  }
  
  .buttonContainer {
-   margin-top: 40px;
+   margin-top: 30px;
    text-align: center;
    display: flex;
    flex-direction: column;
@@ -76,6 +76,14 @@
     height: 150px;
   }
 
+  .menuImage {
+    width: 90%;
+    max-width: 350px;
+    max-height: 200px;
+    margin-right: min(20%, 25px);
+    box-shadow: 12px 12px 2px 1px rgba(255, 194, 71, .8);
+  }
+
   .customTextContainer {
     width: 90%;
     align-items: center;
@@ -85,9 +93,9 @@
 
   .customTextnew {
     top: 50px;
-    font-size: 30px; /* Adjusted font size for smaller screens */
+    font-size: 32px; /* Adjusted font size for smaller screens */
     padding: 10px;
-    margin-top: 10px;
+    margin-top: 8px;
   }
 
   .customTexthome {
@@ -95,5 +103,22 @@
     font-size: 200px; /* Adjusted font size for smaller screens */
     padding: 10px 15px;
   }
+
+  .primaryButton,
+ .secondaryButton {
+   padding: 10px 15px; /* Adjusted padding for a less wide button */
+   border-radius: 20px;
+   margin-bottom: 10px;
+   cursor: pointer;
+   width: 200px;
+ }
+
+ .buttonContainer {
+  margin-top: 15px;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  width: 200px;
+}
 }
  

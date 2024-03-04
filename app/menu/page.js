@@ -13,8 +13,6 @@ function Menu() {
     <div className="menu">
         <div className="customTextContainer">
           <span className="customTextnew">We make cooking work for you. </span>
-          <br />
-          <br />
           <div className="customDescription">
             With DishDelish, just tell us what you have in your pantry, and we'll handle the rest. You can start your list of ingredients from scratch, or you can use your saved items from previous searches.
           </div>
