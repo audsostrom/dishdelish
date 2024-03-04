@@ -3,9 +3,10 @@
 import Link from 'next/link';
 import "./search-results.css";
 import Image from 'next/image';
-import exampleResponse from '../../data/exampleResponse.json'
+import exampleResponse from '../../../data/exampleResponse.json'
 import { getSavedRecipes } from '../../db';
 import { cookies } from 'next/headers';
+var fs = require('fs');
 
 // uncomment only when you need to, this is some dummy data so we don't over-use credits
 async function getData() {
@@ -34,23 +35,20 @@ async function getData() {
 async function Results() {
 
    // (TO DO) uncomment this section during intregration + after demo
-   /**
-   let session = await auth();
-   console.log(session.user);
-   let userRecipes = await getSavedRecipes(session.user.email);
-   console.log('my recipes', userRecipes);
-    
-   */
-   let userRecipes = await getSavedRecipes('1234@gmail.com');
+
+   // let session = await auth();
+   // console.log(session.user);
+   // let userRecipes = await getSavedRecipes(session.user.email);
    // console.log('my recipes', userRecipes);
+    
+   let userRecipes = await getSavedRecipes('1234@gmail.com');
+   console.log('my recipes', userRecipes);
 
    const data = await getData();
    // console.log(data);
    // uncomment if you want to update the dummy example with whatever response you want
-   /**
    let object = JSON.stringify(data);
    fs.writeFileSync('data/exampleResponse.json', object);
-   */
 
   return (
    <div className='results-container'>

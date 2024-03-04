@@ -25,8 +25,10 @@ function Grab() {
           selectedVal={value}
           handleChange={(val) => setValue(val)}
         />
+        <button className="primaryButton" onClick={() => storeIngredients(value)}>Submit</button>
+
       </div>
-      <button onClick={() => storeIngredients(value)}>submit</button>
+      
     </>
   );
 }
