@@ -1,0 +1,98 @@
+.email, .display-name, .password {
+   display: flex;
+   align-items: center;
+   justify-content: flex-start;
+   margin-bottom: 10px;
+}
+
+
+.settings {
+   display: flex;
+   flex-direction: column;
+   align-items: flex-start;
+   flex-wrap: wrap;
+}
+
+.field-wrapper {
+   width: 70vw;
+}
+
+.password-field {
+   width: 34vw;
+}
+
+#new-pass {
+   margin-right: 3vw;
+}
+
+
+.profile-label {
+   width: 100px;
+}
+
+
+.savedRecipes {
+   display: flex;
+   flex-wrap: wrap;
+   width: 70vw;
+   justify-content: center;
+
+}
+
+@media only screen and (max-width: 650px) {
+   .savedRecipes {
+      width: 100%;
+   }   
+}
+.recipe-card {
+   width: 200px;
+   height: 290px;
+   margin-bottom: 10px;
+   border-radius: 5px;
+   background-color: #F4F5F7;
+   border: 1px solid gray;
+   box-shadow: 2px 2px 2.5px gray;
+   font-size: 14px;
+   font-weight: 500;
+}
+
+.recipe-card:hover::before {
+   transform: scale(1.1);
+   box-shadow: 0 0 15px #ffee10;
+ }
+ 
+.recipe-card:hover {
+   box-shadow: 0 0 5px #ffee10;
+ }
+
+a {
+   color: black;
+   text-decoration: none; 
+   background-color: none;
+}
+
+.recipe-title {
+   height: 50px;
+}
+.time {
+   color: #898989;
+   font-weight: 400;
+}
+
+.card-image {
+   border-top-left-radius: 5px;
+   border-top-right-radius: 5px;
+   border-bottom: 1px solid gray;
+}
+
+.card-text {
+   padding: 5px;
+}
+.card-image {
+   border-top-left-radius: 5px;
+   border-top-right-radius: 5px;
+}
+
+.card-text {
+   padding: 5px;
+}
