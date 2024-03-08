@@ -2,8 +2,10 @@
 import Link from 'next/link';
 import "./search-results.css";
 import Image from 'next/image';
-import exampleResponse from '../../../data/exampleResponse.json';
+import exampleResponse from '../../../data/exampleResponse.json'
 import { getSavedRecipes } from '../../db';
+import { cookies } from 'next/headers';
+var fs = require('fs');
 import { getPreferences } from '../../db';
 import TuneIcon from '@mui/icons-material/Tune';
 import { Tune } from '@mui/icons-material';
@@ -31,25 +33,20 @@ async function getData(id) {
 async function Results({ params }) {
 
    // (TO DO) uncomment this section during intregration + after demo
-   /**
-   let session = await auth();
-   console.log(session.user);
-   let userRecipes = await getSavedRecipes(session.user.email);
-   console.log('my recipes', userRecipes);
-   
+
+   // let session = await auth();
+   // console.log(session.user);
+   // let userRecipes = await getSavedRecipes(session.user.email);
+   // console.log('my recipes', userRecipes);
     
-   */
    let userRecipes = await getSavedRecipes('1234@gmail.com');
-   console.log('params', params)
-   const id = params['id'];
+   console.log('my recipes', userRecipes);
 
    const data = await getData(id);
    // console.log(data);
    // uncomment if you want to update the dummy example with whatever response you want
-   /**
    let object = JSON.stringify(data);
    fs.writeFileSync('data/exampleResponse.json', object);
-   */
 
   return (
    <div className='results-container'>

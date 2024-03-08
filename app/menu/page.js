@@ -13,8 +13,6 @@ function Menu() {
     <div className="menu">
         <div className="customTextContainer">
           <span className="customTextnew">We make cooking work for you. </span>
-          <br />
-          <br />
           <div className="customDescription">
             With DishDelish, just tell us what you have in your pantry, and we'll handle the rest. You can start your list of ingredients from scratch, or you can use your saved items from previous searches.
           </div>
@@ -26,7 +24,7 @@ function Menu() {
             </Link>
             {/** Change trigger auth guard, using protected as a placeholder - should be a different screen */}
             <Link href="/saved-ingredients">
-              <button className="roundedButton secondaryButton">Use Saved Items</button>
+              <button className="roundedButton secondaryButton">✧ AI Generate New Recipes</button>
             </Link>
           </div>
         </div>

@@ -85,7 +85,7 @@ const SearchableDropdown = ({
         <p>Selected Ingredients:</p>
         {selectedItems.map((item, index) => (
           <div className="selected-item" key={`selected-${index}`}>
-            {item} <span onClick={() => deselectItem(item)}>x</span>
+            <span onClick={() => deselectItem(item)}>✖️</span> {item} 
           </div>
         ))}
       </div>

@@ -1,6 +1,6 @@
 'use client';
 import { useState } from "react";
-import BannerImageNew from "../../assets/chef-ingredients.jpeg";
+import BannerImageNew from "../../assets/bannerused.png";
 import { ingredients } from "@/data/ingredients";
 import "./grab.css";
 import SearchableDropdown from "../../components/searchable-dropdown/searchable-dropdown";
@@ -13,11 +13,11 @@ function Grab() {
     <>
       <div className="grab" style={{ backgroundImage: `url(${BannerImageNew.src})` }}>
       </div>
-      <div className="customTextNew">
+      {/* <div className="customTextNew">
         <p>Got Everything?</p>
-      </div>
+      </div> */}
       <div className="customTexthome">
-        <p>Home {'>'} Recipes</p>
+        <p>Find Ingredients in Your Pantry!</p>
         <SearchableDropdown
           options={ingredients}
           label="name"
@@ -25,8 +25,13 @@ function Grab() {
           selectedVal={value}
           handleChange={(val) => setValue(val)}
         />
-        <button className="roundedButton primaryButton" onClick={() => storeIngredients(value)}>Submit!</button>
+
+        <button className="submit-button" onClick={() => storeIngredients(value)}>Submit</button>
+
       </div>
+
+      
+      
     </>
   );
 }
