@@ -6,6 +6,7 @@ import TextField from '@mui/material/TextField';
 import { getSavedRecipes } from '../../db';
 import { signOut } from '../../auth';
 import LogoutIcon from '@mui/icons-material/Logout';
+import { sendEmail } from '@/app/mail';
 
 export async function Settings() {
    // let session = await auth();
@@ -52,6 +53,14 @@ console.log(userRecipes)
             )
          }
       </div>
+      <form 
+         action={async () => {
+            'use server';
+            await sendEmail();
+         }}
+      >
+         <button>Test Email</button>
+      </form>
       <form
          action={async () => {
          'use server';
