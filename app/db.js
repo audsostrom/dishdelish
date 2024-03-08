@@ -4,6 +4,8 @@ import bcrypt from "bcrypt";
 import mongoose from "mongoose";
 import savedRecipe from "@/models/savedRecipes";
 import Preference from "@/models/preference";
+import Token from "@/models/token";
+import crypto from 'crypto';
 
 
 export const connectMongoDB = async () => {
@@ -15,7 +17,42 @@ export const connectMongoDB = async () => {
   }
 };
 
+
 export async function createUser(email, password) {
+  try {
+    const hashedPassword = await bcrypt.hash(password, 10);
+    await connectMongoDB();
+    // create new user in database with no saved recipes to start
+    const user = await User.create({ email, password: hashedPassword, savedRecipes: [null] });
+    console.log('user', user);
+    return NextResponse.json({ message: "User registered." }, { status: 201 });
+  } catch (error) {
+    return NextResponse.json(
+      { message: "An error occurred while registering the user." },
+      { status: 500 }
+    );
+  }
+}
+
+/** For password resetting */
+export async function createResetToken(email) {
+  try {
+    await connectMongoDB();
+    // create new user in database with no saved recipes to start
+    const user = await User.findOne({email});
+    const tokenString = crypto.randomBytes(32).toString('hex');
+    const token = await Token.create({ token, userId: user._id, type: 'password-reset', expirationDate: new Date(Date.now() + 1000 * 60 * 20)});
+    return tokenString;
+  } catch (error) {
+    return NextResponse.json(
+      { message: "An error occurred while trying to create a reset password token." },
+      { status: 500 }
+    );
+  }
+}
+
+/** For password resetting */
+export async function updateUser(email, password) {
   try {
     const hashedPassword = await bcrypt.hash(password, 10);
     await connectMongoDB();
