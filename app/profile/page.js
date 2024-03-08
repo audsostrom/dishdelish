@@ -15,6 +15,9 @@ async function Profile() {
          <Image height='200' width='200' src={DefaultIcon}/>
          {/* <Image className='pencil' height='50' width='50' src={PencilIcon}/> */}
       </div>
+      <div>
+         
+      </div>
       <div className='title'>Your Profile</div>
       <hr></hr>
       <Settings/>
