@@ -4,7 +4,8 @@ import bcrypt from "bcrypt";
 import mongoose from "mongoose";
 import savedRecipe from "@/models/savedRecipes";
 import Preference from "@/models/preference";
-
+import crypto from 'crypto';
+import Token from "@/models/token";
 
 export const connectMongoDB = async () => {
   try {
@@ -42,6 +43,27 @@ export async function getUser(email) {
   } catch (error) {
     return NextResponse.json(
       { message: "An error occurred while getting the user." },
+      { status: 500 }
+    );
+  }
+}
+
+export async function makeResetToken(email) {
+  try {
+    await connectMongoDB();
+    // findOne() gives one document that matches the criteria
+    const user = await User.findOne({email});
+    const tokenString = crypto.randomBytes(32).toString('hex');
+    const token = await Token.create({
+      token,
+      userId: user._id,
+      type: 'password-reset',
+      expireAt: new Date(Date.now() + 1000 * 60 * 20)
+    });
+    return tokenString;
+  } catch (error) {
+    return NextResponse.json(
+      { message: "An error occurred while making a reset token." },
       { status: 500 }
     );
   }
