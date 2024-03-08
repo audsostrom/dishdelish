@@ -16,11 +16,25 @@ export async function Settings() {
 
    // let userRecipes = await getSavedRecipes(session.user.email);
    // console.log('my recipes', userRecipes);
-   let userRecipes = await getSavedRecipes('1234@gmail.com');
-console.log(userRecipes)
+   let userRecipes = await getSavedRecipes(session.user.email);
+   console.log(userRecipes)
   return (
    <div className='settings-container'>
-         <div className='subtitle'>Settings</div>
+         <div className='top-settings-row'>
+            <div className='subtitle'>Settings</div>
+            <form className='sign-out'
+                     action={async () => {
+                        'use server';
+                        await signOut();
+                     }}
+                  >
+                     <button className='sign-out-button' type="submit">
+                        <div>Sign Out</div>
+                        <LogoutIcon/>
+                     </button>
+            </form>
+
+         </div>
          <form className='settings'
             action={async (formData) => {
                'use server';
@@ -36,20 +50,7 @@ console.log(userRecipes)
                <TextField name='password' type='password' style={{marginRight: '2vw'}} className="password-field" label="enter new password" type="password" />
                <TextField className="password-field" label="confirm password" type="password" />
             </div>
-            <div className="settings-button-row">
-               <button className='confirm-changes-button'>Confirm Changes</button>
-            </div>
-         </form>
-         <form className='sign-out'
-                  action={async () => {
-                     'use server';
-                     await signOut();
-                  }}
-               >
-                  <button className='sign-out-button' type="submit">
-                     <div>Sign Out</div>
-                     <LogoutIcon/>
-                  </button>
+            <button type="submit" className='confirm-changes-button'>Confirm Changes</button>
          </form>
          <div className='subtitle'>Saved Recipes</div>
          <div className='savedRecipes'>
@@ -71,15 +72,6 @@ console.log(userRecipes)
             )
          }
       </div>
-      <form 
-         action={async () => {
-            'use server';
-            await sendEmail();
-         }}
-      >
-         <button>Test Email</button>
-      </form>
-
    </div>
 
   );
