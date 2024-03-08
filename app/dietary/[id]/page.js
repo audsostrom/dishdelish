@@ -1,7 +1,9 @@
 "use client";
-import React, { useState, useClient} from "react";
-import "../../app/dietary/dietary.css";
 
+import React, { useState } from "react";
+import "./dietary.css";
+import { updateDiet } from "./updateDiet";
+import { useParams } from 'next/navigation'
 
 function Dietary() {
   // State variables to track selected checkboxes
@@ -9,6 +11,7 @@ function Dietary() {
   const [selectedOption, setSelectedOption] = useState("Intolerances");
   const [selectedCuisines, setSelectedCuisines] = useState([]);
   const [selectedDiets, setSelectedDiets] = useState([]);
+  const [searchTerm, setSearchTerm] = useState("");
 
   // Function to handle checkbox change for intolerances
   const handleCheckboxChange = (e) => {
@@ -41,6 +44,7 @@ function Dietary() {
   };
 
   const generateDropdownOptions = () => {
+    let filteredOptions;
     if (selectedOption === "Intolerances") {
       // Allergy options
       const allergies = [
@@ -48,75 +52,41 @@ function Dietary() {
         "Peanuts", "Seafood", "Sesame", "Shellfish",
         "Soy", "Sulfite", "Tree Nut", "Wheat"
       ];
-
-      return (
-        <div className="dropdown">
-          <div className="dropdown-content">
-            {allergies.map((allergy) => (
-              <div key={allergy} className="checkbox">
-                <input
-                  type="checkbox"
-                  value={allergy}
-                  onChange={handleCheckboxChange}
-                  checked={intolerances.includes(allergy)}
-                />
-                <label>{allergy}</label>
-              </div>
-            ))}
-          </div>
-        </div>
-      );
+      filteredOptions = allergies.filter(option => option.toLowerCase().includes(searchTerm.toLowerCase()));
     } else if (selectedOption === "Cuisine") {
       // Cuisine options
-      const cuisines = ["Any","African", "American", "Asian", "British", "Cajun", "Caribbean", "Chinese", "Eastern European", "French", "German", "Greek", "Indian", "Irish", "Italian", "Jewish", "Japenese", "Korean", "Latin American", "Mexican", "Middle Eastern", "Nordic", "Southern", "Spanish", "Thai"];
-
-      return (
-        <div className="dropdown">
-          <div className="dropdown-content">
-            {cuisines.map((cuisine) => (
-              <div key={cuisine} className="checkbox">
-                <input
-                  type="checkbox"
-                  value={cuisine}
-                  onChange={handleCuisineCheckboxChange}
-                  checked={selectedCuisines.includes(cuisine)}
-                />
-                <label>{cuisine}</label>
-              </div>
-            ))}
-          </div>
-        </div>
-      );
+      const cuisines = ["African", "American", "Asian", "British", "Cajun", "Caribbean", "Chinese", "Eastern European", "French", "German", "Greek", "Indian", "Irish", "Italian", "Jewish", "Japenese", "Korean", "Latin American", "Mexican", "Middle Eastern", "Nordic", "Southern", "Spanish", "Thai"];
+      filteredOptions = cuisines.filter(option => option.toLowerCase().includes(searchTerm.toLowerCase()));
     } else if (selectedOption === "Diet") {
       // Diet options
-      const diets = ["Any", "Lacto Vegeterian", "Ovo Vegeterian", "Playo", "Pesceterian", "Primal", "Vegan", "Vegeterian", "Keto", "Whole 30"];
-
-      return (
-        <div className="dropdown">
-          <div className="dropdown-content">
-            {diets.map((diet) => (
-              <div key={diet} className="checkbox">
-                <input
-                  type="checkbox"
-                  value={diet}
-                  onChange={handleDietCheckboxChange}
-                  checked={selectedDiets.includes(diet)}
-                />
-                <label>{diet}</label>
-              </div>
-            ))}
-          </div>
-        </div>
-      );
+      const diets = ["Lacto Vegeterian", "Ovo Vegeterian", "Playo", "Pesceterian", "Primal", "Vegan", "Vegeterian", "Keto", "Whole 30"];
+      filteredOptions = diets.filter(option => option.toLowerCase().includes(searchTerm.toLowerCase()));
     }
-    return null;
+
+    return (
+      <div className="dropdown">
+        <div className="dropdown-content">
+          {filteredOptions.map((option) => (
+            <label key={option} className="checkbox"> {/* Wrap each row with label */}
+              <input
+                type="checkbox"
+                value={option}
+                onChange={selectedOption === "Cuisine" ? handleCuisineCheckboxChange : selectedOption === "Diet" ? handleDietCheckboxChange : handleCheckboxChange}
+                checked={selectedOption === "Cuisine" ? selectedCuisines.includes(option) : selectedOption === "Diet" ? selectedDiets.includes(option) : intolerances.includes(option)}
+              />
+              <div>{option}</div> {/* Place label text inside a div */}
+            </label>
+          ))}
+        </div>
+      </div>
+    );
   };
 
   return (
     <div>
       <div className="newPage">
         <div className="search">
-          <input type="text" placeholder="Search..." />
+          <input type="text" placeholder="Search..." value={searchTerm} onChange={(e) => setSearchTerm(e.target.value)} />
         </div>
         <div className="options">
           <select onChange={(e) => setSelectedOption(e.target.value)}>

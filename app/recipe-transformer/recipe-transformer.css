@@ -1,0 +1,103 @@
+.transformer-container {
+   margin-top: 30px;
+}
+.article-title {
+   margin-left: 4%;
+   font-weight: 600;
+   font-size: 30px;
+   margin-bottom: 30px;
+}
+.body-content {
+   display: flex;
+   justify-content: space-evenly;
+   flex-wrap: wrap;
+   margin-bottom: 30px;
+}
+
+.left-side, .right-side {
+   display: flex;
+   flex-direction: column;
+   width: 42%;
+   background-color: white;
+   padding: 20px;
+   border-radius: 10px;
+   height: 450px;
+   box-shadow: 0px 2.5px 2.5px grey;
+}
+@media only screen and (max-width: 650px) {
+   .article-title {
+      margin-left: 0%;
+      text-align: center;
+   }
+
+   .left-side, .right-side {
+      width: 320px;
+      margin-bottom: 20px;
+   }
+   .left-side {
+      height: 300px;
+   }
+}
+.waiting-box {
+   justify-self: center;
+   align-self: center;
+   text-align: center;
+   margin: auto;
+}
+.waiting {
+   margin-bottom: 20px;
+}
+.ingredient-input {
+   height: 150px;
+   resize: none;
+   margin-bottom: 30px;
+   font-family: 'Poppins';
+   padding: 7px;
+}
+@media only screen and (max-width: 650px) {
+   .ingredient-input {
+      height: 75px;
+   }
+}
+
+.instructions {
+   margin-top: 20px;
+   font-size: 14px;
+   text-align: center;
+   font-style: italic;
+   font-family: 'Montserrat';
+}
+.credits {
+   line-height: 40px;
+   display: flex;
+   align-items: center;
+   justify-content: center;
+   margin-top: auto;
+   justify-self: flex-end;
+   font-family: 'Montserrat';
+}
+.submit-button {
+   display: flex;
+   background-color: #1E5EFF;
+   border: none;
+   color: white;
+   font-family: 'Montserrat';
+   width: 100%;
+   border-radius:2.5px;
+   padding: 10px 20px;
+   text-align: center;
+   justify-content: center;
+}
+
+.recipe-title {
+   text-align: center;
+   font-weight: 600;
+   font-size: 30px;
+}
+.section-header {
+   font-weight: 500;
+   font-size: 20px;
+   margin-top: 10px;
+   margin-bottom: 5px;
+   text-decoration: underline dotted;
+}

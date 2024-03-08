@@ -1,0 +1,80 @@
+body {
+   background-color: white;
+}
+
+.recipe-container {
+   height: calc(100vh - 60px);
+}
+
+.top-row {
+   display: flex;
+   background-color: #F9F1E7;
+   padding: 10px 5%;
+   align-items: center;
+}
+
+
+.favorite-button {
+   align-self: flex-end;
+   margin-left: auto;
+   display: flex;
+   align-items: center;
+
+}
+
+button {
+   width: 30px;
+   height: 30px;
+   background: none;
+   border: none;
+}
+
+
+.body {
+   display: flex;
+   align-items: center;
+   padding-left: 5%;
+   padding-right: 5%;
+   justify-content: space-evenly;
+}
+
+@media only screen and (max-width: 650px) {
+   .body {
+      flex-direction: column;
+   }
+}
+
+.big-title {
+   font-weight: 600;
+   font-size: 30px;
+   margin-bottom: 10px;
+}
+
+
+hr {
+   border: none;
+   border-top: 1px solid #808080;
+   color: #333;
+   overflow: visible;
+   text-align: center;
+   width: 90%;
+}
+
+.experience, .diets, .cuisines  {
+   color: gray;
+
+}
+.options {
+   margin-top: 20px;
+   display: flex;
+   align-items: center;
+   justify-content: center;
+   gap: 20px;
+}
+
+.lower-part {
+   display: flex;
+   flex-direction: column;
+   padding-left: 5%;
+   padding-right: 5%;
+}

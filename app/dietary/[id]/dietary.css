@@ -1,0 +1,103 @@
+/* Dietary.css */
+
+.newPage {
+  display: flex;
+  flex-direction: column; /* Change layout to column for smaller screens */
+  align-items: center; /* Center items horizontally */
+  justify-content: center; /* Center items vertically */
+  margin-top: 20px;
+}
+
+.search input[type="text"],
+.options select,
+.filter button,
+.checkbox-container {
+  margin: 10px auto; /* Center horizontally */
+}
+
+.checkbox-container {
+  width: 100%; /* Take full width */
+}
+
+.checkbox {
+  display: flex; /* Align checkbox and label horizontally */
+  align-items: center; /* Center align checkbox and label */
+  justify-content: space-between; /* Space content and checkbox evenly */
+  margin-bottom: 10px;
+  padding: 15px; /* Add more padding to create space between border and content */
+  border-radius: 5px; /* Add border-radius for rounded corners */
+  border: 1px solid #ccc; /* Add border */
+  width: 80%; /* Adjust width */
+  margin: 10px auto; /* Center horizontally */
+  background-color: white; /* Set background color to white */
+}
+
+
+.checkbox input[type="checkbox"] {
+  order: 2; /* Make checkbox appear after label */
+  width: 30px; /* Adjust checkbox size */
+  height: 30px; /* Adjust checkbox size */
+  margin-left: 20px; /* Add more spacing between content and checkbox */
+}
+
+.checkbox label {
+  order: 1; /* Make label appear before checkbox */
+  font-size: 20px; /* Increase font size for content */
+}
+
+/* Additional styling for search input */
+.search input[type="text"] {
+  height: 30px;
+  padding: 10px;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+  width: calc(100% - 20px); /* Adjust width */
+  max-width: 300px; /* Set max width for larger screens */
+}
+
+.options select {
+  height: 50px;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+  width: calc(100% - 20px); /* Adjust width */
+  max-width: 300px; /* Set max width for larger screens */
+}
+
+.filter button,
+.search button {
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  background-color: #b88e2f;
+  height: 50px;
+  width: calc(100% - 20px); /* Adjust width */
+  max-width: 300px; /* Set max width for larger screens */
+  padding-left: 20px;
+  padding-right: 20px;
+  text-align: center; /* Center button text */
+  font-size: 24px; /* Increase font size */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+@media only screen and (min-width: 600px) {
+  /* Adjustments for larger screens */
+  .newPage {
+    flex-direction: row; /* Revert back to row layout */
+  }
+
+  .search input[type="text"],
+  .options select,
+  .filter button,
+  .search button {
+    margin: 0 10px; /* Adjusted margin */
+    width: auto; /* Reset width */
+    max-width: none; /* Reset max-width */
+  }
+
+  .checkbox-container {
+    width: 100%; /* Take 100% width on larger screens */
+  }
+}
