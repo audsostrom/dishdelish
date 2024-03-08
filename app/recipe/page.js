@@ -81,7 +81,7 @@ async function RecipeInfo({searchParams}) {
          <div className='title'>Results &#62; {data['title']}</div>
             <form className='favorite-button' action={handleFavorite}>
                
-               <div>Favorite</div>
+               <div style={{fontSize: '18px'}}>Favorite</div>
                {!favorited && <button className='button' type="submit"><FavoriteBorderIcon style={{ width: '20', height: '20' }}/></button>}
                {favorited && <button className='button' type="submit"><Favorite style={{ width: '20', height: '20' }}/></button>}
             </form>
