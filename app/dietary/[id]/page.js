@@ -8,7 +8,7 @@ import { useParams } from 'next/navigation';
 function Dietary() {
   // State variables to track selected checkboxes
   const [intolerances, setIntolerances] = useState([]);
-  const [selectedOption, setSelectedOption] = useState("Intolerances");
+  const [selectedOption, setSelectedOption] = useState("Cuisine");
   const [selectedCuisines, setSelectedCuisines] = useState([]);
   const [selectedDiets, setSelectedDiets] = useState([]);
   const [searchTerm, setSearchTerm] = useState("");
@@ -110,7 +110,6 @@ function Dietary() {
         </div>
         <div className="options">
           <select onChange={(e) => setSelectedOption(e.target.value)}>
-            <option value="Any">Any</option>
             <option value="Cuisine">Cuisine</option>
             <option value="Diet">Diet</option>
             <option value="Intolerances">Intolerances</option>
