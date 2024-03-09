@@ -3,7 +3,7 @@
 import React, { useState } from "react";
 import "./dietary.css";
 import { updateDiet } from "./updateDiet";
-import { useParams } from 'next/navigation'
+import { useParams } from 'next/navigation';
 
 function Dietary() {
   // State variables to track selected checkboxes
@@ -12,6 +12,7 @@ function Dietary() {
   const [selectedCuisines, setSelectedCuisines] = useState([]);
   const [selectedDiets, setSelectedDiets] = useState([]);
   const [searchTerm, setSearchTerm] = useState("");
+  const [timeRange, setTimeRange] = useState([10, 60]); // State for time range
 
   // Function to handle checkbox change for intolerances
   const handleCheckboxChange = (e) => {
@@ -43,6 +44,11 @@ function Dietary() {
     }
   };
 
+  // Function to handle slider change for time range
+  const handleSliderChange = (e) => {
+    setTimeRange(e.target.value.split(",").map(Number));
+  };
+
   const generateDropdownOptions = () => {
     let filteredOptions;
     if (selectedOption === "Intolerances") {
@@ -59,24 +65,38 @@ function Dietary() {
       filteredOptions = cuisines.filter(option => option.toLowerCase().includes(searchTerm.toLowerCase()));
     } else if (selectedOption === "Diet") {
       // Diet options
-      const diets = ["Lacto Vegeterian", "Ovo Vegeterian", "Playo", "Pesceterian", "Primal", "Vegan", "Vegeterian", "Keto", "Whole 30"];
+      const diets = ["Lacto Vegetarian", "Ovo Vegetarian", "Paleo", "Pescetarian", "Primal", "Vegan", "Vegetarian", "Keto", "Whole 30"];
       filteredOptions = diets.filter(option => option.toLowerCase().includes(searchTerm.toLowerCase()));
     }
 
     return (
       <div className="dropdown">
         <div className="dropdown-content">
-          {filteredOptions.map((option) => (
-            <label key={option} className="checkbox"> {/* Wrap each row with label */}
+          {selectedOption === "Time" ? (
+            <div className="time-slider">
               <input
-                type="checkbox"
-                value={option}
-                onChange={selectedOption === "Cuisine" ? handleCuisineCheckboxChange : selectedOption === "Diet" ? handleDietCheckboxChange : handleCheckboxChange}
-                checked={selectedOption === "Cuisine" ? selectedCuisines.includes(option) : selectedOption === "Diet" ? selectedDiets.includes(option) : intolerances.includes(option)}
+                type="range"
+                min="10"
+                max="60"
+                value={timeRange.join(",")}
+                onChange={handleSliderChange}
+                step="1"
               />
-              <div>{option}</div> {/* Place label text inside a div */}
-            </label>
-          ))}
+              <p>{timeRange[0]} min</p> {/* Text to display selected time range */}
+            </div>
+          ) : (
+            filteredOptions.map((option) => (
+              <label key={option} className="checkbox">
+                <input
+                  type="checkbox"
+                  value={option}
+                  onChange={selectedOption === "Cuisine" ? handleCuisineCheckboxChange : selectedOption === "Diet" ? handleDietCheckboxChange : handleCheckboxChange}
+                  checked={selectedOption === "Cuisine" ? selectedCuisines.includes(option) : selectedOption === "Diet" ? selectedDiets.includes(option) : intolerances.includes(option)}
+                />
+                <div>{option}</div>
+              </label>
+            ))
+          )}
         </div>
       </div>
     );
