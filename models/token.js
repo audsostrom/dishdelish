@@ -16,11 +16,11 @@ const tokenSchema = new Schema(
       required: true,
     },
     expirationDate: {
-      type: Timestamp,
+      type: Date,
     },
   },
   { timestamps: true }
 );
 
-const Token = models.Token || mongoose.model("Toke", tokenSchema);
+const Token = models.Token || mongoose.model("Token", tokenSchema);
 export default Token;
