@@ -1,5 +1,5 @@
-import { useEffect, useRef, useState } from "react";
-import "./searchable-dropdown.css";
+import {useEffect, useRef, useState} from 'react';
+import './searchable-dropdown.css';
 
 const SearchableDropdown = ({
 	options,
@@ -8,25 +8,25 @@ const SearchableDropdown = ({
 	selectedVal,
 	handleChange,
 }) => {
-	const [query, setQuery] = useState("");
+	const [query, setQuery] = useState('');
 	const [isOpen, setIsOpen] = useState(false);
 	const [selectedItems, setSelectedItems] = useState([]);
 
 	const inputRef = useRef(null);
 
 	useEffect(() => {
-		document.addEventListener("click", toggle);
-		return () => document.removeEventListener("click", toggle);
+		document.addEventListener('click', toggle);
+		return () => document.removeEventListener('click', toggle);
 	}, []);
 
 	const selectOption = (option) => {
-		setQuery("");
+		setQuery('');
 		setIsOpen(false);
 
 		// If the option is already selected, remove it; otherwise, add it to the list
-		const updatedSelectedItems = selectedItems.includes(option[label])
-			? selectedItems.filter((item) => item !== option[label])
-			: [...selectedItems, option[label]];
+		const updatedSelectedItems = selectedItems.includes(option[label]) ?
+			selectedItems.filter((item) => item !== option[label]) :
+			[...selectedItems, option[label]];
 
 		setSelectedItems(updatedSelectedItems);
 		handleChange(updatedSelectedItems);
@@ -64,15 +64,15 @@ const SearchableDropdown = ({
 						onClick={toggle}
 					/>
 				</div>
-				<div className={`arrow ${isOpen ? "open" : ""}`}></div>
+				<div className={`arrow ${isOpen ? 'open' : ''}`}></div>
 			</div>
 
-			<div className={`options ${isOpen ? "open" : ""}`}>
+			<div className={`options ${isOpen ? 'open' : ''}`}>
 				{filter(options).map((option, index) => (
 					<div
 						onClick={() => selectOption(option)}
 						className={`option ${
-							selectedItems.includes(option[label]) ? "selected" : ""
+							selectedItems.includes(option[label]) ? 'selected' : ''
 						}`}
 						key={`${id}-${index}`}
 					>
@@ -85,7 +85,7 @@ const SearchableDropdown = ({
 				<p>Selected Ingredients:</p>
 				{selectedItems.map((item, index) => (
 					<div className="selected-item" key={`selected-${index}`}>
-						<span onClick={() => deselectItem(item)}>✖️</span> {item} 
+						<span onClick={() => deselectItem(item)}>✖️</span> {item}
 					</div>
 				))}
 			</div>

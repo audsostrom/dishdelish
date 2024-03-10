@@ -1,9 +1,8 @@
-import "./profile.css";
+import './profile.css';
 
 import Image from 'next/image';
 import DefaultIcon from '../../assets/default-profile-icon.svg';
-import { Settings } from './settings/settings';
-
+import {Settings} from './settings/settings';
 
 
 async function Profile() {
@@ -16,7 +15,7 @@ async function Profile() {
 				{/* <Image className='pencil' height='50' width='50' src={PencilIcon}/> */}
 			</div>
 			<div>
-         
+
 			</div>
 			<div className='title'>Your Profile</div>
 			<hr></hr>

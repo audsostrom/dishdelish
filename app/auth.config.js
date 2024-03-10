@@ -11,10 +11,10 @@ export const authConfig = {
 		// while this file is also used in non-Node.js environments
 	],
 	callbacks: {
-		authorized({ auth, request: { nextUrl } }) {
-			let isLoggedIn = !!auth?.user;
+		authorized({auth, request: {nextUrl}}) {
+			const isLoggedIn = !!auth?.user;
 			console.log(auth?.user);
-			let isOnRestrictedPage = nextUrl.pathname.startsWith('/profile');
+			const isOnRestrictedPage = nextUrl.pathname.startsWith('/profile');
 
 			// redirect unauthenticated users to login page
 			if (isOnRestrictedPage) {
@@ -26,7 +26,7 @@ export const authConfig = {
 			else if (isLoggedIn && (nextUrl.pathname.startsWith('/login') || nextUrl.pathname.startsWith('/register'))) {
 				return Response.redirect(new URL('/profile', nextUrl));
 			}
-      
+
 			return true;
 		},
 	},

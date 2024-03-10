@@ -1,10 +1,10 @@
-"use client";
-import React, { useState, useEffect } from "react";
-import Image from "next/image";
-import Link from "next/link";
+'use client';
+import React, {useState, useEffect} from 'react';
+import Image from 'next/image';
+import Link from 'next/link';
 import AccountCircleRoundedIcon from '@mui/icons-material/AccountCircleRounded';
-import Logo from "../../assets/logo.svg";
-import "./navbar.css";
+import Logo from '../../assets/logo.svg';
+import './navbar.css';
 
 function Navbar() {
 	const [openLinks, setOpenLinks] = useState(false);
@@ -13,7 +13,7 @@ function Navbar() {
 
 	useEffect(() => {
 		// Check if the page has fully loaded
-		if (document.readyState === "complete") {
+		if (document.readyState === 'complete') {
 			setLoaded(true);
 		}
 	}, []);
@@ -30,7 +30,7 @@ function Navbar() {
 	return (
 		<div className="navbar">
 			{/* Logo for desktop */}
-			<div className={`logo-desktop ${loaded ? "loaded" : ""}`}>
+			<div className={`logo-desktop ${loaded ? 'loaded' : ''}`}>
 				<Image height='40' width='40' src={Logo} alt="Logo" />
 				<div className="logo-text">
           DishDelish
@@ -42,7 +42,7 @@ function Navbar() {
 					{/* Close Icon */}
 				</div>
 				<ul>
-					{/*navigation/close mobile menu on click */}
+					{/* navigation/close mobile menu on click */}
 					<li><Link href="/" onClick={closeMobileMenu}>Home</Link></li>
 					<li><Link href="/about" onClick={closeMobileMenu}>About</Link></li>
 					<li><Link href="/menu" onClick={closeMobileMenu}>Recipes</Link></li>

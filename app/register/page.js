@@ -1,20 +1,20 @@
 import Link from 'next/link';
-import { Form } from '../../components/form/form';
-import { redirect } from 'next/navigation';
-import { createUser, getUser } from '../db';
-import { SubmitButton } from '../../components/submit-button/submit-button';
+import {Form} from '../../components/form/form';
+import {redirect} from 'next/navigation';
+import {createUser, getUser} from '../db';
+import {SubmitButton} from '../../components/submit-button/submit-button';
 import './register.css';
 
 export default function Register() {
 	async function register(formData) {
 		'use server';
-		let email = formData.get('email');
-		let password = formData.get('password');
-		let user = await getUser(email);
+		const email = formData.get('email');
+		const password = formData.get('password');
+		const user = await getUser(email);
 		console.log('mu user', user);
 
 		if (user) {
-			console.log('User already exists'); 
+			console.log('User already exists');
 		} else {
 			await createUser(email, password);
 			redirect('/login');
@@ -27,7 +27,7 @@ export default function Register() {
 				<div className='register-header'>
           Create Your Account
 					<div className="register-subheader">
-						{"Already have an account? "}
+						{'Already have an account? '}
 						<Link href="/login">
               Sign in
 						</Link>

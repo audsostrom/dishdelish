@@ -1,15 +1,15 @@
 import NextAuth from 'next-auth';
 import Credentials from 'next-auth/providers/credentials';
-import { getUser } from './db';
-import { compare } from 'bcrypt';
-import { authConfig } from './auth.config';
+import {getUser} from './db';
+import {compare} from 'bcrypt';
+import {authConfig} from './auth.config';
 
 /**
  * Handles attempts for the user to login and any checks for credentials
  * during the current session
  */
 export const {
-	handlers: { GET, POST },
+	handlers: {GET, POST},
 	auth,
 	signIn,
 	signOut,
@@ -18,12 +18,14 @@ export const {
 	providers: [
 		Credentials({
 			async authorize(credentials) {
-				let user = await getUser(credentials['email']);
+				const user = await getUser(credentials['email']);
 				if (!user) return null;
-				let passwordsMatch = await compare(credentials['password'], user['password']);
-				if (passwordsMatch) return {
-					email: credentials['email'],
-				};
+				const passwordsMatch = await compare(credentials['password'], user['password']);
+				if (passwordsMatch) {
+					return {
+						email: credentials['email'],
+					};
+				}
 			},
 		}),
 	],

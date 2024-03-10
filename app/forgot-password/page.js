@@ -1,10 +1,10 @@
 import Link from 'next/link';
-import { Form } from '../../components/form/form';
-import { signIn } from '../auth';
-import { sendEmail } from '../mail';
-import { SubmitButton } from '../../components/submit-button/submit-button';
-import './forgot-password.css'
-import { redirect } from 'next/navigation';
+import {Form} from '../../components/form/form';
+import {signIn} from '../auth';
+import {sendEmail} from '../mail';
+import {SubmitButton} from '../../components/submit-button/submit-button';
+import './forgot-password.css';
+import {redirect} from 'next/navigation';
 
 export default function ForgotPassword() {
 	return (
@@ -14,7 +14,7 @@ export default function ForgotPassword() {
           Forgot Password?
 
 					<div className="forgot-password-subheader">
-						{"Remembered your password? "}
+						{'Remembered your password? '}
 						<Link href="/register">
                 Go Back To Login
 						</Link>
@@ -24,7 +24,7 @@ export default function ForgotPassword() {
 				<form
 					action={async (formData) => {
 						'use server';
-						await sendEmail(formData.get("email"));
+						await sendEmail(formData.get('email'));
 						redirect('/login');
 					}}
 				>

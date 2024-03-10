@@ -1,18 +1,17 @@
 import Link from 'next/link';
-import { SubmitButton } from '../../../components/submit-button/submit-button';
-import './reset-password.css'
-import { redirect } from 'next/navigation';
-import { resetPassword } from '@/app/db';
-import { getToken } from '@/app/db';
+import {SubmitButton} from '../../../components/submit-button/submit-button';
+import './reset-password.css';
+import {redirect} from 'next/navigation';
+import {resetPassword} from '@/app/db';
+import {getToken} from '@/app/db';
 
-export default async function ForgotPassword({ params }) {
-
+export default async function ForgotPassword({params}) {
 	const token = params['id'];
 	const tokenDoc = await getToken(token);
-	const email = tokenDoc['email']
-	const expirationDate = tokenDoc['expireAt']
+	const email = tokenDoc['email'];
+	const expirationDate = tokenDoc['expireAt'];
 	const isExpired = (Date.now() > expirationDate);
-	console.log('tokenDoc', tokenDoc, token, typeof token)
+	console.log('tokenDoc', tokenDoc, token, typeof token);
 
 
 	return (
@@ -28,7 +27,7 @@ export default async function ForgotPassword({ params }) {
 							action={async (formData) => {
 								'use server';
 								const response = await resetPassword(email, formData.get('password'), formData.get('confirm-password'));
-								console.log('response was', response)
+								console.log('response was', response);
 								redirect('/login');
 							}}
 						>
@@ -60,9 +59,7 @@ export default async function ForgotPassword({ params }) {
 								<SubmitButton>Go Back To Login</SubmitButton>
 							</div>
 						</form>
-					</div>
-
-					:
+					</div>					:
 
 					<div className="forgot-password-wrapper">
 						<div className='forgot-password-header'>
@@ -71,7 +68,7 @@ export default async function ForgotPassword({ params }) {
 						<div>Link is expired</div>
 					</div>
 
-      
+
 			}
 		</div>
 	);

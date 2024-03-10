@@ -3,21 +3,21 @@ import './settings.css';
 import Link from 'next/link';
 import Image from 'next/image';
 import TextField from '@mui/material/TextField';
-import { getSavedRecipes } from '../../db';
+import {getSavedRecipes} from '../../db';
 import LogoutIcon from '@mui/icons-material/Logout';
-import { sendEmail } from '@/app/mail';
-import { auth, signOut } from '../../auth';
-import { getUser } from '../../db';
+import {sendEmail} from '@/app/mail';
+import {auth, signOut} from '../../auth';
+import {getUser} from '../../db';
 
 export async function Settings() {
-	let session = await auth();
+	const session = await auth();
 	console.log(session.user);
-	let user = await getUser(session.user.email);
+	const user = await getUser(session.user.email);
 
 	// let userRecipes = await getSavedRecipes(session.user.email);
 	// console.log('my recipes', userRecipes);
-	let userRecipes = await getSavedRecipes(session.user.email);
-	console.log(userRecipes)
+	const userRecipes = await getSavedRecipes(session.user.email);
+	console.log(userRecipes);
 	return (
 		<div className='settings-container'>
 			<div className='top-settings-row'>
@@ -38,7 +38,7 @@ export async function Settings() {
 			<form className='settings'
 				action={async (formData) => {
 					'use server';
-					console.log('values', formData.get('password'), formData.get('email'))
+					console.log('values', formData.get('password'), formData.get('email'));
 				}}
 			>
 				<div className='email'>
@@ -55,13 +55,13 @@ export async function Settings() {
 			<div className='subtitle'>Saved Recipes</div>
 			<div className='savedRecipes'>
 				{
-					userRecipes.map((item, i) => 
+					userRecipes.map((item, i) =>
 					// this redirects you to specific recipe route with id and favorites in the search params
-						<Link 
+						<Link
 							key={'recipe' + i}
 							href={{
 								pathname: `/recipe/`,
-								query: { id: item['recipeId'], favorited: userRecipes.some(obj => obj.id === item['id']) },
+								query: {id: item['recipeId'], favorited: userRecipes.some((obj) => obj.id === item['id'])},
 							}}
 						>
 							<div className='recipe-card' key={i}>

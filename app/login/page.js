@@ -1,7 +1,7 @@
 import Link from 'next/link';
-import { Form } from '../../components/form/form';
-import { signIn } from '../auth';
-import { SubmitButton } from '../../components/submit-button/submit-button';
+import {Form} from '../../components/form/form';
+import {signIn} from '../auth';
+import {SubmitButton} from '../../components/submit-button/submit-button';
 import './login.css';
 
 export default function Login() {
@@ -12,7 +12,7 @@ export default function Login() {
           Login to Your Account
 
 					<div className="login-subheader">
-						{"Don't have an account? "}
+						{'Don\'t have an account? '}
 						<Link href="/register">
                 Sign up
 						</Link>

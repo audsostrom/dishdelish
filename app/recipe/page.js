@@ -1,16 +1,16 @@
 // Import necessary dependencies and components
 import Link from 'next/link';
-import "./recipe.css";
-import { createSavedRecipe } from '../db';
+import './recipe.css';
+import {createSavedRecipe} from '../db';
 import Image from 'next/image';
-import { Star, Favorite } from '@mui/icons-material';
+import {Star, Favorite} from '@mui/icons-material';
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 
 async function getData(recipeId) {
 	const res = await fetch(
 		`https://api.spoonacular.com/recipes/${recipeId}/information?apiKey=${process.env.SPOON_KEY}`
 	);
-  
+
 	if (!res.ok) {
 		// This will activate the closest `error.js` Error Boundary
 		throw new Error('Failed to fetch data');
@@ -23,11 +23,11 @@ async function getData(recipeId) {
 async function RecipeInfo({searchParams}) {
 	console.log(searchParams['id']);
 	const data = await getData(searchParams['id']);
-	console.log(data['analyzedInstructions'][0]['steps'], 'hi')
-	console.log(data)
+	console.log(data['analyzedInstructions'][0]['steps'], 'hi');
+	console.log(data);
 	const favorited = searchParams['favorited'] == 'true' ? true : false;
-   
-	let page = 1;
+
+	const page = 1;
 
 	// (TO DO): uncomment when everything integrated
 	/**
@@ -40,7 +40,7 @@ async function RecipeInfo({searchParams}) {
 
 	// very critical to use server here!
 	const handleFavorite = async () => {
-		"use server";
+		'use server';
 		createSavedRecipe(email, data, favorited);
 	};
 
@@ -54,17 +54,17 @@ async function RecipeInfo({searchParams}) {
 
 	function getExperienceLevel(time) {
 		if (time <= 45) {
-			return 'beginner'
+			return 'beginner';
 		} else if (time <= 120) {
-			return 'intermediate'
+			return 'intermediate';
 		} else {
-			return 'hard'
+			return 'hard';
 		}
 	}
 
-	var myArray = []
-	for (var i = 0; i < (data['spoonacularScore'] / 20); i++) {
-		myArray.push(i)
+	const myArray = [];
+	for (let i = 0; i < (data['spoonacularScore'] / 20); i++) {
+		myArray.push(i);
 	}
 
 
@@ -73,10 +73,10 @@ async function RecipeInfo({searchParams}) {
 			<div className='top-row'>
 				<div className='title'>Results &#62; {data['title']}</div>
 				<form className='favorite-button' action={handleFavorite}>
-               
+
 					<div style={{fontSize: '18px'}}>Favorite</div>
-					{!favorited && <button className='button' type="submit"><FavoriteBorderIcon style={{ width: '20', height: '20' }}/></button>}
-					{favorited && <button className='button' type="submit"><Favorite style={{ width: '20', height: '20' }}/></button>}
+					{!favorited && <button className='button' type="submit"><FavoriteBorderIcon style={{width: '20', height: '20'}}/></button>}
+					{favorited && <button className='button' type="submit"><Favorite style={{width: '20', height: '20'}}/></button>}
 				</form>
 
 			</div>

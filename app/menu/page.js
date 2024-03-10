@@ -1,7 +1,7 @@
 import Link from 'next/link';
-import "./menu.css";
+import './menu.css';
 import Image from 'next/image';
-import yourImage from "../../assets/GetCooking.jpeg";
+import yourImage from '../../assets/GetCooking.jpeg';
 
 
 function Menu() {
@@ -12,7 +12,7 @@ function Menu() {
 				<div className="customDescription">
             With DishDelish, just tell us what you have in your pantry, and we'll handle the rest. You can start your list of ingredients from scratch, or you can use your saved items from previous searches.
 				</div>
-          
+
 				{/* Add the buttons here */}
 				<div className="buttonContainer">
 					<Link href="/grab">
