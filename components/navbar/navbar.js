@@ -10,7 +10,6 @@ function Navbar() {
 	const [openLinks, setOpenLinks] = useState(false);
 	const [loaded, setLoaded] = useState(false); // New state to track if the page has loaded
 
-
 	useEffect(() => {
 		// Check if the page has fully loaded
 		if (document.readyState === 'complete') {
@@ -31,10 +30,8 @@ function Navbar() {
 		<div className="navbar">
 			{/* Logo for desktop */}
 			<div className={`logo-desktop ${loaded ? 'loaded' : ''}`}>
-				<Image height='40' width='40' src={Logo} alt="Logo" />
-				<div className="logo-text">
-          DishDelish
-				</div>
+				<Image height="40" width="40" src={Logo} alt="Logo" />
+				<div className="logo-text">DishDelish</div>
 			</div>
 			<div className={`leftSide ${openLinks ? 'show-mobile-menu' : ''}`}>
 				{/* Logo and text for mobile toggle menu */}
@@ -43,23 +40,62 @@ function Navbar() {
 				</div>
 				<ul>
 					{/* navigation/close mobile menu on click */}
-					<li><Link href="/" onClick={closeMobileMenu}>Home</Link></li>
-					<li><Link href="/about" onClick={closeMobileMenu}>About</Link></li>
-					<li><Link href="/menu" onClick={closeMobileMenu}>Recipes</Link></li>
-					<li><Link href="/profile" onClick={closeMobileMenu}>Profile</Link></li>
+					<li>
+						<Link href="/" onClick={closeMobileMenu}>
+              Home
+						</Link>
+					</li>
+					<li>
+						<Link href="/about" onClick={closeMobileMenu}>
+              About
+						</Link>
+					</li>
+					<li>
+						<Link href="/menu" onClick={closeMobileMenu}>
+              Recipes
+						</Link>
+					</li>
+					<li>
+						<Link href="/profile" onClick={closeMobileMenu}>
+              Profile
+						</Link>
+					</li>
 				</ul>
 			</div>
 			<div className="rightSide">
-				<Link href="/" onClick={closeMobileMenu}> Home </Link>
-				<Link href="/about" onClick={closeMobileMenu}> About </Link>
-				<Link href="/menu" onClick={closeMobileMenu}> Recipes </Link>
-				<Link href="/profile" className="icon" onClick={closeMobileMenu}><AccountCircleRoundedIcon/> </Link>
+				<Link href="/" onClick={closeMobileMenu}>
+					{' '}
+          Home{' '}
+				</Link>
+				<Link href="/about" onClick={closeMobileMenu}>
+					{' '}
+          About{' '}
+				</Link>
+				<Link href="/menu" onClick={closeMobileMenu}>
+					{' '}
+          Recipes{' '}
+				</Link>
+				<Link href="/profile" className="icon" onClick={closeMobileMenu}>
+					<AccountCircleRoundedIcon />{' '}
+				</Link>
 
 				<div className={`hiddenLinks ${openLinks ? 'open' : ''}`}>
-					<Link href="/" onClick={closeMobileMenu}> Home </Link>
-					<Link href="/about" onClick={closeMobileMenu}> About </Link>
-					<Link href="/menu" onClick={closeMobileMenu}> Recipes </Link>
-					<Link href="/profile" onClick={closeMobileMenu}> Profile </Link>
+					<Link href="/" onClick={closeMobileMenu}>
+						{' '}
+            Home{' '}
+					</Link>
+					<Link href="/about" onClick={closeMobileMenu}>
+						{' '}
+            About{' '}
+					</Link>
+					<Link href="/menu" onClick={closeMobileMenu}>
+						{' '}
+            Recipes{' '}
+					</Link>
+					<Link href="/profile" onClick={closeMobileMenu}>
+						{' '}
+            Profile{' '}
+					</Link>
 				</div>
 
 				<button className="hamburger-button" onClick={toggleNavbar}>

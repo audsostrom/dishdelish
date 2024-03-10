@@ -16,10 +16,19 @@ import TuneIcon from '@mui/icons-material/Tune';
 async function getData(id) {
 	'use server';
 	const preferences = await getPreferences(id);
-	const userIngredients = preferences['ingredients'].join(',');
-	console.log('ingredients', userIngredients);
+	const userIngredients = preferences['ingredients'].join(',+');
+	const userCuisines = preferences['diets'].join(',');
+	const userIntolerances = preferences['intolerances'].join(',+');
+	let intolerancesString, cuisinesString;
+	if (userIntolerances != []) {
+		intolerancesString = `&intolerances=${userIntolerances}`
+	}
+	if (userCuisines != []) {
+		cuisinesString = `&cuisine=${userCuisines}`
+	}
+	console.log('ingredients', userIngredients, userIntolerances, cuisinesString);
 	const res = await fetch(
-		`https://api.spoonacular.com/recipes/complexSearch?number=8&addRecipeInformation=true&includeIngredients=${userIngredients}&apiKey=${process.env.SPOON_KEY}`
+		`https://api.spoonacular.com/recipes/complexSearch?addRecipeInformation=true&includeIngredients=${userIngredients}&apiKey=${process.env.SPOON_KEY}`
 	);
 
 	if (!res.ok) {
@@ -45,6 +54,7 @@ async function Results({params}) {
 	const id = params['id'];
 
 	const data = await getData(id);
+	console.log(data)
 
 	return (
 		<div className='results-container'>
