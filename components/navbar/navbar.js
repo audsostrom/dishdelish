@@ -8,19 +8,8 @@ import "./navbar.css";
 
 function Navbar() {
   const [openLinks, setOpenLinks] = useState(false);
-  const [windowWidth, setWindowWidth] = useState(0);
   const [loaded, setLoaded] = useState(false); // New state to track if the page has loaded
 
-  useEffect(() => {
-    const handleResize = () => {
-      setWindowWidth(window.innerWidth);
-    };
-    handleResize();
-    window.addEventListener("resize", handleResize);
-    return () => {
-      window.removeEventListener("resize", handleResize);
-    };
-  }, []);
 
   useEffect(() => {
     // Check if the page has fully loaded
@@ -49,14 +38,6 @@ function Navbar() {
       </div>
       <div className={`leftSide ${openLinks ? 'show-mobile-menu' : ''}`}>
         {/* Logo and text for mobile toggle menu */}
-        {windowWidth < 600 && (
-          <div className="logo-container-mobile">
-            <Image height='40' width='40' src={Logo} alt="Logo" />
-            <div className="logo-text">
-              DishDelish
-            </div>
-          </div>
-        )}
         <div className="close-icon" onClick={toggleNavbar}>
           {/* Close Icon */}
         </div>
