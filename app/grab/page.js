@@ -10,15 +10,18 @@ import {storeIngredients} from './storeIngredients';
  * @return – Renders the Ingredients Selection Page
  */
 export default function Grab() {
-	const [value, setValue] = useState('Search Ingredients');
+	const [value, setValue] = useState([]);
 	console.log('value', value);
 	return (
-		<>
-			<div className="grab" style={{backgroundImage: `url(${BannerImageNew.src})`}}>
+		<div className='grab-container'>
+			<div className='banner'>
+				<div className='header'>Grab Everything!</div>
+				<div className='go-back'>Select the ingredients you have on-hand</div>
 			</div>
-			{/* <div className="customTextNew">
-        <p>Got Everything?</p>
-      </div> */}
+			<div className='option-bar'>
+				<div className='explanation-text'>If you're logged in, your ingredients from the previous session are saved</div>
+				<button className="submit-button" onClick={() => storeIngredients(value)}>Got Everything?</button>
+			</div>
 			<div className="customTexthome">
 				<p>Find Ingredients in Your Pantry!</p>
 				<SearchableDropdown
@@ -28,12 +31,9 @@ export default function Grab() {
 					selectedVal={value}
 					handleChange={(val) => setValue(val)}
 				/>
-
-				<button className="submit-button" onClick={() => storeIngredients(value)}>Submit</button>
-
 			</div>
 
 
-		</>
+		</div>
 	);
 }

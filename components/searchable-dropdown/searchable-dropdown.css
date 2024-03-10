@@ -72,28 +72,24 @@
    color: rgb(0, 0, 0);
    }
 
+   .selected-title {
+      margin-top: 15px;
+   }
+
+   .selected-items {
+      overflow: scroll;
+      height: 300px;
+   }
+
 
 .selected-item {
-  background-color: #ffffffda;
-  color: #333; /* Text color for secondary button */
   border: 2px solid black;
-  font-size: 20px;
   flex-direction: column;
-  position: relative;
+  flex-wrap: wrap;
   padding: 5px 10px;
   border-radius: 20px;
   margin-bottom: 5px;
   cursor: pointer;
   width: max-content;
-  -ms-transform: translateY(-50%);
-  transform: translateY(-50%);
   margin-top: 12px;
-}
-
-@media only screen and (max-width: 480px) {
-   .selected-item {
-      margin-top: 35px;
-    }
-
-
 }
