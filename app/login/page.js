@@ -3,11 +3,15 @@ import {Form} from '../../components/form/form';
 import {signIn} from '../auth';
 import {SubmitButton} from '../../components/submit-button/submit-button';
 import './login.css';
+import {redirect} from 'next/navigation';
 
 /**
  * @return – Renders the Login Page
  */
-export default function Login() {
+export default function Login({searchParams}) {
+	const found = searchParams['found'];
+	const match = searchParams['match'];
+
 	return (
 		<div className="login-container">
 			<div className="login-wrapper">
@@ -26,12 +30,18 @@ export default function Login() {
 					action={async (formData) => {
 						'use server';
 						const response = await signIn('credentials', {
-							redirectTo: '/profile',
+							redirect: false,
 							email: formData.get('email'),
 							password: formData.get('password'),
-						});
+						}).then().catch(() => 
+							redirect(`/login/?match=false`)
+						);
+						if (response) {
+							redirect(`/profile`);
+						}
 					}}
 				>
+					{match && <div>Password incorrect</div>}
 					<div className="sign-in-button">
 						<SubmitButton>Sign in</SubmitButton>
 					</div>

@@ -1,5 +1,5 @@
 
-.menu {
+.menu-container {
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
@@ -8,24 +8,26 @@
   height: calc(100vh - 60px);
   align-items: center;
   justify-content: center;
+  background-color: #F9F1E7; /* Beige color */;
  }
  
- .customTextContainer {
+ .custom-text-container {
    width: 50%;
  }
  
- .menuImageContainer {
+ .menu-image-container {
   margin-left: min(10%, 50px);
+
  }
  
- .menuImage {
+ .menu-image {
    max-width: 500px;
    max-height: 400px;
    margin-right: min(10%, 25px);
    box-shadow: 12px 12px 2px 1px rgba(255, 194, 71, .8);
  }
  
- .customTextnew {
+  .custom-text-title {
    font-size: 50px;
    font-weight: bold;
    color: black;
@@ -34,13 +36,13 @@
    margin-bottom: 10px;
  }
  
- .customDescription {
+ .custom-description {
    font-size: 18px;
    color: #333;
    text-align: left;
  }
  
- .buttonContainer {
+ .buttons-container {
    margin-top: 30px;
    text-align: center;
    display: flex;
@@ -48,8 +50,8 @@
    width: 220px;
  }
  
- .primaryButton,
- .secondaryButton {
+ .primary-button,
+ .secondary-button {
    padding: 10px 15px; /* Adjusted padding for a less wide button */
    border-radius: 20px;
    margin-bottom: 15px;
@@ -57,14 +59,14 @@
    width: 220px;
  }
  
- .primaryButton {
+ .primary-button {
    background-color: #b88e2f; /* Primary button color */
    font-weight: bold;
    color: #fff; /* Text color for primary button */
    border: none;
  }
  
- .secondaryButton {
+ .secondary-button {
    background: none; /* Fully opaque secondary button color */
    font-weight: bold;
    color: #333; /* Text color for secondary button */
@@ -76,7 +78,7 @@
     height: 150px;
   }
 
-  .menuImage {
+  .menu-image {
     width: 90%;
     max-width: 400px;
     max-height: 250px;
@@ -84,28 +86,23 @@
     box-shadow: 12px 12px 2px 1px rgba(255, 194, 71, .8);
   }
 
-  .customTextContainer {
+  .custom-text-container {
     width: 90%;
     align-items: center;
     display: flex;
     flex-direction: column;
   }
 
-  .customTextnew {
+  .custom-text-title {
     top: 50px;
     font-size: 32px; /* Adjusted font size for smaller screens */
     padding: 10px;
     margin-top: 8px;
   }
 
-  .customTexthome {
-    top: 20px;
-    font-size: 200px; /* Adjusted font size for smaller screens */
-    padding: 10px 15px;
-  }
 
-  .primaryButton,
- .secondaryButton {
+  .primary-button,
+ .secondary-button {
    padding: 10px 15px; /* Adjusted padding for a less wide button */
    border-radius: 20px;
    margin-bottom: 15px;
@@ -113,7 +110,7 @@
    width: 200px;
  }
 
- .buttonContainer {
+ .buttons-container {
   margin-top: 20px;
   margin-bottom: 20px;
   text-align: center;

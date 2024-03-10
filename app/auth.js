@@ -18,15 +18,24 @@ export const {
 	providers: [
 		Credentials({
 			async authorize(credentials) {
-				const user = await getUser(credentials['email']);
-				if (!user) return null;
-				const passwordsMatch = await compare(
-					credentials['password'], user['password']
-				);
-				if (passwordsMatch) {
-					return {
-						email: credentials['email'],
-					};
+				try {
+					const user = await getUser(credentials['email']);
+					console.log('my user', user)
+					if (!user) return null;
+					const passwordsMatch = await compare(
+						credentials['password'], user['password']
+					);
+					if (passwordsMatch) {
+						return {
+							email: credentials['email'],
+						};
+					} else {
+						console.log('hi')
+						return null;
+					}
+
+				} catch (error) {
+					return null;
 				}
 			},
 		}),

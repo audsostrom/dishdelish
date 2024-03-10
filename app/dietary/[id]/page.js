@@ -4,8 +4,9 @@ import React, { useState } from "react";
 import "./dietary.css";
 import { updateDiet } from "./updateDiet";
 import { useParams } from 'next/navigation';
+import Link from "next/link";
 
-function Dietary() {
+export default function Dietary() {
   // State variables to track selected checkboxes
   const [intolerances, setIntolerances] = useState([]);
   const [selectedOption, setSelectedOption] = useState("Cuisine");
@@ -13,6 +14,12 @@ function Dietary() {
   const [selectedDiets, setSelectedDiets] = useState([]);
   const [searchTerm, setSearchTerm] = useState("");
   const [timeRange, setTimeRange] = useState([10, 60]); // State for time range
+
+  const params = useParams()
+  console.log(params)
+  const id = params['id'];
+
+
 
 	// Function to handle checkbox change for intolerances
 	const handleCheckboxChange = (e) => {
@@ -103,11 +110,21 @@ function Dietary() {
   };
 
   return (
-    <div>
-      <div className="newPage">
-        <div className="search">
-          <input type="text" placeholder="Search..." value={searchTerm} onChange={(e) => setSearchTerm(e.target.value)} />
-        </div>
+    <div className="dietary-container">
+		<div className='banner'>
+			<div className='header'>Here's What We Found For You</div>
+			<Link href={{pathname: `/grab`}}>
+				<div className='go-back'>&#60; Need To Reselect Your Ingredients?</div>
+			</Link>
+		</div>
+		<div className='option-bar'>
+			<div className='explanation-text'>Here, you can select your allergies and preferred dietary preferences.</div>
+			<button className="submit-button" onClick={() => updateDiet(id, selectedDiets, intolerances, selectedCuisines)}>Find Recipes</button>
+		</div>
+
+		<div className="dietary-content-search">
+		<div className="newPage">
+         <input className='search-text-field' type="text" placeholder="Search..." value={searchTerm} onChange={(e) => setSearchTerm(e.target.value)} />
         <div className="options">
           <select onChange={(e) => setSelectedOption(e.target.value)}>
             <option value="Cuisine">Cuisine</option>
@@ -121,7 +138,9 @@ function Dietary() {
         </div>
       </div>
 
-			<div className="checkbox-container">{generateDropdownOptions()}</div>
+		<div className="checkbox-container">{generateDropdownOptions()}</div>
+		</div>
+
 		</div>
 	);
 }

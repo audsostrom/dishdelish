@@ -10,30 +10,30 @@ import yourImage from '../../assets/GetCooking.jpeg';
  */
 export default function Menu() {
 	return (
-		<div className="menu">
-			<div className="customTextContainer">
-				<span className="customTextnew">We make cooking work for you.</span>
-				<div className="customDescription">
+		<div className="menu-container">
+			<div className="custom-text-container">
+				<span className="custom-text-title">We make cooking work for you.</span>
+				<div className="custom-description">
             With DishDelish, just tell us what you have in your
 				pantry, and we'll handle the rest.
 				You can start your list of ingredients from scratch,
 				or you can use your saved items from previous searches.
 				</div>
-				<div className="buttonContainer">
+				<div className="buttons-container">
 					<Link href="/grab">
-						<button className="roundedButton primaryButton">
+						<button className="primary-button">
 							Grab Your Ingredients
 						</button>
 					</Link>
 					<Link href="/recipe-transformer">
-						<button className="roundedButton secondaryButton">
+						<button className="secondary-button">
 							AI Generate New Recipes
 						</button>
 					</Link>
 				</div>
 			</div>
-			<div className="menuImageContainer">
-				<Image unoptimized={true} src={yourImage} alt="Your Image" className="menuImage"/>
+			<div className="menu-image-container">
+				<Image unoptimized={true} src={yourImage} alt="Your Image" className="menu-image"/>
 			</div>
 		</div>
 	);

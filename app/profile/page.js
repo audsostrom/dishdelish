@@ -5,7 +5,7 @@ import DefaultIcon from '../../assets/default-profile-icon.svg';
 import {Settings} from './settings/settings';
 
 
-async function Profile() {
+export default async function Profile() {
 	return (
 		<div className='profile-container'>
 			<div className="banner">
@@ -23,5 +23,3 @@ async function Profile() {
 		</div>
 	);
 }
-
-export default Profile;
