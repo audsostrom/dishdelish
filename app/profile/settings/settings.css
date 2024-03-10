@@ -1,0 +1,152 @@
+.email, .display-name, .password {
+   display: flex;
+   align-items: center;
+   justify-content: flex-start;
+   margin-bottom: 10px;
+}
+
+.settings {
+   display: flex;
+   flex-direction: column;
+   flex-wrap: wrap;
+   align-items: center;
+   justify-content: center;
+   justify-self: center;
+   align-self: center;
+
+}
+
+.top-settings-row {
+   display: flex;
+   margin-bottom: 20px;
+}
+
+.field-wrapper {
+   width: 70vw;
+}
+
+.password-field {
+   width: 34vw;
+}
+
+#new-pass {
+   margin-right: 3vw;
+}
+
+
+.profile-label {
+   width: 100px;
+}
+
+.subtitle {
+   font-weight: bold;
+   font-size: 20px;
+   margin-bottom: 15px;
+   margin-top: 15px;
+}
+
+
+.savedRecipes {
+   display: flex;
+   flex-wrap: wrap;
+   width: 70vw;
+   justify-content: center;
+   gap: 10px;
+}
+
+.settings-button-row {
+   display: flex;
+   gap: 30px;
+
+}
+
+
+.sign-out {
+   justify-self: flex-end;
+   align-self: center;
+   margin-left: auto;
+}
+
+.confirm-changes-button {
+   width: 150px;
+   color: white;
+   background-color: green;
+   border: none;
+   border-radius: 10px;
+   margin-top: 30px;
+   padding: 10px;
+   height: 40px;
+}
+
+.sign-out-button {
+   display: flex;
+   align-items: center;
+   gap: 10px;
+   justify-content: center;
+   width: 150px;
+   height: 40px;
+   color: white;
+   background-color: red;
+   border: none;
+   border-radius: 10px;
+   padding: 10px;
+
+}
+
+@media only screen and (max-width: 650px) {
+   .savedRecipes {
+      width: 100%;
+   }   
+}
+.recipe-card {
+   width: 200px;
+   height: 290px;
+   margin-bottom: 10px;
+   border-radius: 5px;
+   background-color: #F4F5F7;
+   border: 1px solid gray;
+   box-shadow: 2px 2px 2.5px gray;
+   font-size: 14px;
+   font-weight: 500;
+}
+
+.recipe-card:hover::before {
+   transform: scale(1.1);
+   box-shadow: 0 0 15px #ffee10;
+ }
+ 
+.recipe-card:hover {
+   box-shadow: 0 0 5px #ffee10;
+ }
+
+a {
+   color: black;
+   text-decoration: none; 
+   background-color: none;
+}
+
+.recipe-title {
+   height: 50px;
+}
+.time {
+   color: #898989;
+   font-weight: 400;
+}
+
+.card-image {
+   border-top-left-radius: 5px;
+   border-top-right-radius: 5px;
+   border-bottom: 1px solid gray;
+}
+
+.card-text {
+   padding: 5px;
+}
+.card-image {
+   border-top-left-radius: 5px;
+   border-top-right-radius: 5px;
+}
+
+.card-text {
+   padding: 5px;
+}

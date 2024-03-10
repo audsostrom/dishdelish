@@ -23,6 +23,7 @@ export default function Login() {
           action={async (formData) => {
             'use server';
             const response = await signIn('credentials', {
+              redirectTo: '/profile',
               email: formData.get('email'),
               password: formData.get('password'),
             });

@@ -6,11 +6,18 @@ body {
    height: calc(100vh - 60px);
 }
 
-.top-row {
+.recipe-container .top-row {
    display: flex;
    background-color: #F9F1E7;
    padding: 10px 5%;
    align-items: center;
+   line-height: 20px;
+   justify-content: center;
+}
+
+.recipe-container .title {
+   margin: 0;
+   font-size: 18px;
 }
 
 
