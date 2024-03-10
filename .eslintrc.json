@@ -2,6 +2,7 @@
   "extends": "next/core-web-vitals",
   "rules": { 
     "react/no-unescaped-entities": 0,
-    "strict": 2
+    "strict": 2,
+    "indent": ["error", "tab"]
   }
 }

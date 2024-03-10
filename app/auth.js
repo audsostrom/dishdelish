@@ -9,22 +9,22 @@ import { authConfig } from './auth.config';
  * during the current session
  */
 export const {
-  handlers: { GET, POST },
-  auth,
-  signIn,
-  signOut,
+	handlers: { GET, POST },
+	auth,
+	signIn,
+	signOut,
 } = NextAuth({
-  ...authConfig,
-  providers: [
-    Credentials({
-      async authorize(credentials) {
-        let user = await getUser(credentials['email']);
-        if (!user) return null;
-        let passwordsMatch = await compare(credentials['password'], user['password']);
-        if (passwordsMatch) return {
-          email: credentials['email'],
-        };
-      },
-    }),
-  ],
+	...authConfig,
+	providers: [
+		Credentials({
+			async authorize(credentials) {
+				let user = await getUser(credentials['email']);
+				if (!user) return null;
+				let passwordsMatch = await compare(credentials['password'], user['password']);
+				if (passwordsMatch) return {
+					email: credentials['email'],
+				};
+			},
+		}),
+	],
 });

@@ -5,9 +5,9 @@ import Navbar from '@/components/navbar/navbar';
 
 
 export default function Page() {
-  return (
-    <Home/>
-    /**
+	return (
+		<Home/>
+	/**
     <div className="">
       <div className="">
         <div className="">
@@ -29,5 +29,5 @@ export default function Page() {
       </div>
     </div>
      */
-  );
+	);
 }
