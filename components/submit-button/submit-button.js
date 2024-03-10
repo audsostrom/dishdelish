@@ -5,6 +5,11 @@ import Stack from '@mui/material/Stack';
 import {CircularProgress} from '@mui/material';
 import './submit-button.css';
 
+/**
+ * @param {*} children - Whatever components or elements need to
+ * be rendered inside of this component
+ * @return {*} – A button for submitting form status (used in login pages)
+ */
 export function SubmitButton({children}) {
 	const {pending} = useFormStatus();
 

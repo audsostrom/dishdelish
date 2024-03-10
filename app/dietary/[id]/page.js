@@ -8,7 +8,7 @@ import {useParams} from 'next/navigation';
 /**
  * @return – Renders the Dietary Filters page
  */
-function Dietary() {
+export default function Dietary() {
 	// State variables to track selected checkboxes
 	const [intolerances, setIntolerances] = useState([]);
 	const [selectedOption, setSelectedOption] = useState('Intolerances');
@@ -178,5 +178,3 @@ function Dietary() {
 		</div>
 	);
 }
-
-export default Dietary;

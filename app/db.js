@@ -9,8 +9,8 @@ import Token from '@/models/token';
 
 
 /**
- * The function `connectMongoDB` connects to a MongoDB database using the MONGODB_URI from the
- * environment variables.
+ * The function connects to a MongoDB database
+ * using the MONGODB_URI from the environment variables.
  */
 export const connectMongoDB = async () => {
 	try {
@@ -23,20 +23,27 @@ export const connectMongoDB = async () => {
 
 
 /**
- * This function creates a new user in a MongoDB database with a hashed password and an initial empty
- * list of saved recipes.
- * @param {String} email -  Email address of the user that is being registered in the system.
- * @param {String} password - Password that the user provides when registering. This password is then hashed using
- * bcrypt before being stored in the database for security reasons.
- * @return {NextResponse} A status code representing the success of the operation (201 or 500)
+ * This function creates a new user in MongoDB with a hashed password and an
+ * initial empty list of saved recipes.
+ * @param {String} email -  Email address of the user that is being registered.
+ * @param {String} password - Password that the user provides when registering.
+ * This password is hashed with bcrypt before being stored for security.
+ * @return {NextResponse} – Represents the operation's success (201 or 500).
  */
 export async function createUser(email, password) {
 	try {
 		const hashedPassword = await bcrypt.hash(password, 10);
 		await connectMongoDB();
 		// create new user in database with no saved recipes to start
-		const user = await User.create({email, password: hashedPassword, savedRecipes: [null]});
-		return NextResponse.json({message: 'User registered.'}, {status: 201});
+		await User.create({
+			email,
+			password: hashedPassword,
+			savedRecipes: [null],
+		});
+		return NextResponse.json(
+			{message: 'User registered.'},
+			{status: 201}
+		);
 	} catch (error) {
 		return NextResponse.json(
 			{message: 'An error occurred while registering the user.'},
@@ -46,18 +53,23 @@ export async function createUser(email, password) {
 }
 
 /**
- * The function `getUser` retrieves a user's email and password from a MongoDB database.
+ * The function retrieves a user's email and password from MongoDB.
  * @param {String} email - Used for getting user from the database.
  * @return {User} - Return either the user object with only the `email` and
- * `password` fields (if found in the database), or `null` if no user with the specified email is
- * found. If an error occurs during the process, a JSON response with an error message and status code
- * 500 is returned.
+ * `password` fields (if found in the database), or `null` if no user with the
+ * specified email is found.
+ *
+ * If an error occurs during the process, a NextResponse with an
+ * error message and status code 500 is returned.
  */
 export async function getUser(email) {
 	try {
 		await connectMongoDB();
 		// findOne() gives one document that matches the criteria
-		const user = await User.findOne({email}, {email: 1, password: 1});
+		const user = await User.findOne(
+			{email},
+			{email: 1, password: 1}
+		);
 		const returnVal = user === null ? null : user;
 		return returnVal;
 	} catch (error) {
@@ -69,8 +81,8 @@ export async function getUser(email) {
 }
 
 /**
- * The function `makeResetToken` generates a reset token for a user's email address and stores it in
- * the database for password reset purposes.
+ * The function generates a reset token for a user's email
+ * address and stores it in the database for password reset purposes.
  * @param {String} email - Who the reset token will be emailed to
  * @return {String} - String that was generated as the token
  */
@@ -80,7 +92,7 @@ export async function makeResetToken(email) {
 		// findOne() gives one document that matches the criteria
 		const user = await User.findOne({email});
 		const tokenString = crypto.randomBytes(32).toString('hex');
-		const token = await Token.create({
+		await Token.create({
 			token: tokenString,
 			userId: user._id,
 			email: email,
@@ -97,11 +109,11 @@ export async function makeResetToken(email) {
 }
 
 /**
- * This function resets a user's password by updating it in the database after hashing the new
- * password.
+ * This function resets a user's password by updating it in the database
+ * after hashing the new password.
  * @param {String} email - Tells us which user to update.
  * @param {String} password - Password to be hashed, and later stored.
- * @return {NextResponse} - A status code representing the success of the operation (200 or 500).
+ * @return {NextResponse} – Represents the operation's success (200 or 500).
  */
 export async function resetPassword(email, password) {
 	try {
@@ -117,7 +129,6 @@ export async function resetPassword(email, password) {
 			{status: 200}
 		);
 	} catch (error) {
-		console.log('some error', error);
 		return NextResponse.json(
 			{message: 'An error occurred while updating the password'},
 			{status: 500}
@@ -125,20 +136,25 @@ export async function resetPassword(email, password) {
 	}
 }
 
-
 /**
- * This function retrieves a token document from a MongoDB collection based on a provided token string.
- * @param tokenString - The `tokenString` parameter is a string that represents the token value that
- * you want to use to retrieve information from the database.
- * @return {Object} The function `getToken` is returning either the token document found in the database that
- * matches the provided `tokenString`, or `null` if no matching document is found. If an error occurs
- * during the process, a JSON response with an error message and status code 500 is returned.
+ * This function retrieves a token document from MongoDB.
+ * @param {String} tokenString - Used for fetching the specific token
+ * and its associated user.
+ * @return {Object} The function `getToken` is returning either
+ * the token document found  that matches the provided `tokenString`,
+ * or `null` if no matching document is found.
+ *
+ * If an error occurs during the process, a NextResponse with an error message
+ * and status code 500 is returned.
  */
 export async function getToken(tokenString) {
 	try {
 		await connectMongoDB();
 		// findOne() gives one document that matches the criteria
-		const tokenDoc = await Token.findOne({token: tokenString}, {_id: 0, email: 1, token: 1, expireAt: 1});
+		const tokenDoc = await Token.findOne(
+			{token: tokenString},
+			{_id: 0, email: 1, token: 1, expireAt: 1}
+		);
 		const returnVal = tokenDoc === null ? null : tokenDoc;
 		return returnVal;
 	} catch (error) {
@@ -150,20 +166,28 @@ export async function getToken(tokenString) {
 }
 
 /**
- * This function retrieves saved recipes for a user based on their email from a MongoDB database.
+ * This function retrieves a user's saved recipes from MongoDB.
  * @param {String} email - For getting the user.
- * @return {Array} The function `getSavedRecipes` is returning either an array of user recipes that match the
- * saved recipe IDs or `null` if there are no saved recipes for the user. If an error occurs during the
- * process, it will return a JSON response with an error message and a status code of 500.
+ * @return {Array} The function `getSavedRecipes` is returning either
+ * an array of user recipes that match the saved recipe IDs or
+ * `null` if there are no saved recipes for the user.
+ *
+ * If an error occurs during the process, it will return a NextResponse
+ * with an error message and a status code of 500.
  */
 export async function getSavedRecipes(email) {
 	try {
 		await connectMongoDB();
 		// findOne() gives one document that matches the criteria
-		const user = await User.findOne({email}, {email: 1, password: 1, savedRecipes: 1});
+		const user = await User.findOne(
+			{email},
+			{email: 1, password: 1, savedRecipes: 1}
+		);
 		if (user && user.savedRecipes.length > 0) {
 			// get recipes from user that match up with the saved ids of their recipes
-			const userRecipes = await savedRecipe.find({recipeId: {$in: user.savedRecipes}}); // final query
+			const userRecipes = await savedRecipe.find(
+				{recipeId: {$in: user.savedRecipes}}
+			); // final query
 			const returnVal = userRecipes === null ? null : userRecipes;
 			return returnVal;
 		}
@@ -178,17 +202,14 @@ export async function getSavedRecipes(email) {
 }
 
 /**
- * The function `createSavedRecipe` saves a recipe to a user's collection of saved recipes in a MongoDB
- * database, with the option to mark it as favorited.
- * @param {String} userEmail - The `userEmail` parameter in the `createSavedRecipe` function represents the
- * email address of the user for whom the recipe is being saved.
- * @param {Object} recipe - Contains all the details about the recipe being saved
+ * The function adds to a user's collection of saved recipes in MongoDB
+ * @param {String} userEmail - Email address of the user.
+ * @param {Object} recipe - Contains the details about the recipe being saved.
  * @param {Boolean} favorited - Whether the recipe is being favorited or not.
- * @return {NextResponse} A status code representing the success of the operation (201 or 500).
+ * @return {NextResponse} – Represents the operation's success (201 or 500).
  */
 export async function createSavedRecipe(userEmail, recipe, favorited) {
 	await connectMongoDB();
-	const user = await User.findOne({email: userEmail}, {email: 1, password: 1, savedRecipes: 1});
 
 	// transfer over your data for we can store it mongodb appropriately
 	const recipeDoc = {
@@ -226,7 +247,10 @@ export async function createSavedRecipe(userEmail, recipe, favorited) {
 			{email: userEmail},
 			{$push: {savedRecipes: recipe['id']}}
 		);
-		return NextResponse.json({message: 'New saved recipe created.'}, {status: 201});
+		return NextResponse.json(
+			{message: 'New saved recipe created.'},
+			{status: 201}
+		);
 
 		// (TO DO) add functionality for unsaving recipes
 	} else {
@@ -235,17 +259,22 @@ export async function createSavedRecipe(userEmail, recipe, favorited) {
 }
 
 /**
- * The `savePreferences` function saves user preferences, such as ingredients, diets, cuisine, and
- * intolerances, in a MongoDB database.
+ * The function saves user preferences, such as ingredients, diets, cuisine, and
+ * intolerances in MongoDB.
  * @param {Array} ingredients - What ingredients a user has.
- * @return {Object} The `savePreferences` function is returning the `preference` object that is created in the
- * database.
+ * @return {Object} - Returns the `preference` object created in the database.
  */
 export async function savePreferences(ingredients) {
 	try {
 		await connectMongoDB();
 		// create new user in database with no saved recipes to start
-		const preference = await Preference.create({ingredients: ingredients, diets: [null], diets: [null], cuisine: [null], intolerances: [null]});
+		const preference = await Preference.create({
+			ingredients: ingredients,
+			diets: [null],
+			diets: [null],
+			cuisine: [null],
+			intolerances: [null],
+		});
 		console.log(preference._id.toString());
 		return preference;
 	} catch (error) {
@@ -257,16 +286,18 @@ export async function savePreferences(ingredients) {
 }
 
 /**
- * The function `updatePreferences` updates user preferences in a MongoDB database based on the
- * provided parameters.
- * @param {String} id - The `id` parameter in the `updatePreferences` function represents the unique identifier
- * of the preference document that you want to update in the database.
+ * The function `updatePreferences` updates user preferences in MongoDB.
+ * @param {String} id - Represents the unique identifier of the preference
+ * document that you want to update in the database.
  * @param {Array} diets - What diets that user wants
  * @param {Array} intolerances - What allergies the user has
- * @param {Array} cuisine - What cuisines the user wants
- * @return {Object} The function `updatePreferences` is returning the updated preference object if the update
- * was successful, or `null` if no preference was found with the provided id. If an error occurs during
- * the update process, a JSON response with an error message and status code 500 is returned.
+ * @param {Array} cuisines - What cuisines the user wants
+ * @return {Object} The function `updatePreferences` is returning
+ * the updated preference object if the update was successful,
+ * or `null` if no preference was found with the provided id.
+ *
+ * If an error occurs during the update process, a NextResponse with an
+ * error message and status code 500 is returned.
  */
 export async function updatePreferences(id, diets, intolerances, cuisines) {
 	try {
@@ -288,17 +319,19 @@ export async function updatePreferences(id, diets, intolerances, cuisines) {
 }
 
 /**
- * The function `getPreferences` retrieves user preferences from a MongoDB database based on the
- * provided ID.
- * @param {String} id - The `id` parameter in the `getPreferences` function is used to specify the unique
- * identifier of the preference document that you want to retrieve from the database.
- * @return {Object} - The `getPreferences` function is returning the preference document that matches the
- * provided `_id` if found, or `null` if no matching document is found.
+ * The function `getPreferences` retrieves user preferences from MongoDB
+ * @param {String} id - Specifies the unique identifier of the preference
+ * document that you want to retrieve from the database.
+ * @return {Object} - The preference document if found,
+ * or `null` if no matching document is found.
  */
 export async function getPreferences(id) {
 	try {
 		await connectMongoDB();
-		const preference = await Preference.findOne({_id: id}, {ingredients: 1, diets: 1, cuisine: 1, intolerances: 1});
+		const preference = await Preference.findOne(
+			{_id: id},
+			{ingredients: 1, diets: 1, cuisine: 1, intolerances: 1}
+		);
 		const returnVal = preference === null ? null : preference;
 		return returnVal;
 	} catch (error) {

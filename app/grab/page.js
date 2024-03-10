@@ -7,9 +7,9 @@ import SearchableDropdown from '../../components/searchable-dropdown/searchable-
 import {storeIngredients} from './storeIngredients';
 
 /**
- * @returns – Renders the Ingredients Selection Page
+ * @return – Renders the Ingredients Selection Page
  */
-function Grab() {
+export default function Grab() {
 	const [value, setValue] = useState('Search Ingredients');
 	console.log('value', value);
 	return (
@@ -37,5 +37,3 @@ function Grab() {
 		</>
 	);
 }
-
-export default Grab;

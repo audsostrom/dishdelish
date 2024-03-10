@@ -9,7 +9,7 @@ import {sendEmail} from '@/app/mail';
 import {auth, signOut} from '../../auth';
 import {getUser} from '../../db';
 
-export async function Settings() {
+export default async function Settings() {
 	const session = await auth();
 	console.log(session.user);
 	const user = await getUser(session.user.email);

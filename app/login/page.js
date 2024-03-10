@@ -4,6 +4,9 @@ import {signIn} from '../auth';
 import {SubmitButton} from '../../components/submit-button/submit-button';
 import './login.css';
 
+/**
+ * @return – Renders the Login Page
+ */
 export default function Login() {
 	return (
 		<div className="login-container">
