@@ -97,7 +97,7 @@ export async function getToken(tokenString) {
   try {
     await connectMongoDB();
     // findOne() gives one document that matches the criteria
-    const tokenDoc = await Token.findOne({token: tokenString}, {_id: 0, email: 1, token: 1});
+    const tokenDoc = await Token.findOne({token: tokenString}, {_id: 0, email: 1, token: 1, expireAt: 1});
     // console.log("user: ", user);
     const returnVal = tokenDoc === null ? null : tokenDoc;
     return returnVal;
