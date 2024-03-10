@@ -1,17 +1,20 @@
 import sgMail from '@sendgrid/mail';
+import { makeResetToken } from './db';
 
 // add params for recipient
-export const sendEmail = async () => {
-   console.log('boo')
+export const sendEmail = async (email) => {
+  console.log('boo', email)
   sgMail.setApiKey(process.env.SENDGRID_API_KEY);
+  const tokenString = await makeResetToken(email);
+  console.log('token', tokenString)
 
   const msg = {
    to: 'audsostrom@gmail.com', // Change to your recipient
    from: 'dishdelishapp@gmail.com', // Change to your verified sender
-   subject: 'Sending with SendGrid is Fun',
-   text: 'and easy to do anywhere, even with Node.js',
-   html: '<strong>and easy to do anywhere, even with Node.js</strong>',
- }
+   subject: 'Password Reeset Request',
+   text: 'Reset your password at this link',
+   html: `<a href='http://localhost:3000/reset-password/${tokenString}'>Reset your password at this link</a>`,
+  }
 
  sgMail
  .send(msg)

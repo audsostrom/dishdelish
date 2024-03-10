@@ -3,6 +3,10 @@ import mongoose, { Schema, models } from "mongoose";
 
 const tokenSchema = new Schema(
   {
+    token: {
+      type: String,
+      required: true,
+    },
     email: {
       type: String,
       required: true,
@@ -15,7 +19,7 @@ const tokenSchema = new Schema(
       type: String,
       required: true,
     },
-    expirationDate: {
+    expireAt: {
       type: Date,
     },
   },

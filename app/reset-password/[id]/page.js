@@ -1,12 +1,17 @@
 import Link from 'next/link';
-import { Form } from '../../components/form/form';
-import { signIn } from '../auth';
-import { sendEmail } from '../mail';
-import { SubmitButton } from '../../components/submit-button/submit-button';
+import { SubmitButton } from '../../../components/submit-button/submit-button';
 import './reset-password.css'
 import { redirect } from 'next/navigation';
+import { resetPassword } from '@/app/db';
+import { getToken } from '@/app/db';
 
-export default function ForgotPassword() {
+export default async function ForgotPassword({ params }) {
+
+  const token = params['id'];
+  const tokenDoc = await getToken(token);
+  console.log('tokenDoc', tokenDoc, token, typeof token)
+
+
   return (
     <div className="forgot-password-container">
       <div className="forgot-password-wrapper">
@@ -14,8 +19,10 @@ export default function ForgotPassword() {
           Reset Your Password
         </div>
         <form
-         action={async () => {
+         action={async (formData) => {
             'use server';
+            const response = await resetPassword(tokenDoc['email'], formData.get('password'), formData.get('confirm-password'));
+            console.log('response was', response)
             redirect('/login');
          }}
     >
@@ -37,7 +44,7 @@ export default function ForgotPassword() {
         <input
           id="confirm-password"
           name="confirm-password"
-          type="confirm-password"
+          type="password"
           placeholder="Confirm password"
           required
           className="input-box"

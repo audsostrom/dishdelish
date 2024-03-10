@@ -22,9 +22,9 @@ export default function ForgotPassword() {
 
         </div>
         <form
-         action={async () => {
+         action={async (formData) => {
             'use server';
-            await sendEmail();
+            await sendEmail(formData.get("email"));
             redirect('/login');
          }}
     >
