@@ -1,6 +1,5 @@
 // Import necessary dependencies and components
 import Link from 'next/link';
-import MenuItem from '../../components/menu-item/menu-item';
 import "./menu.css";
 import Image from 'next/image';
 
@@ -23,7 +22,7 @@ function Menu() {
             <button className="roundedButton primaryButton">Grab Your Ingredients</button>
             </Link>
             {/** Change trigger auth guard, using protected as a placeholder - should be a different screen */}
-            <Link href="/saved-ingredients">
+            <Link href="/recipe-transformer">
               <button className="roundedButton secondaryButton">✧ AI Generate New Recipes</button>
             </Link>
           </div>

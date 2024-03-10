@@ -1,116 +1,238 @@
 .navbar {
-   width: 100%;
-   height: 60px; /* Adjust the height if needed */
-   background-color: #ffffff;
-   display: flex;
-   flex-direction: row;
-   line-height: 40px;
- }
-
- .logo {
+  width: 100%;
+  height: 60px;
+  background-color: #ffffff;
   display: flex;
- }
- 
- .navbar .leftSide {
-   height: 100%;
-   display: flex;
-   align-items: center;
-   padding-left: 15px; 
- }
- .logo-text {
+  flex-direction: row; 
+  line-height: 40px;
+  align-items: center;
+}
+
+.logo {
+  display: inline-flex;
+  line-height: 10px;
+  vertical-align: middle;
+}
+
+.logo-desktop {
+  display: inline-flex;
+  align-items: center;
+  margin-left: 10px;
+}
+
+.logo-container-mobile {
+  display: inline-flex;
+  align-items: center;
+  margin-left: 10px;
+}
+
+.navbar .leftSide {
+  height: 100%;
+  display: flex;
+  align-items: center;
+  padding-left: 15px;
+}
+
+.logo-text {
   font-weight: 600;
   font-size: 34px;
-  padding-left: 10px;
- }
+  padding-left: 8px;
+  display: inline-flex;
+}
 
- 
- .navbar .rightSide {
-   flex: 1;
-   height: 100%;
-   display: flex;
-   align-items: center;
-   justify-content: flex-end;
-   padding-right: 15px; /* Adjust the right padding if needed */
-  vertical-align: center;
+.navbar .rightSide {
+  flex: 1;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end; 
+  padding-right: 15px;
+}
+
+.navbar .rightSide button.hamburger-button {
+  background-color: transparent; 
+  border: none; 
+  color: black; 
+  cursor: pointer; 
+  padding: 10px; 
+  margin-right: 0px; 
+  display: flex; 
+  flex-direction: column; /* Stack items vertically */
+  justify-content: space-between; 
+}
+
+.navbar .rightSide button.hamburger-button .line {
+  width: 25px; 
+  height: 3px; 
+  background-color: black; 
+  margin-bottom: 5px;
+}
+
+
+/* Styling the bars when the button is active on mobile */
+.navbar .rightSide button.hamburger-button.active .icon-bar:nth-child(1) {
+  transform: translateY(6px) rotate(45deg);
+}
+
+.navbar .rightSide button.hamburger-button.active .icon-bar:nth-child(2) {
+  opacity: 0;
+}
+
+.navbar .rightSide button.hamburger-button.active .icon-bar:nth-child(3) {
+  transform: translateY(-6px) rotate(-45deg);
+}
+
+
+.icon {
+  margin-top: 10px;
+}
+
+.navbar a {
+  color: rgb(0, 0, 0);
+  text-decoration: none;
+  margin-left: 20px;
+}
+
+.navbar .rightSide button {
+  background-color: transparent;
+  border: none;
+  color: black;
+  cursor: pointer;
+}
+
+.navbar .rightSide svg {
+  font-size: 40px;
+}
+
+.navbar #open {
+  padding-left: 0px;
+}
+
+.navbar #open img {
+  display: none;
+}
+
+.navbar #close img {
+  display: inherit;
+}
+
+.navbar #open .hiddenLinks {
+  display: inherit;
+  margin-left: 30px;
+}
+
+.navbar #close .hiddenLinks {
+  display: none;
+}
+
+.navbar #open a {
+  width: 70px;
+  margin: 5px;
+}
+
+.hiddenLinks {
+  display: none;
+  flex-direction: column;
+  margin-top: 10px;
+}
+
+@media only screen and (min-width: 1024px) {
+  .navbar .leftSide ul {
+    display: none;
   }
 
-  .icon {
-    margin-top: 10px;
+  .navbar .rightSide button.hamburger-button {
+    display: none;
   }
- 
- .navbar a {
-   color: rgb(0, 0, 0);
-   text-decoration: none;
-   margin-left: 20px;
- }
- 
- .navbar .rightSide button {
-   background-color: transparent;
-   border: none;
-   color: white;
-   cursor: pointer;
- }
- 
- .navbar .rightSide svg {
-   font-size: 40px;
- }
- 
- .navbar #open {
-   padding-left: 0px;
- }
- 
- .navbar #open img {
-   display: none;
- }
- 
- .navbar #close img {
-   display: inherit;
- }
- 
- .navbar #open .hiddenLinks {
-   display: inherit;
-   margin-left: 30px;
- }
- 
- .navbar #close .hiddenLinks {
-   display: none;
- }
- 
- .navbar #open a {
-   width: 70px;
-   margin: 5px;
- }
- 
- @media only screen and (max-width: 900px) {
-   .navbar .rightSide a {
-     width: 70px;
-   }
-   .navbar .leftSide {
-     padding-left: 50px;
-   }
- }
- 
- @media only screen and (max-width: 600px) {
-   .navbar .rightSide a {
-     display: none;
-   }
- 
-   .navbar .rightSide {
-     justify-content: flex-end;
-     padding-right: 15px; /* Adjust the right padding if needed */
-   }
- 
-   .navbar .rightSide button {
-     display: inherit;
-   }
- }
- 
- @media only screen and (min-width: 600px) {
-   .navbar .rightSide button {
-     display: none;
-   }
- 
-   .hiddenLinks {
-     display: none;
-   }
- }
+}
+
+@media only screen and (max-width: 600px) {
+  .hiddenLinks.open {
+    display: grid;
+    margin-top: 0;
+    padding-left: 20px;
+  }
+
+  .navbar .rightSide a {
+    display: none;
+  }
+
+  .navbar .rightSide {
+    justify-content: flex-end;
+    padding-right: 15px;
+  }
+
+  .navbar .rightSide button {
+    display: flex;
+    align-items: center; 
+  }
+
+  .navbar .leftSide.show-mobile-menu li {
+    justify-content: center;
+    align-items: center;
+    list-style-type: square;
+  }
+}
+
+@media only screen and (min-width: 600px) {
+  .navbar .rightSide button {
+    display: inherit;
+  }
+
+  .hiddenLinks {
+    display: none;
+  }
+}
+
+@media only screen and (max-width: 1023px) {
+  .navbar .leftSide {
+    visibility: hidden;
+    width: 280px;
+    height: 100vh;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    position: fixed;
+    top: 0;
+    left: -15px;
+    padding: 20px;
+    color: black; 
+    z-index: 999;
+    background-color: #ffffff; 
+  }
+
+  .navbar .leftSide.show-mobile-menu {
+    visibility: visible;
+    left: 0;
+    background-color: #ffffff; 
+    border: 1px solid rgb(17, 17, 53);
+    border-radius: 8px;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .navbar .leftSide.show-mobile-menu li {
+    font-size: 30px;
+    font-weight: 600;
+    text-transform: uppercase;
+    cursor: pointer;
+    justify-content: center;
+    align-items: center;
+    padding: 12px;
+    transition: 0.5s ease-in-out;
+    color: black; 
+  }
+
+  .navbar .leftSide .close-icon {
+    position: absolute;
+    top: 20px;
+    left: 220px;
+    cursor: pointer;
+    color: black; 
+  }
+
+
+  .navbar .rightSide button {
+    display: flex; 
+  }
+}

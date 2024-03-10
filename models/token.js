@@ -3,6 +3,10 @@ import mongoose, { Schema, models } from "mongoose";
 
 const tokenSchema = new Schema(
   {
+    token: {
+      type: String,
+      required: true,
+    },
     email: {
       type: String,
       required: true,
@@ -15,12 +19,12 @@ const tokenSchema = new Schema(
       type: String,
       required: true,
     },
-    expirationDate: {
-      type: Timestamp,
+    expireAt: {
+      type: Date,
     },
   },
   { timestamps: true }
 );
 
-const Token = models.Token || mongoose.model("Toke", tokenSchema);
+const Token = models.Token || mongoose.model("Token", tokenSchema);
 export default Token;
