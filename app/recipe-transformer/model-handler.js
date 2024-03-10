@@ -31,33 +31,31 @@ export async function getRecipeFromModel(inputs, data) {
 /**
  * The function `parseIngredients` takes an array of inputs and a string of ingredients, parses the
  * ingredients based on the inputs, and returns a modified list of ingredients.
- * @param inputs -
- * @param ingredients -
- * @return The function `parseIngredients` is returning an array `returnVal` which contains the parsed
- * ingredients based on the inputs provided. The function splits the `ingredients` string based on the
- * input values in the `inputs` array and constructs a new array `returnVal` with the parsed
- * ingredients.
+ * @param {Array} inputs - All ingredients listed in string form
+ * @param {String} ingredients - A big yucky string given by HuggingFace
+ * @return {Array} – Returns an array constaining the parsed
+ * ingredients based on the inputs provided.
  */
 function parseIngredients(inputs, ingredients) {
 	const inputLength = inputs.length;
 	const returnVal = [];
-	let ingredients_list = ingredients.split(`${inputs[0]} `);
-	returnVal.push(ingredients_list[0] + `${inputs[0]}`);
+	let ingredientsList = ingredients.split(`${inputs[0]} `);
+	returnVal.push(ingredientsList[0] + `${inputs[0]}`);
 	for (let i = 1; i < inputLength; i++) {
 		try {
-			ingredients_list = ingredients_list[1].split(`${inputs[i]} `);
-			if (ingredients_list.length == 1) {
-				ingredients_list = ingredients_list[0].split(`${inputs[i]}, `);
-				const index = ingredients_list[1].search(/\d/);
-				ingredients_list[1] = ingredients_list[1].substring(index);
+			ingredientsList = ingredientsList[1].split(`${inputs[i]} `);
+			if (ingredientsList.length == 1) {
+				ingredientsList = ingredientsList[0].split(`${inputs[i]}, `);
+				const index = ingredientsList[1].search(/\d/);
+				ingredientsList[1] = ingredientsList[1].substring(index);
 			}
 		} catch (err) {
 			console.log('Some error occured', err);
 		}
-		if (i == inputLength - 1 && ingredients_list.length == 1) {
-			returnVal.push(ingredients_list[0]);
+		if (i == inputLength - 1 && ingredientsList.length == 1) {
+			returnVal.push(ingredientsList[0]);
 		} else {
-			returnVal.push(ingredients_list[0] + `${inputs[i]}`);
+			returnVal.push(ingredientsList[0] + `${inputs[i]}`);
 		}
 	}
 	return returnVal;

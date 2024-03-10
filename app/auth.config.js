@@ -7,8 +7,7 @@ export const authConfig = {
 		signIn: '/login',
 	},
 	providers: [
-		// added later in auth.js since it requires bcrypt which is only compatible with Node.js
-		// while this file is also used in non-Node.js environments
+		// added later in auth.js
 	],
 	callbacks: {
 		authorized({auth, request: {nextUrl}}) {
@@ -20,10 +19,10 @@ export const authConfig = {
 			if (isOnRestrictedPage) {
 				if (isLoggedIn) return true;
 				return false;
-			}
-
-			// and if they're signed in don't let them to the sign-in page
-			else if (isLoggedIn && (nextUrl.pathname.startsWith('/login') || nextUrl.pathname.startsWith('/register'))) {
+			} else if (isLoggedIn &&
+				(nextUrl.pathname.startsWith('/login') ||
+				nextUrl.pathname.startsWith('/register'))) {
+				// and if they're signed in don't let them to the sign-in page
 				return Response.redirect(new URL('/profile', nextUrl));
 			}
 

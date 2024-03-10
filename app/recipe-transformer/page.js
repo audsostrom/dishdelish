@@ -14,16 +14,16 @@ export default function Transformer() {
 	let pending = true;
 
 	/** Nested function for handling state updates based on API requests */
-	async function getResults(inputs_original) {
+	async function getResults(inputsOriginal) {
 		pending = true;
 		let inputs;
 		let newstring;
-		if (inputs_original.split(', ').length > 1) {
-			inputs = inputs_original.split(',');
-			newstring = inputs_original;
+		if (inputsOriginal.split(', ').length > 1) {
+			inputs = inputsOriginal.split(',');
+			newstring = inputsOriginal;
 		} else {
-			inputs = inputs_original.split(',');
-			newstring = inputs_original.replaceAll(',', ', ');
+			inputs = inputsOriginal.split(',');
+			newstring = inputsOriginal.replaceAll(',', ', ');
 		}
 		console.log('new', newstring);
 

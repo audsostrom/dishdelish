@@ -9,6 +9,9 @@ import {sendEmail} from '@/app/mail';
 import {auth, signOut} from '../../auth';
 import {getUser} from '../../db';
 
+/**
+ * @return {*} – Renders the settings subsection of the profile
+ */
 export default async function Settings() {
 	const session = await auth();
 	console.log(session.user);
