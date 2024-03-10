@@ -2,8 +2,9 @@ import Link from 'next/link';
 import BannerImage from '../../assets/cuttingbanana.png';
 import './home.css';
 import Navbar from '@/components/navbar/navbar';
+import { signOut } from '../auth';
 
-function Home() {
+export default async function Home() {
 	return (
 		<div className="home">
 			<div className="headerContainer">
@@ -21,5 +22,3 @@ function Home() {
 		</div>
 	);
 }
-
-export default Home;

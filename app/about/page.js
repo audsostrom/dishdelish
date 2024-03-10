@@ -4,7 +4,7 @@ import './about.css';
 /**
  * @return {*} – Renders the About Page
  */
-function About() {
+export default function About() {
 	return (
 		<div className="about">
 			<div
@@ -36,4 +36,3 @@ Welcome to our kitchen – let's get cooking!
 	);
 }
 
-export default About;

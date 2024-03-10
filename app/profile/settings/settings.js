@@ -12,7 +12,7 @@ import {getUser} from '../../db';
 /**
  * @return {*} – Renders the settings subsection of the profile
  */
-export default async function Settings() {
+export async function Settings() {
 	const session = await auth();
 	console.log(session.user);
 	const user = await getUser(session.user.email);

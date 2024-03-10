@@ -4,21 +4,28 @@ import './reset-password.css';
 import {redirect} from 'next/navigation';
 import {resetPassword} from '@/app/db';
 import {getToken} from '@/app/db';
+ 
 
-export default async function ForgotPassword({params}) {
+export default async function ForgotPassword({params, searchParams}) {
+	
+	console.log(params, searchParams)
 	const token = params['id'];
+	const match = searchParams['match'];
 	const tokenDoc = await getToken(token);
-	const email = tokenDoc['email'];
-	const expirationDate = tokenDoc['expireAt'];
-	const isExpired = (Date.now() > expirationDate);
-	console.log('tokenDoc', tokenDoc, token, typeof token);
+	let email, expirationDate, isExpired;
+	if (tokenDoc) {
+		email = tokenDoc['email'];
+		expirationDate = tokenDoc['expireAt'];
+		isExpired = (Date.now() < expirationDate);
+		console.log('tokenDoc', tokenDoc, token, typeof token);
+	}
 
 
 	return (
 
 		<div className="forgot-password-container">
 			{
-				isExpired ?
+				tokenDoc && isExpired ?
 					<div className="forgot-password-wrapper">
 						<div className='forgot-password-header'>
           Reset Your Password
@@ -26,9 +33,13 @@ export default async function ForgotPassword({params}) {
 						<form
 							action={async (formData) => {
 								'use server';
-								const response = await resetPassword(email, formData.get('password'), formData.get('confirm-password'));
-								console.log('response was', response);
-								redirect('/login');
+								if (formData.get('password') != '' &&  formData.get('confirm-password') != ''&& (formData.get('password') == formData.get('confirm-password'))) {
+									const response = await resetPassword(email, formData.get('password'), formData.get('confirm-password'));
+									console.log('response was', response);
+									redirect('/login');
+								} else {
+									redirect(`/reset-password/${token}/?match=false`);
+								}
 							}}
 						>
 							<div>Enter your new password, and you'll be redirected to the login page after.</div>
@@ -58,6 +69,7 @@ export default async function ForgotPassword({params}) {
 							<div className="sign-in-button">
 								<SubmitButton>Go Back To Login</SubmitButton>
 							</div>
+							{match && <div>Passwords must match</div>}
 						</form>
 					</div>					:
 

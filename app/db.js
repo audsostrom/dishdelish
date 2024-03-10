@@ -144,8 +144,7 @@ export async function resetPassword(email, password) {
  * the token document found  that matches the provided `tokenString`,
  * or `null` if no matching document is found.
  *
- * If an error occurs during the process, a NextResponse with an error message
- * and status code 500 is returned.
+ * If an error occurs during the process, null is returned
  */
 export async function getToken(tokenString) {
 	try {
@@ -158,10 +157,7 @@ export async function getToken(tokenString) {
 		const returnVal = tokenDoc === null ? null : tokenDoc;
 		return returnVal;
 	} catch (error) {
-		return NextResponse.json(
-			{message: 'An error occurred while getting the token.'},
-			{status: 500}
-		);
+		return null
 	}
 }
 
