@@ -8,6 +8,7 @@
   height: calc(100vh - 60px);
   align-items: center;
   justify-content: center;
+  background-color: #F9F1E7; /* Beige color */;
  }
  
  .custom-text-container {
@@ -16,6 +17,7 @@
  
  .menu-image-container {
   margin-left: min(10%, 50px);
+
  }
  
  .menu-image {

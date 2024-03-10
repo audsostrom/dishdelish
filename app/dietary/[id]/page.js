@@ -118,14 +118,13 @@ export default function Dietary() {
 			</Link>
 		</div>
 		<div className='option-bar'>
-			<div className='explanation-text'>If you're logged in, your ingredients from the previous session are saved</div>
-			<button className="submit-button" onClick={() => updateDiet(id, selectedDiets, intolerances, selectedCuisines)}>Got Everything?</button>
+			<div className='explanation-text'>Here, you can select your allergies and preferred dietary preferences.</div>
+			<button className="submit-button" onClick={() => updateDiet(id, selectedDiets, intolerances, selectedCuisines)}>Find Recipes</button>
 		</div>
 
-      <div className="newPage">
-        <div className="search">
-          <input type="text" placeholder="Search..." value={searchTerm} onChange={(e) => setSearchTerm(e.target.value)} />
-        </div>
+		<div className="dietary-content-search">
+		<div className="newPage">
+         <input className='search-text-field' type="text" placeholder="Search..." value={searchTerm} onChange={(e) => setSearchTerm(e.target.value)} />
         <div className="options">
           <select onChange={(e) => setSelectedOption(e.target.value)}>
             <option value="Cuisine">Cuisine</option>
@@ -140,6 +139,8 @@ export default function Dietary() {
       </div>
 
 		<div className="checkbox-container">{generateDropdownOptions()}</div>
+		</div>
+
 		</div>
 	);
 }
