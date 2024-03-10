@@ -12,7 +12,7 @@ async function Profile() {
       <div className="banner">
       </div>
       <div className='profile-header'>
-         <Image height='200' width='200' src={DefaultIcon}/>
+         <Image alt='profile icon' height='200' width='200' src={DefaultIcon}/>
          {/* <Image className='pencil' height='50' width='50' src={PencilIcon}/> */}
       </div>
       <div>

@@ -1,14 +1,18 @@
-// Import necessary dependencies and components
 import Link from 'next/link';
 import "./search-results.css";
 import Image from 'next/image';
-import exampleResponse from '../../../data/exampleResponse.json';
 import { getSavedRecipes } from '../../db';
 import { getPreferences } from '../../db';
 import TuneIcon from '@mui/icons-material/Tune';
-import { Tune } from '@mui/icons-material';
 
-// uncomment only when you need to, this is some dummy data so we don't over-use credits
+/**
+ * The function `getData` fetches recipe data based on user preferences and ingredients using the
+ * Spoonacular API.
+ * @param {String} id - The `id` parameter in the `getData` function is used to identify a specific user for
+ * whom we are fetching recipe data based on their ingredient preferences.
+ * @returns The `getData` function is returning a Promise that resolves to the JSON response from the
+ * Spoonacular API after fetching recipe data based on the user's ingredient preferences.
+ */
 async function getData(id) {
    "use server";
    const preferences = await getPreferences(id);
@@ -20,10 +24,9 @@ async function getData(id) {
    
    if (!res.ok) {
       // This will activate the closest `error.js` Error Boundary
-      throw new Error('Failed to fetch data')
+      throw new Error('Failed to fetch data');
    }
    return res.json();
-   // return exampleResponse;
 }
 
 
@@ -44,22 +47,16 @@ async function Results({ params }) {
    const id = params['id'];
 
    const data = await getData(id);
-   // console.log(data);
-   // uncomment if you want to update the dummy example with whatever response you want
-   /**
-   let object = JSON.stringify(data);
-   fs.writeFileSync('data/exampleResponse.json', object);
-   */
 
   return (
    <div className='results-container'>
-      <div className="banner">
+      <div className='banner'>
          <div className='header'>Here's What We Found For You</div>
          <Link href={{pathname: `/grab`,}}>
             <div className='go-back'>&#60; Need To Go Back?</div>
          </Link>
       </div>
-      <div className="option-bar">
+      <div className='option-bar'>
          <Link href={{pathname: `/dietary/${id}`,}}>
             <div className='filter-wrapper'>
                <TuneIcon/>
@@ -73,14 +70,17 @@ async function Results({ params }) {
          {
            data.results.map((item, i) => 
             // this redirects you to specific recipe
-            <Link href={{
-               pathname: `/recipe/`,
-               query: { id: item['id'], favorited: userRecipes.some(obj => obj.id === item['id']) },
-             }}>
+            <Link 
+               key={'recipe' + i}
+               href={{
+                  pathname: `/recipe/`,
+                  query: { id: item['id'], favorited: userRecipes.some(obj => obj.id === item['id']) },
+               }}
+             >
                <div className="recipe-card" key={i}>
-               <Image className="card-image" width='200' height='200' src={item['image']}/>
+               <Image alt='recipe-photo' className='card-image' width='200' height='200' src={item['image']}/>
                <div className='card-text'>
-                  <div className="recipe-title">{item['title']}</div>
+                  <div className='recipe-title'>{item['title']}</div>
                   <div className='time'>Time: {item['readyInMinutes']} minutes</div>
                </div>
                </div>

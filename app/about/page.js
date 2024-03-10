@@ -1,4 +1,3 @@
-import React from "react";
 import MultiplePizzas from "../../assets/thisisbanner.png";
 import "./about.css";
 

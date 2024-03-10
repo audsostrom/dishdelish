@@ -1,4 +1,13 @@
 "use server";
+
+/**
+ * The function `getRecipeFromModel` sends a POST request to a Hugging Face model for recipe
+ * generation, processes the response to extract recipe title, ingredients, and directions, and returns
+ * them as an array.
+ * @param {Array} inputs - All ingredients listed in string form
+ * @param {Object} data - Object of inputs/ingredients to be given to the model
+ * @returns {Array} - Returns an array containing the title of the recipe, parsed ingredients, and directions of the recipe.
+ */
 export async function getRecipeFromModel(inputs, data) {
 	const response = await fetch(
 		"https://api-inference.huggingface.co/models/flax-community/t5-recipe-generation",
@@ -21,9 +30,18 @@ export async function getRecipeFromModel(inputs, data) {
 
 }
 
+/**
+ * The function `parseIngredients` takes an array of inputs and a string of ingredients, parses the
+ * ingredients based on the inputs, and returns a modified list of ingredients.
+ * @param inputs - 
+ * @param ingredients - 
+ * @returns The function `parseIngredients` is returning an array `returnVal` which contains the parsed
+ * ingredients based on the inputs provided. The function splits the `ingredients` string based on the
+ * input values in the `inputs` array and constructs a new array `returnVal` with the parsed
+ * ingredients.
+ */
 function parseIngredients(inputs, ingredients) {
    const inputLength = inputs.length
-   //console.log('in function', inputs, ingredients)
    let returnVal = []
    let ingredients_list = ingredients.split(`${inputs[0]} `)
    returnVal.push(ingredients_list[0] + `${inputs[0]}`)
@@ -37,7 +55,7 @@ function parseIngredients(inputs, ingredients) {
          }
       }
       catch (err) {
-         console.log('welp', ingredients_list)
+         console.log('Some error occured', err)
       }
       if (i == inputLength - 1 && ingredients_list.length == 1) {
          returnVal.push(ingredients_list[0])
@@ -46,5 +64,4 @@ function parseIngredients(inputs, ingredients) {
       }
    }
    return returnVal;
-
 }

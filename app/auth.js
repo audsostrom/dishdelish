@@ -4,7 +4,10 @@ import { getUser } from './db';
 import { compare } from 'bcrypt';
 import { authConfig } from './auth.config';
 
-
+/**
+ * Handles attempts for the user to login and any checks for credentials
+ * during the current session
+ */
 export const {
   handlers: { GET, POST },
   auth,

@@ -28,10 +28,10 @@ export async function Settings() {
                         await signOut();
                      }}
                   >
-                     <button className='sign-out-button' type="submit">
-                        <div>Sign Out</div>
-                        <LogoutIcon/>
-                     </button>
+                  <button className='sign-out-button' type="submit">
+                     <div>Sign Out</div>
+                     <LogoutIcon/>
+                  </button>
             </form>
 
          </div>
@@ -42,29 +42,32 @@ export async function Settings() {
             }}
          >
             <div className='email'>
-               <div className="profile-label">email</div>
+               <div className='profile-label'>email</div>
                <TextField name='email' type='email' placeholder={user.email} className='field-wrapper'/>
             </div>
             <div className='password'>
-               <div className="profile-label">change password</div>
-               <TextField name='password' type='password' style={{marginRight: '2vw'}} className="password-field" label="enter new password" type="password" />
-               <TextField className="password-field" label="confirm password" type="password" />
+               <div className='profile-label'>change password</div>
+               <TextField name='password' type='password' style={{marginRight: '2vw'}} className="password-field" label="enter new password"/>
+               <TextField className='password-field' label='confirm password' type="password" />
             </div>
-            <button type="submit" className='confirm-changes-button'>Confirm Changes</button>
+            <button type='submit' className='confirm-changes-button'>Confirm Changes</button>
          </form>
          <div className='subtitle'>Saved Recipes</div>
          <div className='savedRecipes'>
          {
             userRecipes.map((item, i) => 
             // this redirects you to specific recipe route with id and favorites in the search params
-            <Link href={{
-               pathname: `/recipe/`,
-               query: { id: item['recipeId'], favorited: userRecipes.some(obj => obj.id === item['id']) },
-            }}>
-               <div className="recipe-card" key={i}>
-               <Image className="card-image" width='200' height='200' src={item['image']}/>
+            <Link 
+               key={'recipe' + i}
+               href={{
+                  pathname: `/recipe/`,
+                  query: { id: item['recipeId'], favorited: userRecipes.some(obj => obj.id === item['id']) },
+               }}
+            >
+               <div className='recipe-card' key={i}>
+               <Image alt='recipe photo' className='card-image' width='200' height='200' src={item['image']}/>
                <div className='card-text'>
-                  <div className="recipe-title">{item['title']}</div>
+                  <div className='recipe-title'>{item['title']}</div>
                   <div className='time'>Time: {item['readyInMinutes']} minutes</div>
                </div>
                </div>

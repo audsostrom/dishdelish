@@ -5,10 +5,7 @@ import { createSavedRecipe } from '../db';
 import Image from 'next/image';
 import { Star, Favorite } from '@mui/icons-material';
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
-// uncomment only when you need to, this is some dummy data so we don't over-use credits
 
-// https://icongr.am/fontawesome
-// https://icongr.am/fontawesome/star.svg?size=128&color=currentColor
 async function getData(recipeId) {
    const res = await fetch(
       `https://api.spoonacular.com/recipes/${recipeId}/information?apiKey=${process.env.SPOON_KEY}`
@@ -55,10 +52,6 @@ async function RecipeInfo({searchParams}) {
       return {__html: data['instructions']};
    }
 
-   function setPage(number) {
-      page = number;
-   }
-
    function getExperienceLevel(time) {
       if (time <= 45) {
          return 'beginner'
@@ -89,13 +82,13 @@ async function RecipeInfo({searchParams}) {
       </div>
       {/** has to be an action in order to use server-side functionality */}
       <div className='body'>
-         <Image className="big-card-image" width='300' height='300' style={{objectFit: "contain"}} src={data['image']}/>
+         <Image alt='recipe-photo' className='big-card-image' width='300' height='300' style={{objectFit: 'contain'}} src={data['image']}/>
          <div>
          <div className='big-title'>{data['title']}</div>
             <div>
                {
-                  myArray.map((diet, i) =>
-                     <Star/>
+                  myArray.map((i) =>
+                     <Star key={'star' + i}/>
 
                   )
                }
@@ -106,7 +99,7 @@ async function RecipeInfo({searchParams}) {
                <span>diets: </span>
                {
                   data['diets'].map((diet, i) =>
-                     ((i == data['diets'].length - 1) ? <span>{diet}</span> : <span>{diet}, </span>)
+                     ((i == data['diets'].length - 1) ? <span key={'diet' + i}>{diet}</span> : <span key={'diet' + i}>{diet}, </span>)
                   )
                }
             </div>
@@ -115,7 +108,7 @@ async function RecipeInfo({searchParams}) {
                {data['cuisines'].length == 0 && <span>n/a</span>}
                {
                   data['cuisines'].map((diet, i) =>
-                     ((i == data['diets'].length - 1) ? <span>{diet}</span> : <span>{diet}, </span>)
+                     ((i == data['diets'].length - 1) ? <span key={'cuisine' + i}>{diet}</span> : <span key={'cuisine' + i}>{diet}, </span>)
                   )
                }
             </div>

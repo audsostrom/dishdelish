@@ -9,13 +9,11 @@ import Image from 'next/image';
 
 
 export default function Transformer() {
-   // const inputs = ['provolone cheese', 'bacon', 'spinach', 'onion'];
-   // const params = {"inputs": "provolone cheese, bacon, spinach, onion"};
    const [recipe, setRecipe] = useState([]);
    const [value, setValue] = useState("");
    let pending = true;
-   console.log(recipe)
 
+   /** Nested function for handling state updates based on API requests */
    async function getResults(inputs_original) {
       pending = true;
       let inputs;
@@ -46,7 +44,7 @@ export default function Transformer() {
             <div className='instructions'>Ensure your ingredients are inputted correctly, or else you might get unintended results.</div>
             <div className='credits'>
                <span>Powered by Hugging Face!</span>
-               <Image className='hg-logo' height='40' width='40' src={hgLogo}/>
+               <Image alt='HuggingFace Logo' className='hg-logo' height='40' width='40' src={hgLogo}/>
             </div>
          </div>
         <div className='right-side'>
