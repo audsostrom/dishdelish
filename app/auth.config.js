@@ -1,34 +1,32 @@
-import { NextAuthConfig } from 'next-auth';
-
+/**
+ * Configurations for handling redirects away from the profile page if user
+ * attempts to access the profile page without signing in
+ */
 export const authConfig = {
-  pages: {
-    signIn: '/login',
-  },
-  providers: [
-    // added later in auth.js since it requires bcrypt which is only compatible with Node.js
-    // while this file is also used in non-Node.js environments
-  ],
-  callbacks: {
-    // (TO DO) update to redirect to profile when everything is integrated!
-    authorized({ auth, request: { nextUrl } }) {
-      let isLoggedIn = !!auth?.user;
-      console.log(!!auth?.user)
-      console.log(decodeURIComponent(nextUrl.search.substring(nextUrl.search.indexOf("=") + 1)))
-      console.log(nextUrl.search.substring(nextUrl.search.indexOf("=") + 1))
-      let isOnRestrictedPage = nextUrl.pathname.startsWith('/profile') || nextUrl.pathname.startsWith('/saved-ingredients');
+	pages: {
+		signIn: '/login',
+	},
+	providers: [
+		// added later in auth.js
+	],
+	callbacks: {
+		authorized({auth, request: {nextUrl}}) {
+			const isLoggedIn = !!auth?.user;
+			console.log(auth?.user);
+			const isOnRestrictedPage = nextUrl.pathname.startsWith('/profile');
 
-      if (isOnRestrictedPage) {
-        if (isLoggedIn) return true;
-        return false; // redirect unauthenticated users to login page
-      }
-      else if (isLoggedIn && decodeURIComponent(nextUrl.search.substring(nextUrl.search.indexOf("=") + 1))) {
-        console.log('oh no', decodeURIComponent(nextUrl.search.substring(nextUrl.search.indexOf("=") + 1)))
-        return Response.redirect(new URL(decodeURIComponent(nextUrl.search.substring(nextUrl.search.indexOf("=") + 1))));
-      } else if (isLoggedIn && (nextUrl.pathname.startsWith('/login') || nextUrl.pathname.startsWith('/register'))) {
-        return Response.redirect(new URL('/profile', nextUrl));
-      }
+			// redirect unauthenticated users to login page
+			if (isOnRestrictedPage) {
+				if (isLoggedIn) return true;
+				return false;
+			} else if (isLoggedIn &&
+				(nextUrl.pathname.startsWith('/login') ||
+				nextUrl.pathname.startsWith('/register'))) {
+				// and if they're signed in don't let them to the sign-in page
+				return Response.redirect(new URL('/profile', nextUrl));
+			}
 
-      return true;
-    },
-  },
+			return true;
+		},
+	},
 };

@@ -15,11 +15,14 @@
     "@mui/icons-material": "^5.15.9",
     "@mui/material": "^5.15.9",
     "@mui/material-nextjs": "^5.15.9",
+    "@sendgrid/mail": "^8.1.1",
     "bcrypt": "^5.1.1",
+    "eslint-config-google": "^0.14.0",
     "mongodb": "^6.3.0",
     "mongoose": "^8.1.1",
     "next": "^14.0.4",
     "next-auth": "^5.0.0-beta.5",
+    "nodemailer": "^6.9.12",
     "react": "^18",
     "react-dom": "^18",
     "zod": "^3.22.4"
@@ -27,6 +30,7 @@
   "devDependencies": {
     "@types/react": "18.2.48",
     "eslint": "^8",
-    "eslint-config-next": "14.0.4"
+    "eslint-config-next": "14.0.4",
+    "prettier": "3.2.5"
   }
 }

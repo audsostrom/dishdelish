@@ -1,3 +1,10 @@
 {
-  "extends": "next/core-web-vitals"
+  "extends": ["next/core-web-vitals", "google"],
+  "rules": { 
+    "react/no-unescaped-entities": 0,
+    "no-tabs": 0, // don't mess with prettier
+    "new-cap": 0, // in auth.js, doesn't recognize built-in Next functions
+    "strict": 2,
+    "indent": ["error", "tab"]
+  }
 }

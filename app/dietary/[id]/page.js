@@ -1,4 +1,4 @@
-"use client";
+'use client';
 
 import React, { useState } from "react";
 import "./dietary.css";
@@ -14,35 +14,35 @@ function Dietary() {
   const [searchTerm, setSearchTerm] = useState("");
   const [timeRange, setTimeRange] = useState([10, 60]); // State for time range
 
-  // Function to handle checkbox change for intolerances
-  const handleCheckboxChange = (e) => {
-    const { value, checked } = e.target;
-    if (checked) {
-      setIntolerances([...intolerances, value]);
-    } else {
-      setIntolerances(intolerances.filter((item) => item !== value));
-    }
-  };
+	// Function to handle checkbox change for intolerances
+	const handleCheckboxChange = (e) => {
+		const {value, checked} = e.target;
+		if (checked) {
+			setIntolerances([...intolerances, value]);
+		} else {
+			setIntolerances(intolerances.filter((item) => item !== value));
+		}
+	};
 
-  // Function to handle checkbox change for cuisines
-  const handleCuisineCheckboxChange = (e) => {
-    const { value, checked } = e.target;
-    if (checked) {
-      setSelectedCuisines([...selectedCuisines, value]);
-    } else {
-      setSelectedCuisines(selectedCuisines.filter((item) => item !== value));
-    }
-  };
+	// Function to handle checkbox change for cuisines
+	const handleCuisineCheckboxChange = (e) => {
+		const {value, checked} = e.target;
+		if (checked) {
+			setSelectedCuisines([...selectedCuisines, value]);
+		} else {
+			setSelectedCuisines(selectedCuisines.filter((item) => item !== value));
+		}
+	};
 
-  // Function to handle checkbox change for diets
-  const handleDietCheckboxChange = (e) => {
-    const { value, checked } = e.target;
-    if (checked) {
-      setSelectedDiets([...selectedDiets, value]);
-    } else {
-      setSelectedDiets(selectedDiets.filter((item) => item !== value));
-    }
-  };
+	// Function to handle checkbox change for diets
+	const handleDietCheckboxChange = (e) => {
+		const {value, checked} = e.target;
+		if (checked) {
+			setSelectedDiets([...selectedDiets, value]);
+		} else {
+			setSelectedDiets(selectedDiets.filter((item) => item !== value));
+		}
+	};
 
   // Function to handle slider change for time range
   const handleSliderChange = (e) => {
@@ -121,11 +121,7 @@ function Dietary() {
         </div>
       </div>
 
-      <div className="checkbox-container">
-        {generateDropdownOptions()}
-      </div>
-    </div>
-  );
+			<div className="checkbox-container">{generateDropdownOptions()}</div>
+		</div>
+	);
 }
-
-export default Dietary;
