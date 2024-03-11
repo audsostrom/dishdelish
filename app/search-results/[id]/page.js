@@ -50,27 +50,33 @@ async function getData(id) {
 
 		// paleo, vegan, vegetarian, dairy allergies and whole 30 diets can't eat dairy
 		if ((preferences['diets'].includes('paleo') || preferences['diets'].includes('vegan') || preferences['diets'].includes('vegetarian') || preferences['ingredients'].includes('whole 30') || preferences['intolerances'].includes('Dairy')) && ingredientResponse['dairyFree'] == false) {
-			response.filter(item => item !== response[i]);		
+			response.filter(item => item !== response[i]);	
+			continue;	
 		}
 		// not vegan
 		if (preferences['ingredients'].includes('vegan') && ingredientResponse['vegan'] == false) {
 			response.filter(item => item !== response[i]);
+			continue;
 		}
 		// not vegetarian
 		if (preferences['ingredients'].includes('vegetarian') && ingredientResponse['vegetarian'] == false) {
 			response.filter(item => item !== response[i]);
+			continue;
 		}
 		// not gluten-free
 		if (preferences['intolerances'].includes('Gluten') && ingredientResponse['glutenFree'] == false) {
 			response.filter(item => item !== response[i]);
+			continue;
 		}
 		// not dairy-free
 		if (preferences['intolerances'].includes('Dairy') && ingredientResponse['dairyFree'] == false) {
 			response.filter(item => item !== response[i]);
+			continue;
 		}
 		// not diet compliant
 		if (!preferences['diets'].some((elem)=> ingredientResponse['diets'].includes(elem))) {
 			response.filter(item => item !== response[i]);
+			continue;
 		}
 
 
