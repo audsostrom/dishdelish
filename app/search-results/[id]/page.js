@@ -117,8 +117,8 @@ async function getData(id) {
 async function Results({params}) {
 
    let session = await auth();
-   console.log(session.user);
-   let userRecipes = session.user ? await getSavedRecipes(session.user.email) : [];
+   console.log(session?.user);
+   let userRecipes = session?.user ? await getSavedRecipes(session.user.email) : [];
    console.log('my recipes', userRecipes);
 
 	console.log('params', params);
