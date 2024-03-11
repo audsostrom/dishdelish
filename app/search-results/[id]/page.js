@@ -21,7 +21,7 @@ async function getData(id) {
 	// const userCuisines = preferences['diets'].join(',');
 	// const userIntolerances = preferences['intolerances'].join(',');
 	const res = await fetch(
-		`https://api.spoonacular.com/recipes/findByIngredients?ingredients=${userIngredients}&number=1&&apiKey=${process.env.SPOON_KEY}`
+		`https://api.spoonacular.com/recipes/findByIngredients?ingredients=${userIngredients}&number=5&&apiKey=${process.env.SPOON_KEY}`
 	);
 
 	if (!res.ok) {
@@ -29,6 +29,7 @@ async function getData(id) {
 		throw new Error('Failed to fetch data');
 	}
 	let response = await res.json();
+	console.log(response, 'why')
 	let ingredientResponse, ingredientPromise, ingredientAisles, ingredientNames;
 	for (let i = 0; i < response.length; i++) {
 		ingredientPromise = await fetch(
@@ -94,13 +95,15 @@ async function getData(id) {
 			continue;
 		}
 		// not diet compliant
-		if (!preferences['diets'].some((elem)=> ingredientResponse['diets'].includes(elem))) {
+		if (preferences['diets'].some((elem)=> ingredientResponse['diets'].includes(elem))) {
 			response = response.filter(item => item != response[i]);
+			console.log('poop')
 			continue;
 		}
 		// doesn't match cuisines
-		if (ingredientResponse['cuisines'] != [] && !preferences['cuisine'].some((elem)=> ingredientResponse['cuisines'].includes(elem))) {
+		if (ingredientResponse['cuisines'] != [] && preferences['cuisine'].some((elem)=> ingredientResponse['cuisines'].includes(elem))) {
 			response = response.filter(item => item != response[i]);
+			console.log('poop')
 			continue;
 		}
 
