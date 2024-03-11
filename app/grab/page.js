@@ -1,6 +1,5 @@
 'use client';
 import {useState} from 'react';
-import BannerImageNew from '../../assets/bannerused.png';
 import {ingredients} from '@/data/ingredients';
 import './grab.css';
 import SearchableDropdown from '../../components/searchable-dropdown/searchable-dropdown';
@@ -12,6 +11,7 @@ import {storeIngredients} from './storeIngredients';
 export default function Grab() {
 	const [value, setValue] = useState([]);
 	console.log('value', value);
+	console.log(ingredients)
 	return (
 		<div className='grab-container'>
 			<div className='banner'>

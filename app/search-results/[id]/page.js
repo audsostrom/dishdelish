@@ -17,25 +17,57 @@ async function getData(id) {
 	'use server';
 	const preferences = await getPreferences(id);
 	const userIngredients = preferences['ingredients'].join(',+');
-	const userCuisines = preferences['diets'].join(',');
-	const userIntolerances = preferences['intolerances'].join(',+');
-	let intolerancesString; let cuisinesString;
-	if (userIntolerances != []) {
-		intolerancesString = `&intolerances=${userIntolerances}`;
-	}
-	if (userCuisines != []) {
-		cuisinesString = `&cuisine=${userCuisines}`;
-	}
-	console.log('ingredients', userIngredients, userIntolerances, cuisinesString);
+	// const userCuisines = preferences['diets'].join(',');
+	// const userIntolerances = preferences['intolerances'].join(',');
+	console.log('ingredients', userIngredients);
 	const res = await fetch(
-		`https://api.spoonacular.com/recipes/complexSearch?addRecipeInformation=true&includeIngredients=${userIngredients}&apiKey=${process.env.SPOON_KEY}`
+		`https://api.spoonacular.com/recipes/findByIngredients?ingredients=${userIngredients}&apiKey=${process.env.SPOON_KEY}`
 	);
 
 	if (!res.ok) {
 		// This will activate the closest `error.js` Error Boundary
 		throw new Error('Failed to fetch data');
 	}
-	return res.json();
+	const response = await res.json();
+	let ingredientResponse, ingredientPromise;
+	for (let i = 0; i < response.length; i++) {
+		ingredientPromise = await fetch(
+			`https://api.spoonacular.com/recipes/${response[i]['id']}/information?apiKey=${process.env.SPOON_KEY}`
+		);
+		if (!ingredientPromise.ok) {
+			// This will activate the closest `error.js` Error Boundary
+			throw new Error('Failed to fetch data');
+		}
+		ingredientResponse = await ingredientPromise.json();
+		console.log(i, ingredientResponse)
+		response[i]['readyInMinutes'] = ingredientResponse['readyInMinutes'];
+		response[i]['cuisines'] = ingredientResponse['cuisines'];
+		response[i]['diets'] = ingredientResponse['diets'];
+		response[i]['vegetarian'] = ingredientResponse['vegetarian'];
+		response[i]['vegan'] = ingredientResponse['vegan'];
+		response[i]['glutenFree'] = ingredientResponse['glutenFree'];
+		response[i]['dairyFree'] = ingredientResponse['dairyFree'];
+
+		// paleo, vegan, vegetarian, dairy allergies and whole 30 diets can't eat diary
+		if (preferences['ingredients'].includes('paleo') || preferences['ingredients'].includes('vegan') || preferences['ingredients'].includes('vegetarian') || preferences['ingredients'].includes('whole 30') || preferences['intolerances'].includes('Diary')) {
+		
+		}
+		// not vegan
+		if (preferences['ingredients'].includes('vegan') && ingredientResponse['vegan'] == false) {
+
+		}
+		// not vegetarian
+		if (preferences['ingredients'].includes('vegetarian') && ingredientResponse['vegetarian'] == false) {
+
+		}
+		// not gluten-free
+		if (preferences['ingredients'].includes('vegetarian') && ingredientResponse['vegetarian'] == false) {
+
+		}
+
+
+	}
+	return response;
 }
 
 /**
@@ -56,7 +88,6 @@ async function Results({params}) {
 	const id = params['id'];
 
 	const data = await getData(id);
-	console.log(data);
 
 	return (
 		<div className='results-container'>
@@ -74,11 +105,11 @@ async function Results({params}) {
 					</div>
 				</Link>
 
-				<div className='showing-results'>Showing {data.results.length} Results</div>
+				<div className='showing-results'>Showing {data.length} Results</div>
 			</div>
 			<div className='recipe-cards-wrapper'>
 				{
-					data.results.map((item, i) =>
+					data.map((item, i) =>
 					// this redirects you to specific recipe
 						<Link
 							key={'recipe' + i}
