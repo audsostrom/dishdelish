@@ -5,6 +5,10 @@ import './dietary.css';
 import {updateDiet} from './updateDiet';
 import {useParams} from 'next/navigation';
 import Link from 'next/link';
+import InputLabel from '@mui/material/InputLabel';
+import MenuItem from '@mui/material/MenuItem';
+import FormControl from '@mui/material/FormControl';
+import Select from '@mui/material/Select';
 
 /**
  * @return {*} – Renders the Dietary Filters page
@@ -207,14 +211,19 @@ export default function Dietary() {
 						value={searchTerm}
 						onChange={(e) => setSearchTerm(e.target.value)}
 					/>
-					<div className="options">
-						<select onChange={(e) => setSelectedOption(e.target.value)}>
-							<option value="Cuisine">Cuisine</option>
-							<option value="Diet">Diet</option>
-							<option value="Intolerances">Intolerances</option>
-							<option value="Time">Time</option>
-						</select>
-					</div>
+					<FormControl>
+						<Select
+							labelId="demo-simple-select-label"
+							className="options"
+							value={selectedOption}
+							onChange={(e) => setSelectedOption(e.target.value)}
+						>
+							<MenuItem value={'Cuisine'}>Cuisines</MenuItem>
+							<MenuItem value={'Intolerances'}>Intolerances</MenuItem>
+							<MenuItem value={'Diet'}>Diets</MenuItem>
+							<MenuItem value={'Time'}>Time Range</MenuItem>
+						</Select>
+					</FormControl>
 					<div className="filter">
 						<button>Search</button>
 					</div>

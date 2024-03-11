@@ -91,10 +91,16 @@
   border: 1px solid #ccc;
 }
 
-.options select {
+.options {
   height: 50px;
+  max-height: auto;
   border-radius: 5px;
-  border: 1px solid #ccc;
+  position: relative;
+}
+
+option {
+  top: 10px;
+  position: absolute;
 }
 
 .filter button {
