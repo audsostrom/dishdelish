@@ -20,7 +20,7 @@ export const {
 			async authorize(credentials) {
 				try {
 					const user = await getUser(credentials['email']);
-					console.log('my user', user)
+					console.log('my user', user);
 					if (!user) return null;
 					const passwordsMatch = await compare(
 						credentials['password'], user['password']
@@ -30,10 +30,9 @@ export const {
 							email: credentials['email'],
 						};
 					} else {
-						console.log('hi')
+						console.log('hi');
 						return null;
 					}
-
 				} catch (error) {
 					return null;
 				}

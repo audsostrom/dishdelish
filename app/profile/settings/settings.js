@@ -58,7 +58,7 @@ export async function Settings() {
 			<div className='subtitle'>Saved Recipes</div>
 			<div className='savedRecipes'>
 				{
-					userRecipes.map((item, i) =>
+					userRecipes?.map((item, i) =>
 					// this redirects you to specific recipe route with id and favorites in the search params
 						<Link
 							key={'recipe' + i}

@@ -4,15 +4,16 @@ import './reset-password.css';
 import {redirect} from 'next/navigation';
 import {resetPassword} from '@/app/db';
 import {getToken} from '@/app/db';
- 
 
+/**
+ * @return {*} – Renders the Password Resets Page
+ */
 export default async function ForgotPassword({params, searchParams}) {
-	
-	console.log(params, searchParams)
+	console.log(params, searchParams);
 	const token = params['id'];
 	const match = searchParams['match'];
 	const tokenDoc = await getToken(token);
-	let email, expirationDate, isExpired;
+	let email; let expirationDate; let isExpired;
 	if (tokenDoc) {
 		email = tokenDoc['email'];
 		expirationDate = tokenDoc['expireAt'];
@@ -33,7 +34,7 @@ export default async function ForgotPassword({params, searchParams}) {
 						<form
 							action={async (formData) => {
 								'use server';
-								if (formData.get('password') != '' &&  formData.get('confirm-password') != ''&& (formData.get('password') == formData.get('confirm-password'))) {
+								if (formData.get('password') != '' && formData.get('confirm-password') != ''&& (formData.get('password') == formData.get('confirm-password'))) {
 									const response = await resetPassword(email, formData.get('password'), formData.get('confirm-password'));
 									console.log('response was', response);
 									redirect('/login');

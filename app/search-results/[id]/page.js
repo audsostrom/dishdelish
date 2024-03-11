@@ -10,7 +10,7 @@ import TuneIcon from '@mui/icons-material/Tune';
  * Spoonacular API.
  * @param {String} id - The `id` parameter in the `getData` function is used to identify a specific user for
  * whom we are fetching recipe data based on their ingredient preferences.
- * @return The `getData` function is returning a Promise that resolves to the JSON response from the
+ * @return {Promise} The `getData` function is returning a Promise that resolves to the JSON response from the
  * Spoonacular API after fetching recipe data based on the user's ingredient preferences.
  */
 async function getData(id) {
@@ -19,12 +19,12 @@ async function getData(id) {
 	const userIngredients = preferences['ingredients'].join(',+');
 	const userCuisines = preferences['diets'].join(',');
 	const userIntolerances = preferences['intolerances'].join(',+');
-	let intolerancesString, cuisinesString;
+	let intolerancesString; let cuisinesString;
 	if (userIntolerances != []) {
-		intolerancesString = `&intolerances=${userIntolerances}`
+		intolerancesString = `&intolerances=${userIntolerances}`;
 	}
 	if (userCuisines != []) {
-		cuisinesString = `&cuisine=${userCuisines}`
+		cuisinesString = `&cuisine=${userCuisines}`;
 	}
 	console.log('ingredients', userIngredients, userIntolerances, cuisinesString);
 	const res = await fetch(
@@ -38,7 +38,9 @@ async function getData(id) {
 	return res.json();
 }
 
-
+/**
+ * @return {*} – Renders the Recipe Results page
+ */
 async function Results({params}) {
 	// (TO DO) uncomment this section during intregration + after demo
 	/**
@@ -54,7 +56,7 @@ async function Results({params}) {
 	const id = params['id'];
 
 	const data = await getData(id);
-	console.log(data)
+	console.log(data);
 
 	return (
 		<div className='results-container'>

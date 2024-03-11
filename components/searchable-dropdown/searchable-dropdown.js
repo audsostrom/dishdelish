@@ -1,6 +1,12 @@
 import {useEffect, useRef, useState} from 'react';
 import './searchable-dropdown.css';
 
+/**
+ * Component that allows users to search and select
+ * items from a dropdown list with the ability to filter
+ * and display selected items.
+ * @return {*} – Renders the components
+ */
 const SearchableDropdown = ({
 	options,
 	label,
@@ -23,7 +29,10 @@ const SearchableDropdown = ({
 		setQuery('');
 		setIsOpen(false);
 
-		// If the option is already selected, remove it; otherwise, add it to the list
+		/**
+		 * If the option is already selected, remove it; otherwise,
+		 * add it to the list
+		*/
 		const updatedSelectedItems = selectedItems.includes(option[label]) ?
 			selectedItems.filter((item) => item !== option[label]) :
 			[...selectedItems, option[label]];
@@ -40,6 +49,13 @@ const SearchableDropdown = ({
 		handleChange(updatedSelectedItems);
 	};
 
+	/**
+ * The function `toggle` sets the state of `isOpen`
+ * based on whether the event target is the same as
+ * the `inputRef` current value.
+ * @param {String} e - An event object that is passed to
+ * the function when it is triggered by an event listener.
+ */
 	function toggle(e) {
 		setIsOpen(e && e.target === inputRef.current);
 	}
@@ -86,7 +102,7 @@ const SearchableDropdown = ({
 				{selectedItems.map((item, index) => (
 					<div className="selected-item" key={`selected-${index}`}>
 						<span>{item}</span>
-						<span onClick={() => deselectItem(item)}>✖️</span> 
+						<span onClick={() => deselectItem(item)}>✖️</span>
 					</div>
 				))}
 			</div>
