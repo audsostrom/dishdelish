@@ -60,20 +60,21 @@ export default function Dietary() {
 	const generateDropdownOptions = () => {
 		let filteredOptions;
 		if (selectedOption === 'Intolerances') {
-			// Allergy options
+			// Allergy options, maybe we can filter by alchohol?
 			const allergies = [
 				'Dairy',
 				'Egg',
 				'Gluten',
-				'Grains',
+				// 'Grains',
 				'Peanuts',
 				'Seafood',
-				'Sesame',
+				// 'Sesame',
 				'Shellfish',
-				'Soy',
-				'Sulfite',
+				// 'Soy',
+				// 'Sulfite',
 				'Tree Nut',
-				'Wheat',
+				'Alcohol',
+				// 'Wheat',
 			];
 			filteredOptions = allergies.filter((option) =>
 				option.toLowerCase().includes(searchTerm.toLowerCase()),

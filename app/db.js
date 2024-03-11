@@ -39,6 +39,7 @@ export async function createUser(email, password) {
 			email,
 			password: hashedPassword,
 			savedRecipes: [],
+			savedIngredients: [],
 		});
 		return NextResponse.json(
 			{message: 'User registered.'},
@@ -72,6 +73,26 @@ export async function getUser(email) {
 		);
 		const returnVal = user === null ? null : user;
 		return returnVal;
+	} catch (error) {
+		return NextResponse.json(
+			{message: 'An error occurred while getting the user.'},
+			{status: 500}
+		);
+	}
+}
+
+export async function saveIngredients(email, ingredients) {
+	try {
+		await connectMongoDB();
+		// findOne() gives one document that matches the criteria
+		await User.updateOne(
+			{email: email},
+			{$set: {savedIngredients: ingredients}}
+		);
+		return NextResponse.json(
+			{message: 'Successfully updated saved ingredients.'},
+			{status: 200}
+		);
 	} catch (error) {
 		return NextResponse.json(
 			{message: 'An error occurred while getting the user.'},
@@ -184,11 +205,11 @@ export async function getSavedRecipes(email) {
 			const userRecipes = await savedRecipe.find(
 				{recipeId: {$in: user.savedRecipes}}
 			); // final query
-			const returnVal = userRecipes === null ? null : userRecipes;
+			const returnVal = userRecipes === null ? [] : userRecipes;
 			return returnVal;
 		}
 		// otherwise no recipes to get :(
-		return null;
+		return [];
 	} catch (error) {
 		return NextResponse.json(
 			{message: 'An error occurred while getting the user\'s saved recipes.'},
