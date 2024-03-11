@@ -112,15 +112,15 @@ export default function Dietary() {
 		} else if (selectedOption === 'Diet') {
 			// Diet options
 			const diets = [
-				'Lacto Vegetarian',
-				'Ovo Vegetarian',
-				'Paleo',
-				'Pescetarian',
-				'Primal',
-				'Vegan',
-				'Vegetarian',
-				'Keto',
-				'Whole 30',
+				'lacto vegetarian',
+				'ovo vegetarian',
+				'paleo',
+				'pescetarian',
+				'primal',
+				'vegan',
+				'vegetarian',
+				'keto',
+				'whole 30',
 			];
 			filteredOptions = diets.filter((option) =>
 				option.toLowerCase().includes(searchTerm.toLowerCase()),
