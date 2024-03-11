@@ -78,8 +78,11 @@ async function getData(id) {
 			response.filter(item => item !== response[i]);
 			continue;
 		}
-
-
+		// doesn't match cuisines
+		if (ingredientResponse['cuisines'] != [] && !preferences['cuisinse'].some((elem)=> ingredientResponse['cuisines'].includes(elem))) {
+			response.filter(item => item !== response[i]);
+			continue;
+		}
 	}
 	return response;
 }
