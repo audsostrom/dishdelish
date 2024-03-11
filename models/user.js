@@ -13,6 +13,10 @@ const userSchema = new Schema(
     savedRecipes: {
       type: [Number],
       required: true,
+    },
+    savedIngredients: {
+      type: [String],
+      required: true,
     }
   },
   { timestamps: true }
