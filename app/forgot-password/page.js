@@ -1,11 +1,12 @@
 import Link from 'next/link';
-import {Form} from '../../components/form/form';
-import {signIn} from '../auth';
 import {sendEmail} from '../mail';
 import {SubmitButton} from '../../components/submit-button/submit-button';
 import './forgot-password.css';
 import {redirect} from 'next/navigation';
 
+/**
+ * @return {*} – Renders the Forgot Password page
+ */
 export default function ForgotPassword() {
 	return (
 		<div className="forgot-password-container">
@@ -28,7 +29,10 @@ export default function ForgotPassword() {
 						redirect('/login');
 					}}
 				>
-					<div>A password reset link for your account if it's verified, and you'll be redirected to the login page after.</div>
+					<div>
+						A password reset link for your account if it's verified, 
+						and you'll be redirected to the login page after.
+					</div>
 					<div className="email-input-wrapper">
 						<label
 							htmlFor="email"

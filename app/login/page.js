@@ -33,7 +33,7 @@ export default function Login({searchParams}) {
 							redirect: false,
 							email: formData.get('email'),
 							password: formData.get('password'),
-						}).then().catch(() => 
+						}).then().catch(() =>
 							redirect(`/login/?match=false`)
 						);
 						if (response) {

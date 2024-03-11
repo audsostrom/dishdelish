@@ -4,7 +4,9 @@ import Image from 'next/image';
 import DefaultIcon from '../../assets/default-profile-icon.svg';
 import {Settings} from './settings/settings';
 
-
+/**
+ * @return {*} – Renders the Profile page
+ */
 export default async function Profile() {
 	return (
 		<div className='profile-container'>

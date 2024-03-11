@@ -1,9 +1,9 @@
 import Link from 'next/link';
-import BannerImage from '../../assets/cuttingbanana.png';
 import './home.css';
-import Navbar from '@/components/navbar/navbar';
-import { signOut } from '../auth';
 
+/**
+ * @return {*} – Renders the Landing page
+ */
 export default async function Home() {
 	return (
 		<div className="home">

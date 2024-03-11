@@ -8,7 +8,7 @@ import {savePreferences} from '../db';
  * @param {Array} ingredients - An array of ingredients that need to be stored.
  */
 export async function storeIngredients(ingredients) {
-	console.log('hi', ingredients)
+	console.log('hi', ingredients);
 	const response = await savePreferences(ingredients);
 	redirect(`/dietary/${response['_id'].toString()}`);
 }

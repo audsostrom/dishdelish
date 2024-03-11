@@ -38,7 +38,7 @@ export async function createUser(email, password) {
 		await User.create({
 			email,
 			password: hashedPassword,
-			savedRecipes: [null],
+			savedRecipes: [],
 		});
 		return NextResponse.json(
 			{message: 'User registered.'},
@@ -157,7 +157,7 @@ export async function getToken(tokenString) {
 		const returnVal = tokenDoc === null ? null : tokenDoc;
 		return returnVal;
 	} catch (error) {
-		return null
+		return null;
 	}
 }
 
@@ -238,7 +238,10 @@ export async function createSavedRecipe(userEmail, recipe, favorited) {
 	};
 	// don't need to add anything if it hasn't been favorited before
 	if (favorited == false) {
-		await savedRecipe.create(recipeDoc);
+		const existingRecipe = await savedRecipe.findOne({recipeId: recipe['id']});
+		if (!existingRecipe) {
+			await savedRecipe.create(recipeDoc);
+		}
 		await User.updateOne(
 			{email: userEmail},
 			{$push: {savedRecipes: recipe['id']}}
@@ -247,10 +250,13 @@ export async function createSavedRecipe(userEmail, recipe, favorited) {
 			{message: 'New saved recipe created.'},
 			{status: 201}
 		);
-
 		// (TO DO) add functionality for unsaving recipes
 	} else {
-		return NextResponse.json({message: 'No updates'}, {status: 200});
+		await User.updateOne(
+			{email: userEmail},
+			{$pull: {savedRecipes: recipe['id']}}
+		);
+		return NextResponse.json({message: 'Removed saved recipe'}, {status: 200});
 	}
 }
 
@@ -266,10 +272,10 @@ export async function savePreferences(ingredients) {
 		// create new user in database with no saved recipes to start
 		const preference = await Preference.create({
 			ingredients: ingredients,
-			diets: [null],
-			diets: [null],
-			cuisine: [null],
-			intolerances: [null],
+			diets: [],
+			diets: [],
+			cuisine: [],
+			intolerances: [],
 		});
 		console.log(preference._id.toString());
 		return preference;
