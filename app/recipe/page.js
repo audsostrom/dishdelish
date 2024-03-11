@@ -1,8 +1,10 @@
 import './recipe.css';
 import {createSavedRecipe} from '../db';
+import { auth } from '../auth';
 import Image from 'next/image';
 import {Star, Favorite} from '@mui/icons-material';
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
+import {redirect} from 'next/navigation';
 
 /**
  * The function `getData` fetches recipe information from the Spoonacular API using the provided recipe
@@ -13,7 +15,7 @@ import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
  * returns the JSON data. If there is an error during the fetch operation (when `res.ok` is false), the
  * function throws an error with the message 'Failed to fetch data'.
  */
-export default async function getData(recipeId) {
+async function getData(recipeId) {
 	const res = await fetch(
 		`https://api.spoonacular.com/recipes/${recipeId}/information?apiKey=${process.env.SPOON_KEY}`,
 	);
@@ -30,31 +32,26 @@ export default async function getData(recipeId) {
  * (i.e. whether or not a recipe has been favorited)
  * @return {*} – Renders the Profile page
  */
-async function RecipeInfo({searchParams}) {
+export default async function RecipeInfo({searchParams}) {
+	let session = await auth();
 	console.log(searchParams['id']);
 	const data = await getData(searchParams['id']);
-	console.log(data['analyzedInstructions'][0]['steps'], 'hi');
-	console.log(data);
 	const favorited = searchParams['favorited'] == 'true' ? true : false;
 
 	const page = 1;
 
-	// (TO DO): uncomment when everything integrated
-	/**
-   let session = await auth();
-   console.log(session.user);
-   let userRecipes = await getSavedRecipes(session.user.email);
-   console.log('my recipes', userRecipes);
-   */
-	const email = '1234@gmail.com'; // change later, just to make demo quick
-
-	// very critical to use server here!
 	/**
    * Used to save a recipe as a favorite for a specific user.
    */
 	const handleFavorite = async () => {
 		'use server';
-		createSavedRecipe(email, data, favorited);
+		console.log('user email', session)
+		if (session?.user?.email) {
+			createSavedRecipe(session?.user?.email, data, favorited);
+			redirect(`/recipe?id=${searchParams['id']}&favorited=${!favorited}`);
+		} else {
+			redirect('/login');
+		}
 	};
 
 	/**
@@ -154,8 +151,7 @@ async function RecipeInfo({searchParams}) {
 					<div>Instructions</div>
 					<div>Additonal Information</div>
 				</div>
-				{page == 1 && <div dangerouslySetInnerHTML={getInstructions()}></div>}
-				{page == 2 && <div>Hello</div>}
+				<div dangerouslySetInnerHTML={getInstructions()}></div>
 			</div>
 		</div>
 	);
