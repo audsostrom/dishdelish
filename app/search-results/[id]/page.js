@@ -48,21 +48,29 @@ async function getData(id) {
 		response[i]['glutenFree'] = ingredientResponse['glutenFree'];
 		response[i]['dairyFree'] = ingredientResponse['dairyFree'];
 
-		// paleo, vegan, vegetarian, dairy allergies and whole 30 diets can't eat diary
-		if (preferences['ingredients'].includes('paleo') || preferences['ingredients'].includes('vegan') || preferences['ingredients'].includes('vegetarian') || preferences['ingredients'].includes('whole 30') || preferences['intolerances'].includes('Diary')) {
-		
+		// paleo, vegan, vegetarian, dairy allergies and whole 30 diets can't eat dairy
+		if ((preferences['diets'].includes('paleo') || preferences['diets'].includes('vegan') || preferences['diets'].includes('vegetarian') || preferences['ingredients'].includes('whole 30') || preferences['intolerances'].includes('Dairy')) && ingredientResponse['dairyFree'] == false) {
+			response.filter(item => item !== response[i]);		
 		}
 		// not vegan
 		if (preferences['ingredients'].includes('vegan') && ingredientResponse['vegan'] == false) {
-
+			response.filter(item => item !== response[i]);
 		}
 		// not vegetarian
 		if (preferences['ingredients'].includes('vegetarian') && ingredientResponse['vegetarian'] == false) {
-
+			response.filter(item => item !== response[i]);
 		}
 		// not gluten-free
-		if (preferences['ingredients'].includes('vegetarian') && ingredientResponse['vegetarian'] == false) {
-
+		if (preferences['intolerances'].includes('Gluten') && ingredientResponse['glutenFree'] == false) {
+			response.filter(item => item !== response[i]);
+		}
+		// not dairy-free
+		if (preferences['intolerances'].includes('Dairy') && ingredientResponse['dairyFree'] == false) {
+			response.filter(item => item !== response[i]);
+		}
+		// not diet compliant
+		if (!preferences['diets'].some((elem)=> ingredientResponse['diets'].includes(elem))) {
+			response.filter(item => item !== response[i]);
 		}
 
 
@@ -121,7 +129,7 @@ async function Results({params}) {
 							<div className="recipe-card" key={i}>
 								<Image alt='recipe-photo' className='card-image' width='200' height='200' src={item['image']}/>
 								<div className='card-text'>
-									<div className='recipe-title'>{item['title']}</div>
+									<div className='recipe-title'>{(item['title'].length > 43) ? item['title'].slice(0, 42) + '...' : item['title']}</div>
 									<div className='time'>Time: {item['readyInMinutes']} minutes</div>
 								</div>
 							</div>
