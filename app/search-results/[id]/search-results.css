@@ -1,11 +1,8 @@
-body {
-   background-color: white;
-}
-
 .recipe-cards-wrapper {
+   background-color: white;
    display: flex;
    flex-wrap: wrap;
-   margin: 10px 20px;
+   padding: 10px 20px;
    align-items: center;
    justify-content: space-evenly;
    animation: 1s ease-out 0s slideInFromLeft;

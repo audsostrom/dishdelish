@@ -11,7 +11,6 @@ import {storeIngredients} from './storeIngredients';
 export default function Grab() {
 	const [value, setValue] = useState([]);
 	console.log('value', value);
-	console.log(ingredients)
 	return (
 		<div className='grab-container'>
 			<div className='banner'>

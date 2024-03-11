@@ -16,7 +16,7 @@ export default function ForgotPassword() {
 
 					<div className="forgot-password-subheader">
 						{'Remembered your password? '}
-						<Link href="/register">
+						<Link href="/login">
                 Go Back To Login
 						</Link>
 					</div>
@@ -29,9 +29,10 @@ export default function ForgotPassword() {
 						redirect('/login');
 					}}
 				>
-					<div>
-						A password reset link for your account if it's verified, 
-						and you'll be redirected to the login page after.
+					<div className='more-info'>
+						A password reset link for your account if it's verified.
+						<br></br> 
+						You'll be redirected to the login page after.
 					</div>
 					<div className="email-input-wrapper">
 						<label

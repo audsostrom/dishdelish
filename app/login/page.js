@@ -21,7 +21,7 @@ export default function Login({searchParams}) {
 					<div className="login-subheader">
 						{'Don\'t have an account? '}
 						<Link href="/register">
-                Sign up
+                		Sign up
 						</Link>
 					</div>
 
@@ -41,11 +41,14 @@ export default function Login({searchParams}) {
 						}
 					}}
 				>
-					{match && <div>Password incorrect</div>}
+					{match && <div className='wrong-password'>Password incorrect</div>}
 					<div className="sign-in-button">
 						<SubmitButton>Sign in</SubmitButton>
 					</div>
 				</Form>
+				<Link href="/forgot-password">
+               <div className='forgot-your-password'>Forgot your password?</div>
+				</Link>
 			</div>
 		</div>
 	);
