@@ -184,11 +184,11 @@ export async function getSavedRecipes(email) {
 			const userRecipes = await savedRecipe.find(
 				{recipeId: {$in: user.savedRecipes}}
 			); // final query
-			const returnVal = userRecipes === null ? null : userRecipes;
+			const returnVal = userRecipes === null ? [] : userRecipes;
 			return returnVal;
 		}
 		// otherwise no recipes to get :(
-		return null;
+		return [];
 	} catch (error) {
 		return NextResponse.json(
 			{message: 'An error occurred while getting the user\'s saved recipes.'},

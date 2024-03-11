@@ -4,6 +4,7 @@ import Image from 'next/image';
 import {getSavedRecipes} from '../../db';
 import {getPreferences} from '../../db';
 import TuneIcon from '@mui/icons-material/Tune';
+import { auth } from '@/app/auth';
 
 /**
  * The function `getData` fetches recipe data based on user preferences and ingredients using the
@@ -17,10 +18,8 @@ async function getData(id) {
 	'use server';
 	const preferences = await getPreferences(id);
 	const userIngredients = preferences['ingredients'].join(',+');
-	console.log(preferences['intolerances'])
 	// const userCuisines = preferences['diets'].join(',');
 	// const userIntolerances = preferences['intolerances'].join(',');
-	console.log('ingredients', userIngredients);
 	const res = await fetch(
 		`https://api.spoonacular.com/recipes/findByIngredients?ingredients=${userIngredients}&number=1&&apiKey=${process.env.SPOON_KEY}`
 	);
@@ -30,7 +29,6 @@ async function getData(id) {
 		throw new Error('Failed to fetch data');
 	}
 	let response = await res.json();
-	console.log('respone', response)
 	let ingredientResponse, ingredientPromise, ingredientAisles, ingredientNames;
 	for (let i = 0; i < response.length; i++) {
 		ingredientPromise = await fetch(
@@ -44,7 +42,6 @@ async function getData(id) {
 		// console.log(i, ingredientResponse['extendedIngredients'], typeof ingredientResponse['extendedIngredients']);
 		ingredientAisles = ingredientResponse['extendedIngredients'].map(a => a['aisle']?.toLowerCase());
 		ingredientNames = ingredientResponse['extendedIngredients'].map(a => a['name']?.toLowerCase());
-		console.log(ingredientAisles, 'aisles')
 		// console.log(ingredientAisles, 'aisles')
 		response[i]['readyInMinutes'] = ingredientResponse['readyInMinutes'];
 		response[i]['cuisines'] = ingredientResponse['cuisines'];
@@ -115,16 +112,12 @@ async function getData(id) {
  * @return {*} – Renders the Recipe Results page
  */
 async function Results({params}) {
-	// (TO DO) uncomment this section during intregration + after demo
-	/**
+
    let session = await auth();
    console.log(session.user);
-   let userRecipes = await getSavedRecipes(session.user.email);
+   let userRecipes = session.user ? await getSavedRecipes(session.user.email) : [];
    console.log('my recipes', userRecipes);
 
-
-   */
-	const userRecipes = await getSavedRecipes('1234@gmail.com');
 	console.log('params', params);
 	const id = params['id'];
 
