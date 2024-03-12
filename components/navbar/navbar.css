@@ -10,7 +10,6 @@
 
 .logo {
   display: inline-flex;
-  line-height: 10px;
   vertical-align: middle;
 }
 
@@ -50,22 +49,9 @@
 }
 
 .navbar .rightSide button.hamburger-button {
-  background-color: transparent; 
   border: none; 
   color: black; 
   cursor: pointer; 
-  padding: 10px; 
-  margin-right: 0px; 
-  display: flex; 
-  flex-direction: column; /* Stack items vertically */
-  justify-content: space-between; 
-}
-
-.navbar .rightSide button.hamburger-button .line {
-  width: 25px; 
-  height: 3px; 
-  background-color: black; 
-  margin-bottom: 5px;
 }
 
 
@@ -83,10 +69,6 @@
 }
 
 
-.icon {
-  margin-top: 10px;
-}
-
 .navbar a {
   color: rgb(0, 0, 0);
   text-decoration: none;
@@ -102,10 +84,6 @@
 
 .navbar .rightSide svg {
   font-size: 40px;
-}
-
-.navbar #open {
-  padding-left: 0px;
 }
 
 .navbar #open img {
@@ -133,7 +111,6 @@
 .hiddenLinks {
   display: none;
   flex-direction: column;
-  margin-top: 10px;
 }
 
 @media only screen and (min-width: 601px) {
@@ -203,9 +180,8 @@
 
   .navbar .leftSide.show-mobile-menu {
     visibility: visible;
-    left: 0;
     background-color: #ffffff; 
-    border: 1px solid rgb(17, 17, 53);
+    border: 1px solid black;
     border-radius: 8px;
     justify-content: center;
     align-items: center;
@@ -222,15 +198,6 @@
     transition: 0.5s ease-in-out;
     color: black; 
   }
-
-  .navbar .leftSide .close-icon {
-    position: absolute;
-    top: 20px;
-    left: 220px;
-    cursor: pointer;
-    color: black; 
-  }
-
 
   .navbar .rightSide button {
     display: flex; 

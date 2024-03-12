@@ -19,13 +19,17 @@ export async function getRecipeFromModel(inputs, data) {
 	);
 	const result = await response.json();
 	console.log('result', result);
-	const results = await result[0]['generated_text'];
-	const title = results.split('title: ')[1].split(' ingredients:')[0];
-	const directions = results.split('ingredients: ')[1].split('directions: ')[1].split('. ');
-	const ingredients = results.split(' ingredients: ')[1].split(' directions: ')[0];
-	const parsedIngredients = parseIngredients(inputs, ingredients);
-	console.log([title, parsedIngredients, directions]);
-	return [title, parsedIngredients, directions];
+	if (result['error']) {
+		return [result['error'], result['estimated_time']];
+	} else {
+		const results = await result[0]['generated_text'];
+		const title = results.split('title: ')[1].split(' ingredients:')[0];
+		const directions = results.split('ingredients: ')[1].split('directions: ')[1].split('. ');
+		const ingredients = results.split(' ingredients: ')[1].split(' directions: ')[0];
+		const parsedIngredients = parseIngredients(inputs, ingredients);
+		console.log([title, parsedIngredients, directions]);
+		return [title, parsedIngredients, directions];
+	}
 }
 
 /**

@@ -108,7 +108,8 @@
 
 /* Media query for iPhone/Pixel screens */
 @media only screen and (max-width: 650px) and (min-device-width: 320px) and (max-device-width: 812px) {
-  .home {
+  .headerContainer {
+    display: flex;
     justify-content: center;
     align-items: center;
     /* Adjust background image to cover the whole background */
@@ -117,13 +118,10 @@
 
   /* Additional styles for iPhone/Pixel screens */
   .beigeBox {
-    width: auto;
-    max-width: 80%;
-    padding: 20px 30px;
-    position: relative;
-    top: 50%; /* Place it at 50% from the top */
-    left: 50%; /* Place it at 50% from the left */
-    transform: translate(-50%, -27%); /* Translate it back by half its own width and half its own height */
+    width: 300px;
+    align-self: center;
+    justify-self: center;
+    margin: 5%;
   }
 
   .customText {

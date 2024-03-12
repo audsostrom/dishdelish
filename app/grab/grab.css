@@ -1,17 +1,14 @@
-body {
-  background-color: #E8EAEE;
-
-}
-
 .grab-container {
   flex-direction: column;
   display: flex;
+  background-color: #E8EAEE;
 }
 
 .customTexthome {
   margin-top: 30px;
   margin-bottom: 30px;
   border-radius: 10px;
+  font-size: 20px;
   background-color: white;
   align-self: center;
   width: 80%;
@@ -62,33 +59,19 @@ body {
   font-style: italic;
 }
 
-.submit-button {
+.submit-ingredient-button {
   cursor: pointer;
   background-color: #b88e2f;
   font-family: 'Poppins';
   font-weight: bold;
   color: #fff;
+  font-size: 14px;
   border: none;
   border-radius: 10px;
-  padding: 5px 10px;
-  align-self: flex-end;
+  padding: 5px 20px;
+  justify-self: flex-end;
   margin-left: auto;
-
-  /**
-  padding: 5px 15px;
-  border-radius: 20px;
-  cursor: pointer;
-  margin-top: 10px;
-  align-self: center;
-  justify-self: center;
-
-  background-color: #b88e2f;
-  font-family: 'Poppins';
-  font-weight: bold;
-  color: #fff;
-  border: none;
-  font-size: 20px;
-  */
+  letter-spacing: 0.02em;
 }
 
 
@@ -99,15 +82,10 @@ body {
     height: 150px;
   }
 
-  .customTextNew {
-    top: 50px;
-    font-size: 30px; /* Adjusted font size for smaller screens */
-    padding: 20px;
-  }
 
   .customTexthome {
     top: 200px;
-    font-size: 24px; /* Adjusted font size for smaller screens */
+    font-size: 25px; /* Adjusted font size for smaller screens */
     padding: 10px 15px;
     margin-top: 50px;
   }

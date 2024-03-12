@@ -4,7 +4,7 @@ import Image from 'next/image';
 import {getSavedRecipes} from '../../db';
 import {getPreferences} from '../../db';
 import TuneIcon from '@mui/icons-material/Tune';
-import { auth } from '@/app/auth';
+import {auth} from '@/app/auth';
 
 /**
  * The function `getData` fetches recipe data based on user preferences and ingredients using the
@@ -29,20 +29,23 @@ async function getData(id) {
 		throw new Error('Failed to fetch data');
 	}
 	let response = await res.json();
-	console.log(response, 'why')
-	let ingredientResponse, ingredientPromise, ingredientAisles, ingredientNames;
+	console.log(response.length, 'why');
+	let ingredientResponse; let ingredientPromise; let ingredientAisles; let ingredientNames;
 	for (let i = 0; i < response.length; i++) {
+		console.log('i is', i);
+		console.log(response[i]['id'], 'yo');
 		ingredientPromise = await fetch(
 			`https://api.spoonacular.com/recipes/${response[i]['id']}/information?apiKey=${process.env.SPOON_KEY}`
 		);
 		if (!ingredientPromise.ok) {
+			console.log('rats');
 			// This will activate the closest `error.js` Error Boundary
 			throw new Error('Failed to fetch data');
 		}
 		ingredientResponse = await ingredientPromise.json();
 		// console.log(i, ingredientResponse['extendedIngredients'], typeof ingredientResponse['extendedIngredients']);
-		ingredientAisles = ingredientResponse['extendedIngredients'].map(a => a['aisle']?.toLowerCase());
-		ingredientNames = ingredientResponse['extendedIngredients'].map(a => a['name']?.toLowerCase());
+		ingredientAisles = ingredientResponse['extendedIngredients'].map((a) => a['aisle']?.toLowerCase());
+		ingredientNames = ingredientResponse['extendedIngredients'].map((a) => a['name']?.toLowerCase());
 		// console.log(ingredientAisles, 'aisles')
 		response[i]['readyInMinutes'] = ingredientResponse['readyInMinutes'];
 		response[i]['cuisines'] = ingredientResponse['cuisines'];
@@ -52,61 +55,72 @@ async function getData(id) {
 		response[i]['glutenFree'] = ingredientResponse['glutenFree'];
 		response[i]['dairyFree'] = ingredientResponse['dairyFree'];
 
+		console.log(response[i]['title'], response[i]['vegan'], response[i]['vegetarian'], preferences['diets'].includes('vegetarian'));
+
 		// paleo, vegan, vegetarian, dairy allergies and whole 30 diets can't eat dairy
 		if ((preferences['diets'].includes('paleo') || preferences['diets'].includes('vegan') || preferences['diets'].includes('vegetarian') || preferences['ingredients'].includes('whole 30') || preferences['intolerances'].includes('Dairy')) && ingredientResponse['dairyFree'] == false) {
-			response = response.filter(item => item != response[i]);	
-			continue;	
+			response = response.filter((item) => item != response[i]);
+			i--;
+			continue;
 		}
 		// not vegan
-		if (preferences['ingredients'].includes('vegan') && ingredientResponse['vegan'] == false) {
-			response = response.filter(item => item != response[i]);
+		if (preferences['diets'].includes('vegan') && ingredientResponse['vegan'] == false) {
+			response = response.filter((item) => item != response[i]);
+			i--;
 			continue;
 		}
 		// not vegetarian
-		if (preferences['ingredients'].includes('vegetarian') && ingredientResponse['vegetarian'] == false) {
-			response = response.filter(item => item != response[i]);
+		if (preferences['diets'].includes('vegetarian') && ingredientResponse['vegetarian'] == false) {
+			console.log('filtering out', i);
+			response = response.filter((item) => item != response[i]);
+			i--;
 			continue;
 		}
 		// not gluten-free
 		if (preferences['intolerances'].includes('Gluten') && ingredientResponse['glutenFree'] == false) {
-			response = response.filter(item => item != response[i]);
+			response = response.filter((item) => item != response[i]);
+			i--;
 			continue;
 		}
 		// not dairy-free
 		if (preferences['intolerances'].includes('Dairy') && ingredientResponse['dairyFree'] == false) {
-			response = response.filter(item => item != response[i]);
+			response = response.filter((item) => item != response[i]);
+			i--;
 			continue;
 		}
 		// no fish if you're allergic to shell fish or fish
-		if ((preferences['intolerances'].includes('Seafood') || preferences['intolerances'].includes('shellfish') ) && (ingredientAisles.includes('seafood') ||  ingredientAisles.includes('fish'))) {
-			response = response.filter(item => item != response[i]);
+		if ((preferences['intolerances'].includes('Seafood') || preferences['intolerances'].includes('shellfish') ) && (ingredientAisles.includes('seafood') || ingredientAisles.includes('fish'))) {
+			response = response.filter((item) => item != response[i]);
+			i--;
 			continue;
 		}
 		// no peanuts if you're allergic to shell fish or fish
-		console.log(ingredientNames.includes('nut'), ingredientAisles.some((str) => str.includes('nut')))
-		if (preferences['intolerances'].includes('Peanuts') && (ingredientNames.some((str) => str.includes('nut')) ||  ingredientAisles.some((str) => str.includes('nut')))) {
-			response = response.filter(item => item != response[i]);
+		// console.log(ingredientNames.includes('nut'), ingredientAisles.some((str) => str.includes('nut')));
+		if (preferences['intolerances'].includes('Peanuts') && (ingredientNames.some((str) => str.includes('nut')) || ingredientAisles.some((str) => str.includes('nut')))) {
+			response = response.filter((item) => item != response[i]);
+			i--;
 			console.log(response, 'hi');
 			continue;
 		}
 		// no alcohol if you don't like it
 		if (preferences['intolerances'].includes('Alcohol') && (ingredientAisles.includes('alcohol'))) {
-			response = response.filter(item => item != response[i]);
+			response = response.filter((item) => item != response[i]);
 			continue;
 		}
 		// not diet compliant
 		if (preferences['diets'].some((elem)=> ingredientResponse['diets'].includes(elem))) {
-			response = response.filter(item => item != response[i]);
-			console.log('poop')
+			response = response.filter((item) => item != response[i]);
+			i--;
+			console.log('poop');
 			continue;
 		}
 		// doesn't match cuisines
 		if (ingredientResponse['cuisines'] != [] && preferences['cuisine'].some((elem)=> ingredientResponse['cuisines'].includes(elem))) {
-			response = response.filter(item => item != response[i]);
-			console.log('poop')
+			response = response.filter((item) => item != response[i]);
+			i--;
+			console.log('poop');
 			continue;
 		}
-
 	}
 	return response;
 }
@@ -115,11 +129,10 @@ async function getData(id) {
  * @return {*} – Renders the Recipe Results page
  */
 async function Results({params}) {
-
-   let session = await auth();
-   console.log(session?.user);
-   let userRecipes = session?.user ? await getSavedRecipes(session.user.email) : [];
-   console.log('my recipes', userRecipes);
+	const session = await auth();
+	console.log('user', session?.user);
+	const userRecipes = session?.user ? await getSavedRecipes(session.user.email) : [];
+	console.log('my recipes', userRecipes);
 
 	console.log('params', params);
 	const id = params['id'];
@@ -145,31 +158,30 @@ async function Results({params}) {
 				<div className='showing-results'>Showing {data.length} Results</div>
 			</div>
 			{
-				data.length == 0 ? 
-				<div>No recipes found! Try with more or different ingredients, or with different ingredients.</div>
-				:
-				<div className='recipe-cards-wrapper'>
-				{
-					data.map((item, i) =>
-					// this redirects you to specific recipe
-						<Link
-							key={'recipe' + i}
-							href={{
-								pathname: `/recipe/`,
-								query: {id: item['id'], favorited: userRecipes.some((obj) => obj.id === item['id'])},
-							}}
-						>
-							<div className="recipe-card" key={i}>
-								<Image alt='recipe-photo' className='card-image' width='200' height='200' src={item['image']}/>
-								<div className='card-text'>
-									<div className='recipe-title'>{(item['title'].length > 43) ? item['title'].slice(0, 42) + '...' : item['title']}</div>
-									<div className='time'>Time: {item['readyInMinutes']} minutes</div>
-								</div>
-							</div>
-						</Link>
-					)
-				}
-			</div>
+				data.length == 0 ?
+					<div className='nothing-found'>No recipes found! Try with more or different ingredients, or with different filters.</div>				:
+					<div className='recipe-cards-wrapper'>
+						{
+							data.map((item, i) =>
+							// this redirects you to specific recipe
+								<Link
+									key={'recipe' + i}
+									href={{
+										pathname: `/recipe/`,
+										query: {id: item['id'], favorited: userRecipes.some((obj) => obj.id === item['id'])},
+									}}
+								>
+									<div className="recipe-card" key={i}>
+										<Image alt='recipe-photo' className='card-image' width='200' height='200' src={item['image']}/>
+										<div className='card-text'>
+											<div className='recipe-title'>{(item['title'].length > 43) ? item['title'].slice(0, 42) + '...' : item['title']}</div>
+											<div className='time'>Time: {item['readyInMinutes']} minutes</div>
+										</div>
+									</div>
+								</Link>
+							)
+						}
+					</div>
 			}
 
 		</div>
