@@ -85,25 +85,26 @@ export default function Transformer() {
 							</Stack>
 						</div>
 					)}
-					{ (recipe.length == 1) && (
+					{recipe.length == 1 && (
 						<div className="waiting-box">
-						<div className="waiting">
-							<i>Loading the model, please re-click the submit button in {recipe['error']} seconds</i>
+							<div className="waiting">
+								<i>
+                  Loading the model, please re-click the submit button in{' '}
+									{recipe['error']} seconds
+								</i>
+							</div>
+							<Stack
+								sx={{color: '#1E5EFF'}}
+								direction="row"
+								justifyContent="center"
+								alignItems="center"
+							>
+								<CircularProgress size="3rem" color="inherit" />
+							</Stack>
 						</div>
-						<Stack
-							sx={{color: '#1E5EFF'}}
-							direction="row"
-							justifyContent="center"
-							alignItems="center"
-						>
-							<CircularProgress size="3rem" color="inherit" />
-						</Stack>
-					</div>
-					)
-					}
-					{
-						(recipe.length == 3) && (
-							<>
+					)}
+					{recipe.length == 3 && (
+						<>
 							<div className="recipe-title">{recipe[0]?.toUpperCase()}</div>
 							{recipe[1] && <div className="section-header">Ingredients:</div>}
 							{recipe[1]?.map((item, i) => (
@@ -122,13 +123,9 @@ export default function Transformer() {
 										{i + 1}. {item}
 									</div>
 								</div>
-							))
-							}
-							</>
-
-						)
-
-					}
+							))}
+						</>
+					)}
 				</div>
 			</div>
 		</div>
