@@ -16,7 +16,6 @@ const userSchema = new Schema(
     },
     savedIngredients: {
       type: [String],
-      required: true,
     }
   },
   { timestamps: true }

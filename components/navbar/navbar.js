@@ -5,6 +5,7 @@ import Link from 'next/link';
 import AccountCircleRoundedIcon from '@mui/icons-material/AccountCircleRounded';
 import Logo from '../../assets/logo.svg';
 import './navbar.css';
+import MenuIcon from '@mui/icons-material/Menu';
 
 function Navbar() {
 	const [openLinks, setOpenLinks] = useState(false);
@@ -62,46 +63,22 @@ function Navbar() {
 					</li>
 				</ul>
 			</div>
+
 			<div className="rightSide">
 				<Link href="/" onClick={closeMobileMenu}>
-					{' '}
-          Home{' '}
+					Home
 				</Link>
 				<Link href="/about" onClick={closeMobileMenu}>
-					{' '}
-          About{' '}
+					About
 				</Link>
 				<Link href="/menu" onClick={closeMobileMenu}>
-					{' '}
-          Recipes{' '}
+					Recipes
 				</Link>
 				<Link href="/profile" className="icon" onClick={closeMobileMenu}>
-					<AccountCircleRoundedIcon />{' '}
+					<AccountCircleRoundedIcon />
 				</Link>
-
-				<div className={`hiddenLinks ${openLinks ? 'open' : ''}`}>
-					<Link href="/" onClick={closeMobileMenu}>
-						{' '}
-            Home{' '}
-					</Link>
-					<Link href="/about" onClick={closeMobileMenu}>
-						{' '}
-            About{' '}
-					</Link>
-					<Link href="/menu" onClick={closeMobileMenu}>
-						{' '}
-            Recipes{' '}
-					</Link>
-					<Link href="/profile" onClick={closeMobileMenu}>
-						{' '}
-            Profile{' '}
-					</Link>
-				</div>
-
 				<button className="hamburger-button" onClick={toggleNavbar}>
-					<span className="line"></span>
-					<span className="line"></span>
-					<span className="line"></span>
+					<MenuIcon/>
 				</button>
 			</div>
 		</div>

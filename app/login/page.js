@@ -47,7 +47,7 @@ export default function Login({searchParams}) {
 					</div>
 				</Form>
 				<Link href="/forgot-password">
-               <div className='forgot-your-password'>Forgot your password?</div>
+					<div className='forgot-your-password'>Forgot your password?</div>
 				</Link>
 			</div>
 		</div>

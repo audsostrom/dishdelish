@@ -2,7 +2,6 @@
 .dietary-container {
   background-color: #E8EAEE;
   padding-bottom: 30px;
-
 }
 
 .newPage {
@@ -13,6 +12,7 @@
   justify-content: center;
   flex-wrap: wrap;
   gap: 15px;
+  margin-bottom: 10px;
 }
 
 .dietary-content-search {
@@ -55,6 +55,20 @@
   padding: 10px 20px;
 }
 
+.submit-diet-button {
+  cursor: pointer;
+  background-color: #b88e2f;
+  font-family: 'Poppins';
+  font-weight: bold;
+  color: #fff;
+  font-size: 14px;
+  border: none;
+  border-radius: 10px;
+  padding: 5px 20px;
+  justify-self: flex-end;
+  margin-left: auto;
+  letter-spacing: 0.02em;
+}
 
 .checkbox-container {
   width: 100%; /* Take full width */
@@ -73,8 +87,8 @@
 
 .checkbox input[type="checkbox"] {
   order: 2; /* Make checkbox appear after label */
-  width: 30px; /* Adjust checkbox size */
-  height: 30px; /* Adjust checkbox size */
+  width: 20px; /* Adjust checkbox size */
+  height: 20px; /* Adjust checkbox size */
   margin-left: 20px; /* Add more spacing between content and checkbox */
 }
 
@@ -86,16 +100,24 @@
 /* Additional styling for search input */
 .search-text-field {
   flex-grow: 1;
-  height: 46px;
+  height: 33px;
   border-radius: 5px;
   border: 1px solid #ccc;
+  padding: 0px 15px;
+  font-family: 'Poppins';
+}
+
+.search-text-field:focus {
+  border: 1.5px solid #1E5EFF;
+  outline: none !important;
 }
 
 .options {
-  height: 50px;
+  height: 35px;
   max-height: auto;
   border-radius: 5px;
   position: relative;
+  width: 200px;
 }
 
 option {
@@ -109,11 +131,13 @@ option {
   border-radius: 5px;
   cursor: pointer;
   background-color: #b88e2f;
-  height: 50px;
+  height: 35px;
   padding-left: 20px;
+  font-weight: 500;
   padding-right: 20px;
+  width: 100px;
+  font-family: 'Poppins';
   text-align: center; /* Center button text */
-  font-size: 24px; /* Increase font size */
 }
 
 .time-slider {

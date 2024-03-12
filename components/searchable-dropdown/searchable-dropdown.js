@@ -1,6 +1,7 @@
 import {useEffect, useRef, useState} from 'react';
 import './searchable-dropdown.css';
 
+
 /**
  * Component that allows users to search and select
  * items from a dropdown list with the ability to filter
@@ -17,6 +18,21 @@ const SearchableDropdown = ({
 	const [query, setQuery] = useState('');
 	const [isOpen, setIsOpen] = useState(false);
 	const [selectedItems, setSelectedItems] = useState([]);
+
+	const getSavedIngredients = async () => {
+		const response = await fetch('/api/grab');
+		if (response) {
+			const data = await response.json();
+			setSelectedItems(data['ingredients']);
+			handleChange(data['ingredients']);
+		}
+	};
+
+	useEffect(() => {
+		getSavedIngredients();
+	// eslint-disable-next-line react-hooks/exhaustive-deps
+	}, []
+	);
 
 	const inputRef = useRef(null);
 

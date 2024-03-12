@@ -10,7 +10,7 @@ export default async function Home() {
 			<div className="headerContainer">
 				<div className="beigeBox">
 					<p>Discover Your Next Dish</p>
-					<span className="customText">Trying to save some cash or use the food you have already? DishDelish brings the power to your pantry by fetching recipes with ONLY the ingrediants you have on-hand!</span>
+					<span className="customText">Trying to save some cash or use the food you have already? DishDelish brings the power to your pantry by fetching recipes with ONLY the ingredients you have on-hand!</span>
 					<br />
 					<br />
 					{/** href instead of to for next linking */}

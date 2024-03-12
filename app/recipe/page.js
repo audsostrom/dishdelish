@@ -1,6 +1,6 @@
 import './recipe.css';
 import {createSavedRecipe} from '../db';
-import { auth } from '../auth';
+import {auth} from '../auth';
 import Image from 'next/image';
 import {Star, Favorite} from '@mui/icons-material';
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
@@ -33,7 +33,7 @@ async function getData(recipeId) {
  * @return {*} – Renders the Profile page
  */
 export default async function RecipeInfo({searchParams}) {
-	let session = await auth();
+	const session = await auth();
 	console.log(searchParams['id']);
 	const data = await getData(searchParams['id']);
 	const favorited = searchParams['favorited'] == 'true' ? true : false;
@@ -45,7 +45,7 @@ export default async function RecipeInfo({searchParams}) {
    */
 	const handleFavorite = async () => {
 		'use server';
-		console.log('user email', session)
+		console.log('user email', session);
 		if (session?.user?.email) {
 			createSavedRecipe(session?.user?.email, data, favorited);
 			redirect(`/recipe?id=${searchParams['id']}&favorited=${!favorited}`);

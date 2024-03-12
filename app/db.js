@@ -81,6 +81,26 @@ export async function getUser(email) {
 	}
 }
 
+export async function getUserIngredients(email) {
+	try {
+		await connectMongoDB();
+		// findOne() gives one document that matches the criteria
+		const user = await User.findOne(
+			{email},
+			{email: 1, savedIngredients: 1}
+		);
+		console.log(user);
+		const returnVal = user === null ? null : user['savedIngredients'];
+		return returnVal;
+	} catch (error) {
+		return NextResponse.json(
+			{message: 'An error occurred while getting the saved ingredients.'},
+			{status: 500}
+		);
+	}
+}
+
+
 export async function saveIngredients(email, ingredients) {
 	try {
 		await connectMongoDB();

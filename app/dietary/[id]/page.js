@@ -5,10 +5,23 @@ import './dietary.css';
 import {updateDiet} from './updateDiet';
 import {useParams} from 'next/navigation';
 import Link from 'next/link';
-import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
+
+import {createTheme} from '@mui/material/styles';
+
+
+export const theme = createTheme({
+	typography: {
+		// fontFamily: ['Montserrat', 'serif'].join(','), Uncomment if you want all the typography to inherit this font.
+		button: {
+			fontFamily: ['Montserrat', 'serif'].join(','),
+			fontSize: 16,
+			fontWeight: 400,
+		},
+	},
+});
 
 /**
  * @return {*} – Renders the Dietary Filters page
@@ -193,7 +206,7 @@ export default function Dietary() {
           Here, you can select your allergies and preferred dietary preferences.
 				</div>
 				<button
-					className="submit-button"
+					className="submit-diet-button"
 					onClick={() =>
 						updateDiet(id, selectedDiets, intolerances, selectedCuisines)
 					}
@@ -207,7 +220,7 @@ export default function Dietary() {
 					<input
 						className="search-text-field"
 						type="text"
-						placeholder="Search..."
+						placeholder="Type the diet, cuisine, or allergy you want to filter by..."
 						value={searchTerm}
 						onChange={(e) => setSearchTerm(e.target.value)}
 					/>
@@ -217,11 +230,12 @@ export default function Dietary() {
 							className="options"
 							value={selectedOption}
 							onChange={(e) => setSelectedOption(e.target.value)}
+							sx={{fontFamily: 'Poppins', fontSize: 14, color: 'gray'}}
 						>
-							<MenuItem value={'Cuisine'}>Cuisines</MenuItem>
-							<MenuItem value={'Intolerances'}>Intolerances</MenuItem>
-							<MenuItem value={'Diet'}>Diets</MenuItem>
-							<MenuItem value={'Time'}>Time Range</MenuItem>
+							<MenuItem sx={{fontFamily: 'Poppins', fontSize: 14, color: 'gray'}} value={'Cuisine'}>Cuisines</MenuItem>
+							<MenuItem sx={{fontFamily: 'Poppins', fontSize: 14, color: 'gray'}} value={'Intolerances'}>Intolerances</MenuItem>
+							<MenuItem sx={{fontFamily: 'Poppins', fontSize: 14, color: 'gray'}} value={'Diet'}>Diets</MenuItem>
+							<MenuItem sx={{fontFamily: 'Poppins', fontSize: 14, color: 'gray'}} value={'Time'}>Time Range</MenuItem>
 						</Select>
 					</FormControl>
 					<div className="filter">

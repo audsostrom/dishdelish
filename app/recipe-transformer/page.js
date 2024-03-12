@@ -72,7 +72,7 @@ export default function Transformer() {
 					</div>
 				</div>
 				<div className="right-side">
-					{recipe.length == 0 && (
+					{recipe.length < 3 && (
 						<div className="waiting-box">
 							<div className="waiting">
 								<i>Awaiting Your Input</i>

@@ -12,7 +12,7 @@ export default function Menu() {
 	return (
 		<div className="menu-container">
 			<div className="custom-text-container">
-				<span className="custom-text-title">We make cooking work for you.</span>
+				<div className="custom-text-title">We make cooking work for you.</div>
 				<div className="custom-description">
             With DishDelish, just tell us what you have in your
 				pantry, and we'll handle the rest.
@@ -27,7 +27,7 @@ export default function Menu() {
 					</Link>
 					<Link href="/recipe-transformer">
 						<button className="secondary-button">
-							AI Generate New Recipes
+							Generate Recipes With AI &#10023;
 						</button>
 					</Link>
 				</div>
