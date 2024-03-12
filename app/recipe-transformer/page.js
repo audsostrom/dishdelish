@@ -70,7 +70,7 @@ export default function Transformer() {
 					</div>
 				</div>
 				<div className="right-side">
-					{recipe.length < 3 && (
+					{recipe.length == 0 && (
 						<div className="waiting-box">
 							<div className="waiting">
 								<i>Awaiting Your Input</i>
@@ -85,12 +85,12 @@ export default function Transformer() {
 							</Stack>
 						</div>
 					)}
-					{recipe.length == 1 && (
+					{recipe.length == 2 && (
 						<div className="waiting-box">
 							<div className="waiting">
 								<i>
-                  Loading the model, please re-click the submit button in{' '}
-									{recipe['error']} seconds
+									Loading the model, please re-click the submit button in
+									{recipe[1]} seconds
 								</i>
 							</div>
 							<Stack

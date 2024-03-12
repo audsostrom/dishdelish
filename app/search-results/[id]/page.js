@@ -20,14 +20,14 @@ async function getData(id) {
 	'use server';
 	const preferences = await getPreferences(id);
 	const userIngredients = preferences['ingredients'].join(',+');
-	console.log( userIngredients)
+	console.log(userIngredients);
 	// console.log('hi', preferences['diets'], preferences['intolerances']);
 
 	// eslint-disable-next-line max-len
 	const res = await fetch(
 		`https://api.spoonacular.com/recipes/findByIngredients?ingredients=${userIngredients}&number=5&&apiKey=${process.env.SPOON_KEY}`,
 	);
-	console.log(res)
+	console.log(res);
 
 	if (!res.ok) {
 		// This will activate the closest `error.js` Error Boundary
@@ -39,8 +39,7 @@ async function getData(id) {
 	let ingredientAisles;
 	let ingredientNames;
 	// only do extra stuff if necessary
-	// console.log(preferences['diets'], preferences['diets'] != [], preferences['intolerances'], preferences['intolerances'] != [])
-	if (!((preferences['diets'] == []) && (preferences['intolerances'] == []))) {
+	if (!(preferences['diets'] == [] && preferences['intolerances'] == [])) {
 		for (let i = 0; i < response.length; i++) {
 			console.log(response[i]['id'], 'yo');
 			// eslint-disable-next-line max-len
@@ -66,15 +65,15 @@ async function getData(id) {
 			response[i]['vegan'] = ingredientResponse['vegan'];
 			response[i]['glutenFree'] = ingredientResponse['glutenFree'];
 			response[i]['dairyFree'] = ingredientResponse['dairyFree'];
-	
+
 			// paleo, vegan, vegetarian, dairy allergies and whole 30 can't eat dairy
 			if (
 				(preferences['diets'].includes('paleo') ||
-			  preferences['diets'].includes('vegan') ||
-			  preferences['diets'].includes('vegetarian') ||
-			  preferences['ingredients'].includes('whole 30') ||
-			  preferences['intolerances'].includes('Dairy')) &&
-			ingredientResponse['dairyFree'] == false
+          preferences['diets'].includes('vegan') ||
+          preferences['diets'].includes('vegetarian') ||
+          preferences['ingredients'].includes('whole 30') ||
+          preferences['intolerances'].includes('Dairy')) &&
+        ingredientResponse['dairyFree'] == false
 			) {
 				response = response.filter((item) => item != response[i]);
 				i--;
@@ -83,7 +82,7 @@ async function getData(id) {
 			// not vegan
 			if (
 				preferences['diets'].includes('vegan') &&
-			ingredientResponse['vegan'] == false
+        ingredientResponse['vegan'] == false
 			) {
 				response = response.filter((item) => item != response[i]);
 				i--;
@@ -92,7 +91,7 @@ async function getData(id) {
 			// not vegetarian
 			if (
 				preferences['diets'].includes('vegetarian') &&
-			ingredientResponse['vegetarian'] == false
+        ingredientResponse['vegetarian'] == false
 			) {
 				console.log('filtering out', i);
 				response = response.filter((item) => item != response[i]);
@@ -102,7 +101,7 @@ async function getData(id) {
 			// not gluten-free
 			if (
 				preferences['intolerances'].includes('Gluten') &&
-			ingredientResponse['glutenFree'] == false
+        ingredientResponse['glutenFree'] == false
 			) {
 				response = response.filter((item) => item != response[i]);
 				i--;
@@ -111,7 +110,7 @@ async function getData(id) {
 			// not dairy-free
 			if (
 				preferences['intolerances'].includes('Dairy') &&
-			ingredientResponse['dairyFree'] == false
+        ingredientResponse['dairyFree'] == false
 			) {
 				response = response.filter((item) => item != response[i]);
 				i--;
@@ -120,9 +119,9 @@ async function getData(id) {
 			// no fish if you're allergic to shell fish or fish
 			if (
 				(preferences['intolerances'].includes('Seafood') ||
-			  preferences['intolerances'].includes('shellfish')) &&
-			(ingredientAisles.includes('seafood') ||
-			  ingredientAisles.includes('fish'))
+          preferences['intolerances'].includes('shellfish')) &&
+        (ingredientAisles.includes('seafood') ||
+          ingredientAisles.includes('fish'))
 			) {
 				response = response.filter((item) => item != response[i]);
 				i--;
@@ -131,8 +130,8 @@ async function getData(id) {
 			// no peanuts if you're allergic to shell fish or fish
 			if (
 				preferences['intolerances'].includes('Peanuts') &&
-			(ingredientNames.some((str) => str.includes('nut')) ||
-			  ingredientAisles.some((str) => str.includes('nut')))
+        (ingredientNames.some((str) => str.includes('nut')) ||
+          ingredientAisles.some((str) => str.includes('nut')))
 			) {
 				response = response.filter((item) => item != response[i]);
 				i--;
@@ -142,7 +141,7 @@ async function getData(id) {
 			// no alcohol if you don't like it
 			if (
 				preferences['intolerances'].includes('Alcohol') &&
-			ingredientAisles.includes('alcohol')
+        ingredientAisles.includes('alcohol')
 			) {
 				response = response.filter((item) => item != response[i]);
 				continue;
@@ -170,14 +169,27 @@ async function getData(id) {
 				continue;
 			}
 		}
-
 	}
 	// console.log(response, 'response');
 	return response;
 }
 
+/**
+ * The function calculates the percentage of used ingredients
+ * out of the total available ingredients.
+ * @param {Number} usedIngredientCount - The `usedIngredientCount` parameter
+ * represents the number of
+ * ingredients that have been used in a recipe or a task.
+ * @param {Number} missedIngredientCount - Missed ingredient count refers
+ * to the number of ingredients that were  not used in a recipe or a process.
+ * @return {Number} – The percentage of used ingredients out of the
+ * total number of used and missed ingredients,
+ * rounded down to the nearest whole number.
+ */
 function calculatePercentage(usedIngredientCount, missedIngredientCount) {
-	return Math.floor(((usedIngredientCount / (missedIngredientCount + usedIngredientCount)) * 100))
+	return Math.floor(
+		(usedIngredientCount / (missedIngredientCount + usedIngredientCount)) * 100,
+	);
 }
 
 /**
@@ -219,40 +231,55 @@ async function Results({params}) {
 				</div>
 			) : (
 				<div className="recipe-cards-wrapper">
-					{data.sort((item1, item2) => calculatePercentage(item2['usedIngredientCount'], item2['missedIngredientCount']) - calculatePercentage(item1['usedIngredientCount'], item1['missedIngredientCount'])).map((item, i) => (
-						// this redirects you to specific recipe
-						<Link
-							key={'recipe' + i}
-							href={{
-								pathname: `/recipe/`,
-								query: {
-									id: item['id'],
-									favorited: userRecipes.some((obj) => obj.id === item['id']),
-								},
-							}}
-						>
-							<div className="recipe-card" key={i}>
-								<Image
-									alt="recipe-photo"
-									className="card-image"
-									width="200"
-									height="200"
-									src={item['image']}
-								/>
-								<div className="card-text">
-									<div className="recipe-title">
-										{item['title'].length > 43 ?
-											item['title'].slice(0, 42) + '...' :
-											item['title']}
-									</div>
-									<div className="match-percent">
-										{calculatePercentage(item['usedIngredientCount'], item['missedIngredientCount'])}%
-										Match!
+					{data
+						.sort(
+							(item1, item2) =>
+								calculatePercentage(
+									item2['usedIngredientCount'],
+									item2['missedIngredientCount'],
+								) -
+								calculatePercentage(
+									item1['usedIngredientCount'],
+									item1['missedIngredientCount'],
+								),
+						)
+						.map((item, i) => (
+							// this redirects you to specific recipe
+							<Link
+								key={'recipe' + i}
+								href={{
+									pathname: `/recipe/`,
+									query: {
+										id: item['id'],
+										favorited: userRecipes.some((obj) => obj.id === item['id']),
+									},
+								}}
+							>
+								<div className="recipe-card" key={i}>
+									<Image
+										alt="recipe-photo"
+										className="card-image"
+										width="200"
+										height="200"
+										src={item['image']}
+									/>
+									<div className="card-text">
+										<div className="recipe-title">
+											{item['title'].length > 43 ?
+												item['title'].slice(0, 42) + '...' :
+												item['title']}
+										</div>
+										<div className="match-percent">
+											{calculatePercentage(
+												item['usedIngredientCount'],
+												item['missedIngredientCount'],
+											)}
+                      % Match!
+										</div>
 									</div>
 								</div>
-							</div>
-						</Link>
-					))}
+							</Link>
+						))}
 				</div>
 			)}
 		</div>
