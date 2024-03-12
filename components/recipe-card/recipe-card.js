@@ -12,7 +12,7 @@ function RecipeCard() {
 
    return (
      <div className="recipe-card-container">
-       <Image width='290' height='290' src={RecipePicture}></Image>
+       <Image width='290' height='290' src={RecipePicture} alt="Recipe Picture"></Image>
        <div className="description">
          <div className="recipe-name">{info['name']}</div>
          <div className="recipe-time">{info['time']}</div>

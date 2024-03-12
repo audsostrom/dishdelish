@@ -51,7 +51,7 @@ async function Results({ params }) {
   return (
    <div className='results-container'>
       <div className="banner">
-         <div className='header'>Here's What We Found For You</div>
+         <div className='header'>Here&apos;s What We Found For You</div>
          <Link href={{pathname: `/grab`,}}>
             <div className='go-back'>&#60; Need To Go Back?</div>
          </Link>
@@ -70,12 +70,12 @@ async function Results({ params }) {
          {
            data.results.map((item, i) => 
             // this redirects you to specific recipe
-            <Link href={{
+            <Link key={id} href={{
                pathname: `/recipe/`,
                query: { id: item['id'], favorited: userRecipes.some(obj => obj.id === item['id']) },
              }}>
                <div className="recipe-card" key={i}>
-               <Image className="card-image" width='200' height='200' src={item['image']}/>
+               <Image className="card-image" width='200' height='200' src={item['image']} alt="Card Image"/>
                <div className='card-text'>
                   <div className="recipe-title">{item['title']}</div>
                   <div className='time'>Time: {item['readyInMinutes']} minutes</div>

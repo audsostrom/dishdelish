@@ -46,7 +46,7 @@ export default function Transformer() {
             <div className='instructions'>Ensure your ingredients are inputted correctly, or else you might get unintended results.</div>
             <div className='credits'>
                <span>Powered by Hugging Face!</span>
-               <Image className='hg-logo' height='40' width='40' src={hgLogo}/>
+               <Image className='hg-logo' height='40' width='40' src={hgLogo} alt="Hugging Face Logo"/>
             </div>
          </div>
         <div className='right-side'>

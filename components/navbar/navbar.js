@@ -17,7 +17,7 @@ function Navbar() {
   return (
     <div className="navbar">
       <div className="leftSide" id={openLinks ? "open" : "close"}>
-          <Image height='40' width='40' src={Logo} />
+          <Image height='40' width='40' src={Logo} alt="Logo"/>
           <Link href="/" className="logo-text">
             DishDelish
           </Link>

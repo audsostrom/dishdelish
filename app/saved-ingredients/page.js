@@ -2,7 +2,6 @@ import React from "react";
 import Link from 'next/link'; 
 import BannerImageNew from "../../assets/chef-ingredients.jpeg";
 import "./saved-ingredients.css";
-import Link from "next/link";
 
 function UsedSavedIngredients() {
   return (

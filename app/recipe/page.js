@@ -89,13 +89,13 @@ async function RecipeInfo({searchParams}) {
       </div>
       {/** has to be an action in order to use server-side functionality */}
       <div className='body'>
-         <Image className="big-card-image" width='300' height='300' style={{objectFit: "contain"}} src={data['image']}/>
+         <Image className="big-card-image" width='300' height='300' style={{objectFit: "contain"}} src={data['image']} alt="Big Card Image"/>
          <div>
          <div className='big-title'>{data['title']}</div>
             <div>
                {
                   myArray.map((diet, i) =>
-                     <Star/>
+                     <Star key={id}/>
 
                   )
                }
@@ -106,7 +106,7 @@ async function RecipeInfo({searchParams}) {
                <span>diets: </span>
                {
                   data['diets'].map((diet, i) =>
-                     ((i == data['diets'].length - 1) ? <span>{diet}</span> : <span>{diet}, </span>)
+                     ((i == data['diets'].length - 1) ? <span key={id} >{diet}</span> : <span key={id}>{diet}, </span>)
                   )
                }
             </div>
@@ -115,7 +115,7 @@ async function RecipeInfo({searchParams}) {
                {data['cuisines'].length == 0 && <span>n/a</span>}
                {
                   data['cuisines'].map((diet, i) =>
-                     ((i == data['diets'].length - 1) ? <span>{diet}</span> : <span>{diet}, </span>)
+                     ((i == data['diets'].length - 1) ? <span key={id}>{diet}</span> : <span key={id}>{diet}, </span>)
                   )
                }
             </div>

@@ -55,8 +55,8 @@ async function Profile() {
          />
       </div>
       <div className='profile-header'>
-         <Image height='200' width='200' src={DefaultIcon}/>
-         <Image className='pencil' height='50' width='50' src={PencilIcon}/>
+         <Image height='200' width='200' src={DefaultIcon} alt="Default Icon"/>
+         <Image className='pencil' height='50' width='50' src={PencilIcon} alt="Pencil Icon"/>
       </div>
       <div className='title'>Your Profile</div>
       <div className='options'>
@@ -94,12 +94,12 @@ async function Profile() {
          {
            userRecipes.map((item, i) => 
             // this redirects you to specific recipe route with id and favorites in the search params
-            <Link href={{
+            <Link key={id} href={{
                pathname: `/recipe/`,
                query: { id: item['id'], favorited: userRecipes.some(obj => obj.id === item['id']) },
              }}>
                <div className="recipe-card" key={i}>
-               <Image className="card-image" width='200' height='200' src={item['image']}/>
+               <Image className="card-image" width='200' height='200' src={item['image']} alt="Card Image"/>
                <div className='card-text'>
                   <div>{item['title']}</div>
                   <div>Time: {item['readyInMinutes']} minutes</div>
