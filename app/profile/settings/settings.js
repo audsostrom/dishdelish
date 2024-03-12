@@ -41,21 +41,18 @@ export async function Settings() {
 				className="settings"
 				action={async (formData) => {
 					'use server';
-					console.log(
-						'values',
-						formData.get('password'),
-						formData.get('email'),
-					);
+					if (formData.get('password') == formData.get('confirm-password')) {
+						await resetPassword(
+							email,
+							formData.get('password'),
+							formData.get('confirm-password'),
+						);
+					}
 				}}
 			>
 				<div className="email">
 					<div className="profile-label">email</div>
-					<TextField
-						name="email"
-						type="email"
-						placeholder={user.email}
-						className="field-wrapper"
-					/>
+					<div className="users-email">{user.email}</div>
 				</div>
 				<div className="password">
 					<div className="profile-label">change password</div>
@@ -67,13 +64,14 @@ export async function Settings() {
 						label="enter new password"
 					/>
 					<TextField
+						name="confirm-password"
 						className="password-field"
 						label="confirm password"
 						type="password"
 					/>
 				</div>
 				<button type="submit" className="confirm-changes-button">
-          Confirm Changes
+					Confirm Changes
 				</button>
 			</form>
 			<div className="subtitle">Saved Recipes</div>
