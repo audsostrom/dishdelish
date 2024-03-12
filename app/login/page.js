@@ -6,10 +6,9 @@ import './login.css';
 import {redirect} from 'next/navigation';
 
 /**
- * @return – Renders the Login Page
+ * @return {*} – Renders the Login Page
  */
 export default function Login({searchParams}) {
-	const found = searchParams['found'];
 	const match = searchParams['match'];
 
 	return (
@@ -17,14 +16,12 @@ export default function Login({searchParams}) {
 			<div className="login-wrapper">
 				<div className='login-header'>
           Login to Your Account
-
 					<div className="login-subheader">
 						{'Don\'t have an account? '}
 						<Link href="/register">
-                		Sign up
+							Sign up
 						</Link>
 					</div>
-
 				</div>
 				<Form
 					action={async (formData) => {

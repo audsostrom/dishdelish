@@ -1,12 +1,14 @@
 'use server';
 
 /**
- * The function `getRecipeFromModel` sends a POST request to a Hugging Face model for recipe
- * generation, processes the response to extract recipe title, ingredients, and directions, and returns
- * them as an array.
+ * The function `getRecipeFromModel` sends a POST request
+ * to a Hugging Face model for recipe generation,
+ * processes the response to extract recipe title, ingredients,
+ * and directions, and then returns them all as an array.
  * @param {Array} inputs - All ingredients listed in string form
  * @param {Object} data - Object of inputs/ingredients to be given to the model
- * @return {Array} - Returns an array containing the title of the recipe, parsed ingredients, and directions of the recipe.
+ * @return {Array} - Returns an array containing the title of the recipe,
+ * parsed ingredients, and directions of the recipe.
  */
 export async function getRecipeFromModel(inputs, data) {
 	const response = await fetch(
@@ -15,7 +17,7 @@ export async function getRecipeFromModel(inputs, data) {
 			headers: {Authorization: `Bearer ${process.env.HUGGINGFACE_KEY}`},
 			method: 'POST',
 			body: JSON.stringify(data),
-		}
+		},
 	);
 	const result = await response.json();
 	console.log('result', result);
@@ -24,8 +26,13 @@ export async function getRecipeFromModel(inputs, data) {
 	} else {
 		const results = await result[0]['generated_text'];
 		const title = results.split('title: ')[1].split(' ingredients:')[0];
-		const directions = results.split('ingredients: ')[1].split('directions: ')[1].split('. ');
-		const ingredients = results.split(' ingredients: ')[1].split(' directions: ')[0];
+		const directions = results
+			.split('ingredients: ')[1]
+			.split('directions: ')[1]
+			.split('. ');
+		const ingredients = results
+			.split(' ingredients: ')[1]
+			.split(' directions: ')[0];
 		const parsedIngredients = parseIngredients(inputs, ingredients);
 		console.log([title, parsedIngredients, directions]);
 		return [title, parsedIngredients, directions];
@@ -33,8 +40,9 @@ export async function getRecipeFromModel(inputs, data) {
 }
 
 /**
- * The function `parseIngredients` takes an array of inputs and a string of ingredients, parses the
- * ingredients based on the inputs, and returns a modified list of ingredients.
+ * The function `parseIngredients` takes an array of
+ * inputs and a string of ingredients, parses the ingredients
+ * based on the inputs, and returns a modified list of ingredients.
  * @param {Array} inputs - All ingredients listed in string form
  * @param {String} ingredients - A big yucky string given by HuggingFace
  * @return {Array} – Returns an array constaining the parsed

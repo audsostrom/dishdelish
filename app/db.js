@@ -81,6 +81,16 @@ export async function getUser(email) {
 	}
 }
 
+/**
+ * The function `getUserIngredients` retrieves saved ingredients
+ * for a user based on their email from MongoDB.
+ * @param {String} email - specifies the user (used to query docs)
+ * @return {Object} – Returns either the saved ingredients array of
+ * a user with the provided email or `null` if no user is found.
+ *
+ * If an error occurs during the process, a JSON
+ * response with an error message is returned with a status code of 500.
+ */
 export async function getUserIngredients(email) {
 	try {
 		await connectMongoDB();
@@ -101,6 +111,15 @@ export async function getUserIngredients(email) {
 }
 
 
+/**
+ * The function `saveIngredients` saves a user's ingredients in MongoDB.
+ * @param {String} email - specifies the user (used to query docs)
+ * @param {Array} ingredients - Ingredients is an array that contains
+ * the list of ingredients that the user wants to save.
+ * @return {Object} The `saveIngredients` function is returning a JSON
+ * response with a success message if the operation was successful,
+ * and an error message if an error occurred.
+ */
 export async function saveIngredients(email, ingredients) {
 	try {
 		await connectMongoDB();

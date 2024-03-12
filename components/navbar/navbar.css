@@ -1,7 +1,7 @@
-.navbar {
+.navbar-container {
   width: 100%;
   height: 60px;
-  background-color: #ffffff;
+  background-color: white;
   display: flex;
   flex-direction: row; 
   line-height: 40px;
@@ -11,6 +11,10 @@
 .logo {
   display: inline-flex;
   vertical-align: middle;
+}
+
+.icon {
+  height: 40px;
 }
 
 .logo-desktop {
@@ -25,7 +29,7 @@
   margin-left: 10px;
 }
 
-.navbar .leftSide {
+.navbar-container .leftSide {
   height: 100%;
   display: flex;
   align-items: center;
@@ -39,8 +43,8 @@
   display: inline-flex;
 }
 
-.navbar .rightSide {
-  flex: 1;
+.navbar-container .rightSide {
+  margin-left: auto;
   height: 100%;
   display: flex;
   align-items: center;
@@ -48,62 +52,47 @@
   padding-right: 15px;
 }
 
-.navbar .rightSide button.hamburger-button {
-  border: none; 
-  color: black; 
+.navbar-container .rightSide button.hamburger-button {
   cursor: pointer; 
+  border: none;
+  background: none;
 }
 
 
-/* Styling the bars when the button is active on mobile */
-.navbar .rightSide button.hamburger-button.active .icon-bar:nth-child(1) {
-  transform: translateY(6px) rotate(45deg);
-}
-
-.navbar .rightSide button.hamburger-button.active .icon-bar:nth-child(2) {
-  opacity: 0;
-}
-
-.navbar .rightSide button.hamburger-button.active .icon-bar:nth-child(3) {
-  transform: translateY(-6px) rotate(-45deg);
-}
-
-
-.navbar a {
+.navbar-container a {
   color: rgb(0, 0, 0);
   text-decoration: none;
   margin-left: 20px;
 }
 
-.navbar .rightSide button {
-  background-color: transparent;
+.navbar-container .rightSide button {
   border: none;
   color: black;
   cursor: pointer;
 }
 
-.navbar .rightSide svg {
+.navbar-container .rightSide svg {
   font-size: 40px;
 }
 
-.navbar #open img {
+.navbar-container #open img {
   display: none;
 }
 
-.navbar #close img {
+.navbar-container #close img {
   display: inherit;
 }
 
-.navbar #open .hiddenLinks {
+.navbar-container #open .hiddenLinks {
   display: inherit;
   margin-left: 30px;
 }
 
-.navbar #close .hiddenLinks {
+.navbar-container #close .hiddenLinks {
   display: none;
 }
 
-.navbar #open a {
+.navbar-container #open a {
   width: 70px;
   margin: 5px;
 }
@@ -114,11 +103,11 @@
 }
 
 @media only screen and (min-width: 601px) {
-  .navbar .leftSide ul {
+  .navbar-container .leftSide ul {
     display: none;
   }
 
-  .navbar .rightSide button.hamburger-button {
+  .navbar-container .rightSide button.hamburger-button {
     display: none;
   }
 }
@@ -130,21 +119,21 @@
     padding-left: 20px;
   }
 
-  .navbar .rightSide a {
+  .navbar-container .rightSide a {
     display: none;
   }
 
-  .navbar .rightSide {
+  .navbar-container .rightSide {
     justify-content: flex-end;
     padding-right: 15px;
   }
 
-  .navbar .rightSide button {
+  .navbar-container .rightSide button {
     display: flex;
     align-items: center; 
   }
 
-  .navbar .leftSide.show-mobile-menu li {
+  .navbar-container .leftSide.show-mobile-menu li {
     justify-content: center;
     align-items: center;
     list-style-type: square;
@@ -152,7 +141,7 @@
 }
 
 @media only screen and (min-width: 600px) {
-  .navbar .rightSide button {
+  .navbar-container .rightSide button {
     display: inherit;
   }
 
@@ -162,7 +151,7 @@
 }
 
 @media only screen and (max-width: 601px) {
-  .navbar .leftSide {
+  .navbar-container .leftSide {
     visibility: hidden;
     width: 280px;
     height: 100vh;
@@ -178,7 +167,7 @@
     background-color: #ffffff; 
   }
 
-  .navbar .leftSide.show-mobile-menu {
+  .navbar-container .leftSide.show-mobile-menu {
     visibility: visible;
     background-color: #ffffff; 
     border: 1px solid black;
@@ -187,7 +176,7 @@
     align-items: center;
   }
 
-  .navbar .leftSide.show-mobile-menu li {
+  .navbar-container .leftSide.show-mobile-menu li {
     font-size: 30px;
     font-weight: 600;
     text-transform: uppercase;
@@ -199,7 +188,7 @@
     color: black; 
   }
 
-  .navbar .rightSide button {
+  .navbar-container .rightSide button {
     display: flex; 
   }
 }

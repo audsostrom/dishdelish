@@ -33,7 +33,12 @@ export default function Menu() {
 				</div>
 			</div>
 			<div className="menu-image-container">
-				<Image unoptimized={true} src={yourImage} alt="Your Image" className="menu-image"/>
+				<Image
+					unoptimized={true}
+					src={yourImage}
+					alt="Your Image"
+					className="menu-image"
+				/>
 			</div>
 		</div>
 	);

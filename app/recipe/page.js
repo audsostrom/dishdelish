@@ -7,13 +7,14 @@ import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 import {redirect} from 'next/navigation';
 
 /**
- * The function `getData` fetches recipe information from the Spoonacular API using the provided recipe
- * ID.
- * @param recipeId - The `recipeId` parameter is the unique identifier of a recipe.
- * @return {Promise} The `getData` function is returning a Promise that resolves to the JSON data fetched from
- * the Spoonacular API for the specified `recipeId`. If the fetch operation is successful, the function
- * returns the JSON data. If there is an error during the fetch operation (when `res.ok` is false), the
- * function throws an error with the message 'Failed to fetch data'.
+ * The function `getData` fetches recipe information from Spoonacular
+ * using the provided recipe ID.
+ * @param {String} recipeId - Unique identifier of a recipe.
+ * @return {Promise} - Returns a Promise that resolves
+ * to the JSON data fetched from Spoonacular for the specified recipe's id.
+ * If the fetch operation is successful, the function
+ * returns the JSON data. If there is an error during the fetch operation,
+ * the function throws an error with the message 'Failed to fetch data'.
  */
 async function getData(recipeId) {
 	const res = await fetch(
@@ -38,8 +39,6 @@ export default async function RecipeInfo({searchParams}) {
 	const data = await getData(searchParams['id']);
 	const favorited = searchParams['favorited'] == 'true' ? true : false;
 
-	const page = 1;
-
 	/**
    * Used to save a recipe as a favorite for a specific user.
    */
@@ -55,16 +54,18 @@ export default async function RecipeInfo({searchParams}) {
 	};
 
 	/**
-   * The function getInstructions returns the instructions stored in the data object as HTML.
-   * @return An object with a property named `__html` containing the value of `data['instructions']`.
+   * The function getInstructions returns the instructions
+	* stored in the data object as HTML.
+   * @return {Object} An object with a property named `__html`
+	* containing the value of `data['instructions']`.
    */
 	function getInstructions() {
 		return {__html: data['instructions']};
 	}
 
 	/**
-   * The function `getExperienceLevel` determines a recipes's experience level
-   * based on the amount of time it takes to make it
+   * The function `getExperienceLevel` determines a recipes's experience
+	* level based on the amount of time it takes to make.
    * @param {Number} time - Time it takes to make a recipe in minutes
    * @return {String} - Either 'beginner', 'medium', or 'hard'
    */

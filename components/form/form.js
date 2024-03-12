@@ -1,5 +1,10 @@
 import './form.css';
 
+/**
+ * Renders a form with email and password input fields along with any
+ * additional children components.
+ * @return {*} – Returns the form component
+ */
 export function Form({action, children}) {
 	return (
 		<form

@@ -5,7 +5,16 @@ import {createUser, getUser} from '../db';
 import {SubmitButton} from '../../components/submit-button/submit-button';
 import './register.css';
 
+/**
+ * @return {*} – Renders the Register page.
+ */
 export default function Register() {
+	/**
+	 * The function `register` checks if a user already exists
+	 * based on the provided email, creates a new
+	 * user if not, and then redirects to the login page.
+	 * @param {Object} formData - Contains user input data
+	 */
 	async function register(formData) {
 		'use server';
 		const email = formData.get('email');

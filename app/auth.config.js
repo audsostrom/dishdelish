@@ -8,6 +8,7 @@ export const authConfig = {
 	},
 	providers: [
 		// added later in auth.js
+		'http://localhost:3000/',
 	],
 	callbacks: {
 		authorized({auth, request: {nextUrl}}) {

@@ -7,9 +7,15 @@ import Logo from '../../assets/logo.svg';
 import './navbar.css';
 import MenuIcon from '@mui/icons-material/Menu';
 
-function Navbar() {
+/**
+ * Creates a responsive navigation bar with a toggle menu for
+ * mobile devices and links for different pages.
+ * @return {*} – Returns the Navbar component.
+ */
+export default function Navbar() {
 	const [openLinks, setOpenLinks] = useState(false);
-	const [loaded, setLoaded] = useState(false); // New state to track if the page has loaded
+	// New state to track if the page has loaded
+	const [loaded, setLoaded] = useState(false);
 
 	useEffect(() => {
 		// Check if the page has fully loaded
@@ -28,7 +34,7 @@ function Navbar() {
 	};
 
 	return (
-		<div className="navbar">
+		<div className="navbar-container">
 			{/* Logo for desktop */}
 			<div className={`logo-desktop ${loaded ? 'loaded' : ''}`}>
 				<Image height="40" width="40" src={Logo} alt="Logo" />
@@ -85,4 +91,3 @@ function Navbar() {
 	);
 }
 
-export default Navbar;

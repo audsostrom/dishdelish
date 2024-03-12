@@ -13,7 +13,6 @@ import Image from 'next/image';
 export default function Transformer() {
 	const [recipe, setRecipe] = useState([]);
 	const [value, setValue] = useState('');
-	let pending = true;
 
 	/**
    * The function `getResults` takes a string of inputs,
@@ -22,7 +21,6 @@ export default function Transformer() {
    * @param {String} inputsOriginal - What the user inputted.
    */
 	async function getResults(inputsOriginal) {
-		pending = true;
 		let inputs;
 		let newstring;
 		if (inputsOriginal.split(', ').length > 1) {
@@ -36,7 +34,6 @@ export default function Transformer() {
 
 		const results = await getRecipeFromModel(inputs, {inputs: newstring});
 		console.log(results);
-		pending = false;
 		setRecipe(results);
 	}
 
@@ -46,7 +43,8 @@ export default function Transformer() {
 			<div className="body-content">
 				<div className="left-side">
 					<textarea
-						placeholder="Type 2-10 ingredients here (make sure it's comma separated!)"
+						placeholder=
+							"Type 2-10 ingredients here (make sure it's comma separated!)"
 						className="ingredient-input"
 						data-pattern="/^([a-z0-9\s]+,)*([a-z0-9\s]+){1}$/i"
 						value={value}

@@ -14,7 +14,6 @@ export default async function Profile() {
 			</div>
 			<div className='profile-header'>
 				<Image alt='profile icon' height='200' width='200' src={DefaultIcon}/>
-				{/* <Image className='pencil' height='50' width='50' src={PencilIcon}/> */}
 			</div>
 			<div>
 

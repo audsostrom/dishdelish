@@ -9,20 +9,6 @@ import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
 
-import {createTheme} from '@mui/material/styles';
-
-
-export const theme = createTheme({
-	typography: {
-		// fontFamily: ['Montserrat', 'serif'].join(','), Uncomment if you want all the typography to inherit this font.
-		button: {
-			fontFamily: ['Montserrat', 'serif'].join(','),
-			fontSize: 16,
-			fontWeight: 400,
-		},
-	},
-});
-
 /**
  * @return {*} – Renders the Dietary Filters page
  */
@@ -220,7 +206,10 @@ export default function Dietary() {
 					<input
 						className="search-text-field"
 						type="text"
-						placeholder="Type the diet, cuisine, or allergy you want to filter by..."
+						placeholder={
+							'Type the diet, cuisine, or' +
+							'allergy you want to filter by...'
+						}
 						value={searchTerm}
 						onChange={(e) => setSearchTerm(e.target.value)}
 					/>
@@ -232,10 +221,30 @@ export default function Dietary() {
 							onChange={(e) => setSelectedOption(e.target.value)}
 							sx={{fontFamily: 'Poppins', fontSize: 14, color: 'gray'}}
 						>
-							<MenuItem sx={{fontFamily: 'Poppins', fontSize: 14, color: 'gray'}} value={'Cuisine'}>Cuisines</MenuItem>
-							<MenuItem sx={{fontFamily: 'Poppins', fontSize: 14, color: 'gray'}} value={'Intolerances'}>Intolerances</MenuItem>
-							<MenuItem sx={{fontFamily: 'Poppins', fontSize: 14, color: 'gray'}} value={'Diet'}>Diets</MenuItem>
-							<MenuItem sx={{fontFamily: 'Poppins', fontSize: 14, color: 'gray'}} value={'Time'}>Time Range</MenuItem>
+							<MenuItem
+								sx={{fontFamily: 'Poppins', fontSize: 14, color: 'gray'}}
+								value={'Cuisine'}
+							>
+                Cuisines
+							</MenuItem>
+							<MenuItem
+								sx={{fontFamily: 'Poppins', fontSize: 14, color: 'gray'}}
+								value={'Intolerances'}
+							>
+                Intolerances
+							</MenuItem>
+							<MenuItem
+								sx={{fontFamily: 'Poppins', fontSize: 14, color: 'gray'}}
+								value={'Diet'}
+							>
+                Diets
+							</MenuItem>
+							<MenuItem
+								sx={{fontFamily: 'Poppins', fontSize: 14, color: 'gray'}}
+								value={'Time'}
+							>
+                Time Range
+							</MenuItem>
 						</Select>
 					</FormControl>
 					<div className="filter">
