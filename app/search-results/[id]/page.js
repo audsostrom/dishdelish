@@ -20,11 +20,14 @@ async function getData(id) {
 	'use server';
 	const preferences = await getPreferences(id);
 	const userIngredients = preferences['ingredients'].join(',+');
+	console.log( userIngredients)
+	// console.log('hi', preferences['diets'], preferences['intolerances']);
 
 	// eslint-disable-next-line max-len
 	const res = await fetch(
 		`https://api.spoonacular.com/recipes/findByIngredients?ingredients=${userIngredients}&number=5&&apiKey=${process.env.SPOON_KEY}`,
 	);
+	console.log(res)
 
 	if (!res.ok) {
 		// This will activate the closest `error.js` Error Boundary
@@ -35,136 +38,146 @@ async function getData(id) {
 	let ingredientPromise;
 	let ingredientAisles;
 	let ingredientNames;
-	for (let i = 0; i < response.length; i++) {
-		console.log(response[i]['id'], 'yo');
-		// eslint-disable-next-line max-len
-		ingredientPromise = await fetch(
-			`https://api.spoonacular.com/recipes/${response[i]['id']}/information?apiKey=${process.env.SPOON_KEY}`,
-		);
-		if (!ingredientPromise.ok) {
-			// This will activate the closest `error.js` Error Boundary
-			throw new Error('Failed to fetch data');
+	// only do extra stuff if necessary
+	// console.log(preferences['diets'], preferences['diets'] != [], preferences['intolerances'], preferences['intolerances'] != [])
+	if (!((preferences['diets'] == []) && (preferences['intolerances'] == []))) {
+		for (let i = 0; i < response.length; i++) {
+			console.log(response[i]['id'], 'yo');
+			// eslint-disable-next-line max-len
+			ingredientPromise = await fetch(
+				`https://api.spoonacular.com/recipes/${response[i]['id']}/information?ranking=2&apiKey=${process.env.SPOON_KEY}`,
+			);
+			if (!ingredientPromise.ok) {
+				// This will activate the closest `error.js` Error Boundary
+				throw new Error('Failed to fetch data');
+			}
+			ingredientResponse = await ingredientPromise.json();
+			ingredientAisles = ingredientResponse['extendedIngredients'].map((a) =>
+				a['aisle']?.toLowerCase(),
+			);
+			ingredientNames = ingredientResponse['extendedIngredients'].map((a) =>
+				a['name']?.toLowerCase(),
+			);
+			// console.log(ingredientAisles, 'aisles')
+			response[i]['readyInMinutes'] = ingredientResponse['readyInMinutes'];
+			response[i]['cuisines'] = ingredientResponse['cuisines'];
+			response[i]['diets'] = ingredientResponse['diets'];
+			response[i]['vegetarian'] = ingredientResponse['vegetarian'];
+			response[i]['vegan'] = ingredientResponse['vegan'];
+			response[i]['glutenFree'] = ingredientResponse['glutenFree'];
+			response[i]['dairyFree'] = ingredientResponse['dairyFree'];
+	
+			// paleo, vegan, vegetarian, dairy allergies and whole 30 can't eat dairy
+			if (
+				(preferences['diets'].includes('paleo') ||
+			  preferences['diets'].includes('vegan') ||
+			  preferences['diets'].includes('vegetarian') ||
+			  preferences['ingredients'].includes('whole 30') ||
+			  preferences['intolerances'].includes('Dairy')) &&
+			ingredientResponse['dairyFree'] == false
+			) {
+				response = response.filter((item) => item != response[i]);
+				i--;
+				continue;
+			}
+			// not vegan
+			if (
+				preferences['diets'].includes('vegan') &&
+			ingredientResponse['vegan'] == false
+			) {
+				response = response.filter((item) => item != response[i]);
+				i--;
+				continue;
+			}
+			// not vegetarian
+			if (
+				preferences['diets'].includes('vegetarian') &&
+			ingredientResponse['vegetarian'] == false
+			) {
+				console.log('filtering out', i);
+				response = response.filter((item) => item != response[i]);
+				i--;
+				continue;
+			}
+			// not gluten-free
+			if (
+				preferences['intolerances'].includes('Gluten') &&
+			ingredientResponse['glutenFree'] == false
+			) {
+				response = response.filter((item) => item != response[i]);
+				i--;
+				continue;
+			}
+			// not dairy-free
+			if (
+				preferences['intolerances'].includes('Dairy') &&
+			ingredientResponse['dairyFree'] == false
+			) {
+				response = response.filter((item) => item != response[i]);
+				i--;
+				continue;
+			}
+			// no fish if you're allergic to shell fish or fish
+			if (
+				(preferences['intolerances'].includes('Seafood') ||
+			  preferences['intolerances'].includes('shellfish')) &&
+			(ingredientAisles.includes('seafood') ||
+			  ingredientAisles.includes('fish'))
+			) {
+				response = response.filter((item) => item != response[i]);
+				i--;
+				continue;
+			}
+			// no peanuts if you're allergic to shell fish or fish
+			if (
+				preferences['intolerances'].includes('Peanuts') &&
+			(ingredientNames.some((str) => str.includes('nut')) ||
+			  ingredientAisles.some((str) => str.includes('nut')))
+			) {
+				response = response.filter((item) => item != response[i]);
+				i--;
+				console.log(response, 'hi');
+				continue;
+			}
+			// no alcohol if you don't like it
+			if (
+				preferences['intolerances'].includes('Alcohol') &&
+			ingredientAisles.includes('alcohol')
+			) {
+				response = response.filter((item) => item != response[i]);
+				continue;
+			}
+			// not diet compliant
+			if (
+				preferences['diets'].some((elem) =>
+					ingredientResponse['diets'].includes(elem),
+				)
+			) {
+				response = response.filter((item) => item != response[i]);
+				i--;
+				console.log('poop');
+				continue;
+			}
+			// doesn't match cuisines
+			if (
+				ingredientResponse['cuisines'] != [] && preferences['cuisine'].some(
+					(elem) => ingredientResponse['cuisines'].includes(elem),
+				)
+			) {
+				response = response.filter((item) => item != response[i]);
+				i--;
+				console.log('poop');
+				continue;
+			}
 		}
-		ingredientResponse = await ingredientPromise.json();
-		ingredientAisles = ingredientResponse['extendedIngredients'].map((a) =>
-			a['aisle']?.toLowerCase(),
-		);
-		ingredientNames = ingredientResponse['extendedIngredients'].map((a) =>
-			a['name']?.toLowerCase(),
-		);
-		// console.log(ingredientAisles, 'aisles')
-		response[i]['readyInMinutes'] = ingredientResponse['readyInMinutes'];
-		response[i]['cuisines'] = ingredientResponse['cuisines'];
-		response[i]['diets'] = ingredientResponse['diets'];
-		response[i]['vegetarian'] = ingredientResponse['vegetarian'];
-		response[i]['vegan'] = ingredientResponse['vegan'];
-		response[i]['glutenFree'] = ingredientResponse['glutenFree'];
-		response[i]['dairyFree'] = ingredientResponse['dairyFree'];
 
-		// paleo, vegan, vegetarian, dairy allergies and whole 30 can't eat dairy
-		if (
-			(preferences['diets'].includes('paleo') ||
-        preferences['diets'].includes('vegan') ||
-        preferences['diets'].includes('vegetarian') ||
-        preferences['ingredients'].includes('whole 30') ||
-        preferences['intolerances'].includes('Dairy')) &&
-      ingredientResponse['dairyFree'] == false
-		) {
-			response = response.filter((item) => item != response[i]);
-			i--;
-			continue;
-		}
-		// not vegan
-		if (
-			preferences['diets'].includes('vegan') &&
-      ingredientResponse['vegan'] == false
-		) {
-			response = response.filter((item) => item != response[i]);
-			i--;
-			continue;
-		}
-		// not vegetarian
-		if (
-			preferences['diets'].includes('vegetarian') &&
-      ingredientResponse['vegetarian'] == false
-		) {
-			console.log('filtering out', i);
-			response = response.filter((item) => item != response[i]);
-			i--;
-			continue;
-		}
-		// not gluten-free
-		if (
-			preferences['intolerances'].includes('Gluten') &&
-      ingredientResponse['glutenFree'] == false
-		) {
-			response = response.filter((item) => item != response[i]);
-			i--;
-			continue;
-		}
-		// not dairy-free
-		if (
-			preferences['intolerances'].includes('Dairy') &&
-      ingredientResponse['dairyFree'] == false
-		) {
-			response = response.filter((item) => item != response[i]);
-			i--;
-			continue;
-		}
-		// no fish if you're allergic to shell fish or fish
-		if (
-			(preferences['intolerances'].includes('Seafood') ||
-        preferences['intolerances'].includes('shellfish')) &&
-      (ingredientAisles.includes('seafood') ||
-        ingredientAisles.includes('fish'))
-		) {
-			response = response.filter((item) => item != response[i]);
-			i--;
-			continue;
-		}
-		// no peanuts if you're allergic to shell fish or fish
-		if (
-			preferences['intolerances'].includes('Peanuts') &&
-      (ingredientNames.some((str) => str.includes('nut')) ||
-        ingredientAisles.some((str) => str.includes('nut')))
-		) {
-			response = response.filter((item) => item != response[i]);
-			i--;
-			console.log(response, 'hi');
-			continue;
-		}
-		// no alcohol if you don't like it
-		if (
-			preferences['intolerances'].includes('Alcohol') &&
-      ingredientAisles.includes('alcohol')
-		) {
-			response = response.filter((item) => item != response[i]);
-			continue;
-		}
-		// not diet compliant
-		if (
-			preferences['diets'].some((elem) =>
-				ingredientResponse['diets'].includes(elem),
-			)
-		) {
-			response = response.filter((item) => item != response[i]);
-			i--;
-			console.log('poop');
-			continue;
-		}
-		// doesn't match cuisines
-		if (
-			ingredientResponse['cuisines'] != [] && preferences['cuisine'].some(
-				(elem) => ingredientResponse['cuisines'].includes(elem),
-			)
-		) {
-			response = response.filter((item) => item != response[i]);
-			i--;
-			console.log('poop');
-			continue;
-		}
 	}
+	// console.log(response, 'response');
 	return response;
+}
+
+function calculatePercentage(usedIngredientCount, missedIngredientCount) {
+	return Math.floor(((usedIngredientCount / (missedIngredientCount + usedIngredientCount)) * 100))
 }
 
 /**
@@ -206,7 +219,7 @@ async function Results({params}) {
 				</div>
 			) : (
 				<div className="recipe-cards-wrapper">
-					{data.map((item, i) => (
+					{data.sort((item1, item2) => calculatePercentage(item2['usedIngredientCount'], item2['missedIngredientCount']) - calculatePercentage(item1['usedIngredientCount'], item1['missedIngredientCount'])).map((item, i) => (
 						// this redirects you to specific recipe
 						<Link
 							key={'recipe' + i}
@@ -232,8 +245,9 @@ async function Results({params}) {
 											item['title'].slice(0, 42) + '...' :
 											item['title']}
 									</div>
-									<div className="time">
-                    Time: {item['readyInMinutes']} minutes
+									<div className="match-percent">
+										{calculatePercentage(item['usedIngredientCount'], item['missedIngredientCount'])}%
+										Match!
 									</div>
 								</div>
 							</div>

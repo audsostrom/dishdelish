@@ -216,7 +216,7 @@ export default function Dietary() {
 					<FormControl>
 						<Select
 							labelId="demo-simple-select-label"
-							className="options"
+							className="options-diet"
 							value={selectedOption}
 							onChange={(e) => setSelectedOption(e.target.value)}
 							sx={{fontFamily: 'Poppins', fontSize: 14, color: 'gray'}}

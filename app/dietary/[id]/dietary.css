@@ -65,6 +65,7 @@
   border: none;
   border-radius: 10px;
   padding: 5px 20px;
+  width: 150px;
   justify-self: flex-end;
   margin-left: auto;
   letter-spacing: 0.02em;
@@ -112,7 +113,7 @@
   outline: none !important;
 }
 
-.options {
+.options-diet {
   height: 35px;
   max-height: auto;
   border-radius: 5px;

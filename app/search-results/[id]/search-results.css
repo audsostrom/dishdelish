@@ -70,11 +70,11 @@ body {
 
 .recipe-card:hover::before {
    transform: scale(1.1);
-   box-shadow: 0 0 15px #ffee10;
+   box-shadow: 0 0 15px #1E5EFF;
  }
  
 .recipe-card:hover {
-   box-shadow: 0 0 5px #ffee10;
+   box-shadow: 0 0 5px #1E5EFF;
  }
 
 a {
@@ -89,9 +89,12 @@ height: 50px;
   text-overflow: ellipsis;
 
 }
-.time {
+.match-percent {
    color: #898989;
    font-weight: 400;
+   text-align: center;
+   border: 1px solid #898989;
+   border-radius: 10px;
 }
 
 .card-image {
