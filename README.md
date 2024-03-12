@@ -17,7 +17,21 @@ DishDelish is a recipe discovery application that helps users find recipes based
     cd DishDelish
     ```
 
-2. **Install dependencies:**
+2. **Set up environment variables:**
+    - Create a `.env.local` file in the root directory of the project.
+    - Copy the contents of `.env.copy` into `.env.local`.
+    - Replace the placeholders with your actual credentials and keys:
+      ```
+      MONGODB_URI=mongodb+srv://<username>:<password>@<cluster>/?retryWrites=true&w=majority
+      NEXTAUTH_SECRET=<your_nextauth_secret>
+      SPOONACULAR_API_KEY=<your_spoonacular_api_key>
+      ```
+    - To generate a NextAuth secret, you can use the following command:
+      ```
+      openssl rand -base64 32
+      ```
+
+3. **Install dependencies:**
     ```bash
     npm install
     # or
@@ -26,7 +40,7 @@ DishDelish is a recipe discovery application that helps users find recipes based
     pnpm install
     ```
 
-3. **Run the development server:**
+4. **Run the development server:**
     ```bash
     npm run dev
     # or
@@ -35,7 +49,7 @@ DishDelish is a recipe discovery application that helps users find recipes based
     pnpm dev
     ```
 
-4. **Open [http://localhost:3000](http://localhost:3000) in your browser to view the app.**
+5. **Open [http://localhost:3000](http://localhost:3000) in your browser to view the app.**
 
 ## Resources
 - [Figma](https://www.figma.com/file/OfIogM0BU2t5Mtn3DQ9ZJ9/DishDelish-Figma?type=design&node-id=0%3A1&mode=design&t=0iplRGkv9s0KNw9u-1)
