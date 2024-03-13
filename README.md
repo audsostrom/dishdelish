@@ -11,6 +11,8 @@ DishDelish is a recipe discovery application that helps users find recipes based
 
 ## Installation
 
+*Additionally, see more details in our Project Release document.*
+
 1. **Clone the repository:**
     ```bash
     git clone <repository_url>
@@ -19,7 +21,7 @@ DishDelish is a recipe discovery application that helps users find recipes based
 
 2. **Set up environment variables:**
     - Create a `.env.local` file in the root directory of the project.
-    - Copy the contents of `.env.copy` into `.env.local`.
+    - Copy the contents of `.env.example` into `.env.local`.
     - Replace the placeholders with your actual credentials and keys:
       ```
       MONGODB_URI=mongodb+srv://<username>:<password>@<cluster>/?retryWrites=true&w=majority
