@@ -37,7 +37,6 @@ async function getData(id) {
 	if ((preferences['diets'].length > 0 ||
 	preferences['intolerances'].length > 0)) {
 		for (let i = 0; i < response.length; i++) {
-			console.log(response[i]['id'], 'yo');
 			// eslint-disable-next-line max-len
 			ingredientPromise = await fetch(
 				`https://api.spoonacular.com/recipes/${response[i]['id']}/information?ranking=2&apiKey=${process.env.SPOON_KEY}`,

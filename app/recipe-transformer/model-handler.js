@@ -20,7 +20,6 @@ export async function getRecipeFromModel(inputs, data) {
 		},
 	);
 	const result = await response.json();
-	console.log('result', result);
 	if (result['error']) {
 		return [result['error'], result['estimated_time']];
 	} else {
@@ -34,7 +33,6 @@ export async function getRecipeFromModel(inputs, data) {
 			.split(' ingredients: ')[1]
 			.split(' directions: ')[0];
 		const parsedIngredients = parseIngredients(inputs, ingredients);
-		console.log([title, parsedIngredients, directions]);
 		return [title, parsedIngredients, directions];
 	}
 }
@@ -62,7 +60,7 @@ function parseIngredients(inputs, ingredients) {
 				ingredientsList[1] = ingredientsList[1].substring(index);
 			}
 		} catch (err) {
-			console.log('Some error occured', err);
+			console.error('Some error occured', err);
 		}
 		if (i == inputLength - 1 && ingredientsList.length == 1) {
 			returnVal.push(ingredientsList[0]);

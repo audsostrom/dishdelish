@@ -30,10 +30,8 @@ export default function Transformer() {
 			inputs = inputsOriginal.split(',');
 			newstring = inputsOriginal.replaceAll(',', ', ');
 		}
-		console.log('new', newstring);
 
 		const results = await getRecipeFromModel(inputs, {inputs: newstring});
-		console.log(results);
 		setRecipe(results);
 	}
 

@@ -8,7 +8,6 @@ import {getToken} from '@/app/db';
  * @return {*} – Renders the Password Resets Page
  */
 export default async function ForgotPassword({params, searchParams}) {
-	console.log(params, searchParams);
 	const token = params['id'];
 	const match = searchParams['match'];
 	const tokenDoc = await getToken(token);
@@ -19,7 +18,6 @@ export default async function ForgotPassword({params, searchParams}) {
 		email = tokenDoc['email'];
 		expirationDate = tokenDoc['expireAt'];
 		isExpired = Date.now() < expirationDate;
-		console.log('tokenDoc', tokenDoc, token, typeof token);
 	}
 
 	return (
@@ -39,12 +37,11 @@ export default async function ForgotPassword({params, searchParams}) {
                 formData.get('confirm-password') != '' &&
                 formData.get('password') == formData.get('confirm-password')
 							) {
-								const response = await resetPassword(
+								await resetPassword(
 									email,
 									formData.get('password'),
 									formData.get('confirm-password'),
 								);
-								console.log('response was', response);
 								redirect('/login');
 							} else {
 								redirect(`/reset-password/${token}/?match=false`);

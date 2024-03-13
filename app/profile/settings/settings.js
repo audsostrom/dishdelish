@@ -13,13 +13,9 @@ import {getUser} from '../../db';
  */
 export async function Settings() {
 	const session = await auth();
-	console.log(session.user);
 	const user = await getUser(session.user.email);
 
-	// let userRecipes = await getSavedRecipes(session.user.email);
-	// console.log('my recipes', userRecipes);
 	const userRecipes = await getSavedRecipes(session.user.email);
-	console.log(userRecipes);
 	return (
 		<div className="settings-container">
 			<div className="top-settings-row">

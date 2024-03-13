@@ -7,7 +7,7 @@ export const sendEmail = async (email) => {
 	const tokenString = await makeResetToken(email);
 
 	const msg = {
-		to: 'audsostrom@gmail.com', // Change to your recipient
+		to: email, // Change to your recipient
 		from: 'dishdelishapp@gmail.com', // Change to your verified sender
 		subject: 'Password Reset Request',
 		text: 'Reset your password at this link',
