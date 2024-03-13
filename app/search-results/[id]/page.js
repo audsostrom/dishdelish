@@ -20,11 +20,9 @@ async function getData(id) {
 	'use server';
 	const preferences = await getPreferences(id);
 	const userIngredients = preferences['ingredients'].join(',+');
-	console.log(userIngredients, preferences['diets'], preferences['intolerances']);
-
 	// eslint-disable-next-line max-len
 	const res = await fetch(
-		`https://api.spoonacular.com/recipes/findByIngredients?ingredients=${userIngredients}&number=5&&apiKey=${process.env.SPOON_KEY}`,
+		`https://api.spoonacular.com/recipes/findByIngredients?ingredients=${userIngredients}&number=20&&apiKey=${process.env.SPOON_KEY}`,
 	);
 	if (!res.ok) {
 		// This will activate the closest `error.js` Error Boundary
@@ -36,8 +34,8 @@ async function getData(id) {
 	let ingredientAisles;
 	let ingredientNames;
 	// only do extra stuff if necessary
-	console.log('fudge',preferences['diets'], preferences['intolerances'])
-	if (!(preferences['diets'] == [] && preferences['intolerances'] == [])) {
+	if ((preferences['diets'].length > 0 ||
+	preferences['intolerances'].length > 0)) {
 		for (let i = 0; i < response.length; i++) {
 			console.log(response[i]['id'], 'yo');
 			// eslint-disable-next-line max-len

@@ -105,6 +105,8 @@ hr {
    justify-content: center;
    padding-bottom: 30px;
 }
+
+
 .lower-part {
    align-self: center;
    justify-self: center;
@@ -113,6 +115,15 @@ hr {
    flex-wrap: wrap;
    padding-left: 5%;
    padding-right: 5%;
+}
+@media only screen and (max-width: 1400px) {
+   .lower-part {
+      flex-direction: column;
+      display: flex;
+      width: 70vw;
+      padding-left: 5%;
+      padding-right: 5%;
+   }
 }
 
 .instructions-half {
@@ -130,9 +141,10 @@ hr {
    margin-top: 10px;
    font-style: italic;
    margin-bottom: 30px;
+   text-align: center;
 }
 
-@media only screen and (max-width: 1000px) {
+@media only screen and (max-width: 1400px) {
    .instructions-half {
       justify-self: flex-start;
       margin-left: 0;

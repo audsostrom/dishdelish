@@ -122,8 +122,8 @@ export default async function RecipeInfo({searchParams}) {
 					</div>
 
 					<div className="experience">
-            experience level:
-						{getExperienceLevel(data['readyInMinutes'])}
+            experience level:&nbsp;
+						{getExperienceLevel(data['readyInMinutes'])}&nbsp;
 				({data['readyInMinutes']} min.)
 					</div>
 					<div className="diets">

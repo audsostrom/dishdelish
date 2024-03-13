@@ -27,6 +27,10 @@ export default async function ForgotPassword({params, searchParams}) {
 			{tokenDoc && isExpired ? (
 				<div className="forgot-password-wrapper">
 					<div className="forgot-password-header">Reset Your Password</div>
+					<div className="forgot-password-subheader">
+						Enter your new password, and you'll be
+						redirected to the login page after.
+					</div>
 					<form
 						action={async (formData) => {
 							'use server';
@@ -47,10 +51,6 @@ export default async function ForgotPassword({params, searchParams}) {
 							}
 						}}
 					>
-						<div>
-              Enter your new password, and you'll be redirected to the login
-              page after.
-						</div>
 						<div className="password-input-wrapper">
 							<label htmlFor="password">Password</label>
 							<input
