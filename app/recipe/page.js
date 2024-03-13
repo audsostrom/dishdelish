@@ -35,7 +35,6 @@ async function getData(recipeId) {
  */
 export default async function RecipeInfo({searchParams}) {
 	const session = await auth();
-	console.log(searchParams['id']);
 	const data = await getData(searchParams['id']);
 	const favorited = searchParams['favorited'] == 'true' ? true : false;
 
@@ -44,7 +43,6 @@ export default async function RecipeInfo({searchParams}) {
    */
 	const handleFavorite = async () => {
 		'use server';
-		console.log('user email', session);
 		if (session?.user?.email) {
 			createSavedRecipe(session?.user?.email, data, favorited);
 			redirect(`/recipe?id=${searchParams['id']}&favorited=${!favorited}`);
@@ -114,14 +112,19 @@ export default async function RecipeInfo({searchParams}) {
 				/>
 				<div>
 					<div className="big-title">{data['title']}</div>
-					<div>
+					<div className='star-wrapper'>
 						{myArray.map((i) => (
 							<Star key={'star' + i} />
 						))}
+						<div className='original-star-rating'>
+							&nbsp;(3 stars on original site)
+						</div>
 					</div>
 
 					<div className="experience">
-            experience level: {getExperienceLevel(data['readyInMinutes'])}
+            experience level:
+						{getExperienceLevel(data['readyInMinutes'])}
+				({data['readyInMinutes']} min.)
 					</div>
 					<div className="diets">
 						<span>diets: </span>
@@ -144,15 +147,42 @@ export default async function RecipeInfo({searchParams}) {
 							),
 						)}
 					</div>
+
 				</div>
 			</div>
 			<hr></hr>
-			<div className="lower-part">
-				<div className="options">
-					<div>Instructions</div>
-					<div>Additonal Information</div>
+			<div className='lower-part-wrapper'>
+				<div className='lower-part-header'>All Recipe Information</div>
+				<div className='credits-text-recipe'>
+					credits to {data['creditsText']}
 				</div>
-				<div dangerouslySetInnerHTML={getInstructions()}></div>
+				<div className="lower-part">
+					<div>
+						<div className="options-string">
+							<div>Ingredients</div>
+						</div>
+						<ul>
+							{data['extendedIngredients'].map((item, i) =>
+								<li key={'ingredient' + toString(i)}>
+									{item['amount']} {
+										item['unit'] != '' ?
+											item['unit'] + ' of' :
+											''} {item['nameClean']}
+								</li>
+							)}
+						</ul>
+
+					</div>
+					<div className='instructions-half'>
+						<div className="options-string">
+							<div>Instructions</div>
+						</div>
+						<div dangerouslySetInnerHTML={getInstructions()}></div>
+
+					</div>
+
+				</div>
+
 			</div>
 		</div>
 	);

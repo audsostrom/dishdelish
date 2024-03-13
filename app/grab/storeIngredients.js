@@ -9,10 +9,8 @@ import {auth} from '../auth';
  * @param {Array} ingredients - An array of ingredients to store.
  */
 export async function storeIngredients(ingredients) {
-	console.log('hi', ingredients);
 	const response = await savePreferences(ingredients);
 	const session = await auth();
-	console.log('user', session?.user);
 	if (session?.user?.email) {
 		saveIngredients(session?.user?.email, ingredients);
 	}

@@ -21,12 +21,12 @@ export default function Menu() {
 				</div>
 				<div className="buttons-container">
 					<Link href="/grab">
-						<button className="primary-button">
+						<button className="grab-ingredients-button">
 							Grab Your Ingredients
 						</button>
 					</Link>
 					<Link href="/recipe-transformer">
-						<button className="secondary-button">
+						<button className="with-ai-button">
 							Generate Recipes With AI &#10023;
 						</button>
 					</Link>

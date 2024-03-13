@@ -15,9 +15,8 @@ import Token from '@/models/token';
 export const connectMongoDB = async () => {
 	try {
 		await mongoose.connect(process.env.MONGODB_URI);
-		console.log('Connected to MongoDB');
 	} catch (error) {
-		console.log('Error connecting to MongoDB: ', error);
+		console.error('Error connecting to MongoDB: ', error);
 	}
 };
 
@@ -99,7 +98,6 @@ export async function getUserIngredients(email) {
 			{email},
 			{email: 1, savedIngredients: 1}
 		);
-		console.log(user);
 		const returnVal = user === null ? null : user['savedIngredients'];
 		return returnVal;
 	} catch (error) {
@@ -337,7 +335,6 @@ export async function savePreferences(ingredients) {
 			cuisine: [],
 			intolerances: [],
 		});
-		console.log(preference._id.toString());
 		return preference;
 	} catch (error) {
 		return NextResponse.json(
@@ -368,7 +365,6 @@ export async function updatePreferences(id, diets, intolerances, cuisines) {
 		const preference = await Preference.updateOne({_id: id},
 			{$set: {diets: diets, cuisine: cuisines, intolerances: intolerances}}
 		);
-		console.log('preference', preference);
 		const returnVal = preference === null ? null : preference;
 
 		return returnVal;

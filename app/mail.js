@@ -3,10 +3,8 @@ import {makeResetToken} from './db';
 
 // add params for recipient
 export const sendEmail = async (email) => {
-	console.log('boo', email);
 	sgMail.setApiKey(process.env.SENDGRID_API_KEY);
 	const tokenString = await makeResetToken(email);
-	console.log('token', tokenString);
 
 	const msg = {
 		to: 'audsostrom@gmail.com', // Change to your recipient

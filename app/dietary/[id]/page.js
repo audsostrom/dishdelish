@@ -22,7 +22,6 @@ export default function Dietary() {
 	const [timeRange, setTimeRange] = useState([10, 60]); // State for time range
 
 	const params = useParams();
-	console.log(params);
 	const id = params['id'];
 
 	// Function to handle checkbox change for intolerances

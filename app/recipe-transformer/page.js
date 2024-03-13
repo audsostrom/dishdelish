@@ -89,8 +89,8 @@ export default function Transformer() {
 						<div className="waiting-box">
 							<div className="waiting">
 								<i>
-									Loading the model, please re-click the submit button in
-									{recipe[1]} seconds
+									Loading the model, please re-click the submit button
+									in {recipe[1]} seconds
 								</i>
 							</div>
 							<Stack

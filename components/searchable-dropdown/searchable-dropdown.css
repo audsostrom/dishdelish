@@ -85,7 +85,7 @@
 
 
 .selected-item {
-  border: 2px solid black;
+  border: 1.5px solid grey;
   flex-direction: column;
   flex-wrap: wrap;
   padding: 5px 10px;

@@ -20,15 +20,12 @@ async function getData(id) {
 	'use server';
 	const preferences = await getPreferences(id);
 	const userIngredients = preferences['ingredients'].join(',+');
-	console.log(userIngredients);
-	// console.log('hi', preferences['diets'], preferences['intolerances']);
+	console.log(userIngredients, preferences['diets'], preferences['intolerances']);
 
 	// eslint-disable-next-line max-len
 	const res = await fetch(
 		`https://api.spoonacular.com/recipes/findByIngredients?ingredients=${userIngredients}&number=5&&apiKey=${process.env.SPOON_KEY}`,
 	);
-	console.log(res);
-
 	if (!res.ok) {
 		// This will activate the closest `error.js` Error Boundary
 		throw new Error('Failed to fetch data');
@@ -39,6 +36,7 @@ async function getData(id) {
 	let ingredientAisles;
 	let ingredientNames;
 	// only do extra stuff if necessary
+	console.log('fudge',preferences['diets'], preferences['intolerances'])
 	if (!(preferences['diets'] == [] && preferences['intolerances'] == [])) {
 		for (let i = 0; i < response.length; i++) {
 			console.log(response[i]['id'], 'yo');
@@ -57,7 +55,6 @@ async function getData(id) {
 			ingredientNames = ingredientResponse['extendedIngredients'].map((a) =>
 				a['name']?.toLowerCase(),
 			);
-			// console.log(ingredientAisles, 'aisles')
 			response[i]['readyInMinutes'] = ingredientResponse['readyInMinutes'];
 			response[i]['cuisines'] = ingredientResponse['cuisines'];
 			response[i]['diets'] = ingredientResponse['diets'];
@@ -93,7 +90,6 @@ async function getData(id) {
 				preferences['diets'].includes('vegetarian') &&
         ingredientResponse['vegetarian'] == false
 			) {
-				console.log('filtering out', i);
 				response = response.filter((item) => item != response[i]);
 				i--;
 				continue;
@@ -135,7 +131,6 @@ async function getData(id) {
 			) {
 				response = response.filter((item) => item != response[i]);
 				i--;
-				console.log(response, 'hi');
 				continue;
 			}
 			// no alcohol if you don't like it
@@ -154,7 +149,6 @@ async function getData(id) {
 			) {
 				response = response.filter((item) => item != response[i]);
 				i--;
-				console.log('poop');
 				continue;
 			}
 			// doesn't match cuisines
@@ -165,12 +159,10 @@ async function getData(id) {
 			) {
 				response = response.filter((item) => item != response[i]);
 				i--;
-				console.log('poop');
 				continue;
 			}
 		}
 	}
-	// console.log(response, 'response');
 	return response;
 }
 
@@ -197,11 +189,9 @@ function calculatePercentage(usedIngredientCount, missedIngredientCount) {
  */
 async function Results({params}) {
 	const session = await auth();
-	console.log('user', session?.user);
 	const userRecipes = session?.user ?
 		await getSavedRecipes(session.user.email) :
 		[];
-	console.log('my recipes', userRecipes);
 	const id = params['id'];
 
 	const data = await getData(id);

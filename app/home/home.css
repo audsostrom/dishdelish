@@ -3,7 +3,8 @@
 /*desktop layout */
 .home {
   width: 100%;
-  height: calc(100vh - 60px);
+  min-height: calc(100vh - 60px);
+  height: 100%;
   display: flex;
   justify-content: center;
   align-items: left;
@@ -13,6 +14,18 @@
   background-size: cover;
   font-family: 'Poppins';
   background-image: url('../../assets/cuttingbanana.png');
+  animation: fadeInAnimation ease 3s;
+  animation-iteration-count: 1;
+  animation-fill-mode: forwards;
+}
+
+@keyframes fadeInAnimation {
+  0% {
+      opacity: 0;
+  }
+  100% {
+      opacity: 1;
+  }
 }
 
 .headerContainer {

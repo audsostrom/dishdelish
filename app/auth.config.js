@@ -13,7 +13,6 @@ export const authConfig = {
 	callbacks: {
 		authorized({auth, request: {nextUrl}}) {
 			const isLoggedIn = !!auth?.user;
-			console.log(auth?.user);
 			const isOnRestrictedPage = nextUrl.pathname.startsWith('/profile');
 
 			// redirect unauthenticated users to login page

@@ -9,7 +9,16 @@
   align-items: center;
   justify-content: center;
   background-color: #F9F1E7; /* Beige color */;
+  animation: 1s ease-out 0s 1 slideInFromRight;
  }
+ @keyframes slideInFromRight {
+  0% {
+    transform: translateX(50%);
+  }
+  100% {
+    transform: translateX(0);
+  }
+}
  
  .custom-text-container {
    width: 50%;
@@ -73,34 +82,36 @@
   }
 }
  
- .primary-button,
- .secondary-button {
+ .grab-ingredients-button,
+ .with-ai-button {
    padding: 10px 15px; /* Adjusted padding for a less wide button */
-   border-radius: 20px;
+   border-radius: 15px;
    margin-bottom: 15px;
    cursor: pointer;
-   width: 220px;
+   width: 290px;
+   height: auto;
+   font-size: 18px;
  }
  
- .primary-button {
+ .grab-ingredients-button {
    background-color: #b88e2f; /* Primary button color */
    font-weight: bold;
    color: #fff; /* Text color for primary button */
    border: none;
  }
- .primary-button:hover {
+ .grab-ingredients-button:hover {
   background-color: #07090a;
   cursor: pointer;
   transition: 0.3s ease-in;
 }
  
- .secondary-button {
+ .with-ai-button {
    background: none; /* Fully opaque secondary button color */
    font-weight: bold;
    color: #333; /* Text color for secondary button */
    border: 2px solid black; /* Border color for secondary button */
  }
- .secondary-button:hover {
+ .with-ai-button:hover {
   background-color: white;
   cursor: pointer;
   transition: 0.3s ease-in;
